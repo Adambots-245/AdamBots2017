@@ -1,5 +1,7 @@
 package org.usfirst.frc.team245.robot;
 
+import com.github.adambots.steamworks2017.drive.Drive;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,6 +28,8 @@ public class Robot extends IterativeRobot {
 //		chooser.addDefault("Default Auto", defaultAuto);
 //		chooser.addObject("My Auto", customAuto);
 //		SmartDashboard.putData("Auto choices", chooser);
+		
+		Actuators.init();
 	}
 
 	/**
@@ -68,6 +72,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
+		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX());
+		
 	}
 
 	/**
