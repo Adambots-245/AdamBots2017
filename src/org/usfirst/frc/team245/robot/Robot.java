@@ -3,8 +3,8 @@ package org.usfirst.frc.team245.robot;
 import com.github.adambots.steamworks2017.drive.Drive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,8 +28,13 @@ public class Robot extends IterativeRobot {
 //		chooser.addDefault("Default Auto", defaultAuto);
 //		chooser.addObject("My Auto", customAuto);
 //		SmartDashboard.putData("Auto choices", chooser);
-		
-		Actuators.init();
+		try{
+			Actuators.init();
+			Drive.init();
+		} catch(Exception e){
+			System.out.println("Errors occurred during initialization.");
+		}
+		System.out.println("Initialization is complete.");
 	}
 
 	/**
@@ -72,8 +77,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
-		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX());
+		//TODO: confirm right trigger forward, left trigger reverse
+		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //driving with triggers fro speed and left joy for turning
+		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getB()); //shifting with A low gear and B high gear
 		
 	}
 
