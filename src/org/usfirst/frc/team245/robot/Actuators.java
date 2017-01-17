@@ -1,6 +1,6 @@
 package org.usfirst.frc.team245.robot;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
 
 public class Actuators {
 	
@@ -23,13 +23,15 @@ public class Actuators {
 	public static void init(){
 		rightDriveMotor = new CANTalon(0);
 		rightDriveMotorSlave = new CANTalon(1);
-		rightDriveMotorSlave.setInverted(true);
+		rightDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 		rightDriveMotorSlave.set(rightDriveMotor.getDeviceID());
+		rightDriveMotorSlave.reverseOutput(true);
 		
 		leftDriveMotor = new CANTalon(2);
 		leftDriveMotorSlave = new CANTalon(3);
-		leftDriveMotorSlave.setInverted(true);
+		leftDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
+		rightDriveMotorSlave.reverseOutput(true);
 	}
 
 	/*
