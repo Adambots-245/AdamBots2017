@@ -32,7 +32,7 @@ public class Actuators {
 		leftDriveMotorSlave = new CANTalon(3);
 		leftDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting left rear motor to follow left front motor
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
-		rightDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
+		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
 		driveShiftPneumatic = new Solenoid(0);
 		
