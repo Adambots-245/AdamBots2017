@@ -2,15 +2,10 @@ package org.usfirst.frc.team245.robot;
 
 import com.ctre.CANTalon;
 
+
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Actuators {
-	
-	//CONSTANTS
-	
-	//Motor max and min constants
-	public static final double MAX_MOTOR_SPEED = 1;
-	public static final double MIN_MOTOR_SPEED = -1;
 	
 	//Motors
 	private static CANTalon rightDriveMotor;
