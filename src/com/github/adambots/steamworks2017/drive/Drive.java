@@ -1,6 +1,7 @@
 package com.github.adambots.steamworks2017.drive;
 
 import org.usfirst.frc.team245.robot.Actuators;
+import org.usfirst.frc.team245.robot.Constants;
 
 
 public class Drive {
@@ -18,10 +19,10 @@ public class Drive {
 	 * */
 	//TODO: test drive code
 	public static void drive(double speed, double turnSpeed){
-		double leftSpeed = Math.min(speed + turnSpeed, Actuators.MAX_MOTOR_SPEED); //restrict leftSpeed between min and max values
-		leftSpeed = Math.max(leftSpeed, Actuators.MIN_MOTOR_SPEED);
-		double rightSpeed = Math.min(speed - turnSpeed, Actuators.MAX_MOTOR_SPEED); //restrict rightSpeed between min and max values
-		rightSpeed = Math.max(rightSpeed, Actuators.MIN_MOTOR_SPEED);
+		double leftSpeed = Math.min(speed + turnSpeed, Constants.MAX_MOTOR_SPEED); //restrict leftSpeed between min and max values
+		leftSpeed = Math.max(leftSpeed, Constants.MIN_MOTOR_SPEED);
+		double rightSpeed = Math.min(speed - turnSpeed, Constants.MAX_MOTOR_SPEED); //restrict rightSpeed between min and max values
+		rightSpeed = Math.max(rightSpeed, Constants.MIN_MOTOR_SPEED);
 		Actuators.getLeftDriveMotor().set(leftSpeed);
 		Actuators.getRightDriveMotor().set(rightSpeed);
 	}
