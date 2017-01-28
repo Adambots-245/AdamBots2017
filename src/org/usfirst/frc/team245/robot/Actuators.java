@@ -4,6 +4,7 @@ import com.ctre.CANTalon;
 
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.VictorSP;
 
 public class Actuators {
 	
@@ -16,6 +17,10 @@ public class Actuators {
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
+	
+	//VictorSP's ... Motor names need to be changed
+	private static VictorSP fuelIntakeMotor;
+	private static VictorSP hopperDispenseMotor;
 	
 	/*
 	 * Initializes all actuators
@@ -36,8 +41,11 @@ public class Actuators {
 		
 		driveShiftPneumatic = new Solenoid(0);
 		
+		 fuelIntakeMotor = new VictorSP(0);
+		 hopperDispenseMotor = new VictorSP(0);
+		
 	}
-
+		
 	/*
 	 * @return rightDriveMotor
 	 * */
