@@ -14,8 +14,11 @@ public class Actuators {
 	private static CANTalon leftDriveMotor;
 	private static CANTalon leftDriveMotorSlave;
 	
+	private static CANTalon intakeMotor;
+	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
+	private static Solenoid dispenseGearPneumatic;
 	
 	/*
 	 * Initializes all actuators
@@ -34,8 +37,9 @@ public class Actuators {
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
-		driveShiftPneumatic = new Solenoid(0);
+		intakeMotor = new CANTalon(4); // Temporary value, exact not yet known
 		
+		driveShiftPneumatic = new Solenoid(0);		
 	}
 
 	/*
@@ -65,6 +69,14 @@ public class Actuators {
 	public static CANTalon getLeftDriveMotorSlave() {
 		return leftDriveMotorSlave;
 	}
+	
+	/*
+	 * @return intakeMotor
+	 * */
+	public static CANTalon getIntakeMotor() {
+		return intakeMotor;
+	}
+	
 	/*
 	 * @return driveShiftPneumatic
 	 * */
