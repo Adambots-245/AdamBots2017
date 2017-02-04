@@ -3,11 +3,11 @@ package com.github.adambots.steamworks2017.intake;
 import org.usfirst.frc.team245.robot.Actuators;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class Intake {
 	
 	//TODO: Set MAX_CURRENT to a number once we get an exact value
 	public static double MAX_CURRENT;
+	public static double SPEED = 0.8;
 	
 	/*
 	 * Runs intakeMotor
@@ -15,7 +15,7 @@ public class Intake {
 	 * */
 	public static void intake(boolean intakeButton){
 		if (intakeButton == true){
-			Actuators.getIntakeMotor().set(1);
+			Actuators.getIntakeMotor().set(SPEED);
 		} else {
 			Actuators.getIntakeMotor().set(0);
 		}
@@ -27,8 +27,9 @@ public class Intake {
 	 * */
 	public static void currentCheck(){
 		if (Actuators.getIntakeMotor().getOutputCurrent() >= MAX_CURRENT){
-			Actuators.getIntakeMotor().set(0);
-			
+			SmartDashboard.putBoolean("Current spike: ", true);
+		} else {
+			SmartDashboard.putBoolean("Current spike: ", false);
 		}
 	}
 }

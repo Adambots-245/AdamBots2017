@@ -84,7 +84,7 @@ public class Robot extends IterativeRobot {
 		//TODO: confirm right trigger forward, left trigger reverse
 		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //driving with triggers for speed and left joy for turning
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getB()); //shifting with A low gear and B high gear		
-		Intake.intake(Gamepad.secondary.getLB()); //runs intake with left bumper on second controller
+		Intake.intake(Gamepad.secondary.getB()); //runs intake with B on second controller
 	}
 
 	/**
