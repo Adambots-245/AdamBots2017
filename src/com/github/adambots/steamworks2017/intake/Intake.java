@@ -1,6 +1,7 @@
 package com.github.adambots.steamworks2017.intake;
 
 import org.usfirst.frc.team245.robot.Actuators;
+import org.usfirst.frc.team245.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake {
@@ -8,7 +9,6 @@ public class Intake {
 	//TODO: Set MAX_CURRENT to a number once we get an exact value
 	public static double MAX_CURRENT;
 	public static double SPEED = 0.8;
-	public static double STOP = 0;
 	
 	/*
 	 * Runs intakeMotor
@@ -18,7 +18,7 @@ public class Intake {
 		if (intakeButton){
 			Actuators.getIntakeMotor().set(SPEED);
 		} else {
-			Actuators.getIntakeMotor().set(STOP);
+			Actuators.getIntakeMotor().set(Constants.MOTOR_STOP);
 		}
 		currentCheck();
 	}
