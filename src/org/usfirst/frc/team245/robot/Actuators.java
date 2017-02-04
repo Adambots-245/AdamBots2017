@@ -22,14 +22,14 @@ public class Actuators {
 	 */
 	//TODO: Set correct IDs, test motors individually and confirm correct directions
 	public static void init(){
-		rightDriveMotor = new CANTalon(0);
-		rightDriveMotorSlave = new CANTalon(1);
+		rightDriveMotor = new CANTalon(1);
+		rightDriveMotorSlave = new CANTalon(3);
 		rightDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting right rear motor to follow right front motor
 		rightDriveMotorSlave.set(rightDriveMotor.getDeviceID());
 		rightDriveMotorSlave.reverseOutput(true); //reversing right slave motor because of gear design
 		
-		leftDriveMotor = new CANTalon(2);
-		leftDriveMotorSlave = new CANTalon(3);
+		leftDriveMotor = new CANTalon(0);
+		leftDriveMotorSlave = new CANTalon(2);
 		leftDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting left rear motor to follow left front motor
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
