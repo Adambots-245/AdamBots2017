@@ -8,6 +8,12 @@ import edu.wpi.first.wpilibj.VictorSP;
 
 public class Actuators {
 	
+	//CONSTANTS
+	
+	//Motor max and min constants
+	public static final double MAX_MOTOR_SPEED = 1;
+	public static final double MIN_MOTOR_SPEED = -1;
+	public static final double STOP_MOTOR = 0;
 	//Motors
 	private static CANTalon rightDriveMotor;
 	private static CANTalon rightDriveMotorSlave;
@@ -15,8 +21,12 @@ public class Actuators {
 	private static CANTalon leftDriveMotor;
 	private static CANTalon leftDriveMotorSlave;
 	
+	private static CANTalon climbingMotor;
+	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
+	
+	private static Solenoid gearPneumatic;
 	
 	//VictorSP's ... Motor names need to be changed
 	private static VictorSP fuelIntakeMotor;
@@ -39,10 +49,13 @@ public class Actuators {
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
+		climbingMotor = new CANTalon(4);
 		driveShiftPneumatic = new Solenoid(0);
 		
 		 fuelIntakeMotor = new VictorSP(0);
 		 hopperDispenseMotor = new VictorSP(0);
+		 
+		 gearPneumatic = new Solenoid(0);
 		
 	}
 		
@@ -80,4 +93,10 @@ public class Actuators {
 		return driveShiftPneumatic;
 	}
 	
+	public static Solenoid getGearPneumatic () {
+		return gearPneumatic;
+	}
+	public static CANTalon getClimbingMotor() {
+		return climbingMotor;
+	}
 }
