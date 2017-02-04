@@ -8,16 +8,17 @@ public class Intake {
 	//TODO: Set MAX_CURRENT to a number once we get an exact value
 	public static double MAX_CURRENT;
 	public static double SPEED = 0.8;
+	public static double STOP = 0;
 	
 	/*
 	 * Runs intakeMotor
 	 * @Param intakeButon
 	 * */
 	public static void intake(boolean intakeButton){
-		if (intakeButton == true){
+		if (intakeButton){
 			Actuators.getIntakeMotor().set(SPEED);
 		} else {
-			Actuators.getIntakeMotor().set(0);
+			Actuators.getIntakeMotor().set(STOP);
 		}
 		currentCheck();
 	}

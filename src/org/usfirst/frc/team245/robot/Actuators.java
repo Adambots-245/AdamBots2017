@@ -36,7 +36,7 @@ public class Actuators {
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
-		intakeMotor = new CANTalon(5);
+		intakeMotor = new CANTalon(Constants.INTAKE_MOTOR_PORT);
 
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
 	}
