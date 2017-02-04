@@ -4,6 +4,7 @@ import com.ctre.CANTalon;
 
 
 import edu.wpi.first.wpilibj.Solenoid;
+import org.usfirst.frc.team245.robot.Constants;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class Actuators {
@@ -22,6 +23,7 @@ public class Actuators {
 	private static CANTalon leftDriveMotorSlave;
 	
 	private static CANTalon climbingMotor;
+	private static CANTalon intakeMotor;
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
@@ -37,22 +39,25 @@ public class Actuators {
 	 */
 	//TODO: Set correct IDs, test motors individually and confirm correct directions
 	public static void init(){
-		rightDriveMotor = new CANTalon(0);
-		rightDriveMotorSlave = new CANTalon(1);
+		rightDriveMotor = new CANTalon(Constants.RIGHT_FRONT_DRIVE_MOTOR_PORT);
+		rightDriveMotorSlave = new CANTalon(Constants.RIGHT_REAR_DRIVE_MOTOR_PORT);
 		rightDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting right rear motor to follow right front motor
 		rightDriveMotorSlave.set(rightDriveMotor.getDeviceID());
 		rightDriveMotorSlave.reverseOutput(true); //reversing right slave motor because of gear design
 		
-		leftDriveMotor = new CANTalon(2);
-		leftDriveMotorSlave = new CANTalon(3);
+		leftDriveMotor = new CANTalon(Constants.LEFT_FRONT_DRIVE_MOTOR_PORT);
+		leftDriveMotorSlave = new CANTalon(Constants.LEFT_REAR_DRIVE_MOTOR_PORT);
 		leftDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting left rear motor to follow left front motor
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
 		climbingMotor = new CANTalon(4);
+		intakeMotor = new CANTalon(Constants.INTAKE_MOTOR_PORT);
+
 		driveShiftPneumatic = new Solenoid(0);
 		
 		 fuelIntakeMotor = new VictorSP(0);
+		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
 		 hopperDispenseMotor = new VictorSP(0);
 		 
 		 gearPneumatic = new Solenoid(0);
@@ -86,6 +91,14 @@ public class Actuators {
 	public static CANTalon getLeftDriveMotorSlave() {
 		return leftDriveMotorSlave;
 	}
+	
+	/*
+	 * @return intakeMotor
+	 * */
+	public static CANTalon getIntakeMotor() {
+		return intakeMotor;
+	}
+	
 	/*
 	 * @return driveShiftPneumatic
 	 * */
