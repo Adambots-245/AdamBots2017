@@ -32,7 +32,7 @@ public class Actuators {
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
-		driveShiftPneumatic = new Solenoid(0);
+		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
 		
 	}
 
