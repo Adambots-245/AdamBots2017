@@ -1,10 +1,20 @@
 package org.usfirst.frc.team245.robot;
 
 import com.ctre.CANTalon;
+
+
 import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team245.robot.Constants;
+import edu.wpi.first.wpilibj.VictorSP;
+
 public class Actuators {
 	
+	//CONSTANTS
+	
+	//Motor max and min constants
+	public static final double MAX_MOTOR_SPEED = 1;
+	public static final double MIN_MOTOR_SPEED = -1;
+	public static final double STOP_MOTOR = 0;
 	//Motors
 	private static CANTalon rightDriveMotor;
 	private static CANTalon rightDriveMotorSlave;
@@ -12,8 +22,17 @@ public class Actuators {
 	private static CANTalon leftDriveMotor;
 	private static CANTalon leftDriveMotorSlave;
 	
+	private static CANTalon climbingMotor;
+	private static CANTalon intakeMotor;
+	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
+	
+	private static Solenoid gearPneumatic;
+	
+	//VictorSP's ... Motor names need to be changed
+	private static VictorSP fuelIntakeMotor;
+	private static VictorSP hopperDispenseMotor;
 	
 	/*
 	 * Initializes all actuators
@@ -32,10 +51,19 @@ public class Actuators {
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
+		climbingMotor = new CANTalon(4);
+		intakeMotor = new CANTalon(Constants.INTAKE_MOTOR_PORT);
+
+		driveShiftPneumatic = new Solenoid(0);
+		
+		 fuelIntakeMotor = new VictorSP(0);
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
+		 hopperDispenseMotor = new VictorSP(0);
+		 
+		 gearPneumatic = new Solenoid(0);
 		
 	}
-
+		
 	/*
 	 * @return rightDriveMotor
 	 * */
@@ -63,6 +91,14 @@ public class Actuators {
 	public static CANTalon getLeftDriveMotorSlave() {
 		return leftDriveMotorSlave;
 	}
+	
+	/*
+	 * @return intakeMotor
+	 * */
+	public static CANTalon getIntakeMotor() {
+		return intakeMotor;
+	}
+	
 	/*
 	 * @return driveShiftPneumatic
 	 * */
@@ -70,4 +106,10 @@ public class Actuators {
 		return driveShiftPneumatic;
 	}
 	
+	public static Solenoid getGearPneumatic () {
+		return gearPneumatic;
+	}
+	public static CANTalon getClimbingMotor() {
+		return climbingMotor;
+	}
 }
