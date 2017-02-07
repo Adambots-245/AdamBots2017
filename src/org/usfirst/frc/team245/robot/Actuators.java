@@ -1,6 +1,8 @@
 package org.usfirst.frc.team245.robot;
 
 import com.ctre.CANTalon;
+
+
 import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team245.robot.Constants;
 public class Actuators {
@@ -11,6 +13,8 @@ public class Actuators {
 	
 	private static CANTalon leftDriveMotor;
 	private static CANTalon leftDriveMotorSlave;
+	
+	private static CANTalon intakeMotor;
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
@@ -32,8 +36,9 @@ public class Actuators {
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
+		intakeMotor = new CANTalon(Constants.INTAKE_MOTOR_PORT);
+
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
-		
 	}
 
 	/*
@@ -63,6 +68,14 @@ public class Actuators {
 	public static CANTalon getLeftDriveMotorSlave() {
 		return leftDriveMotorSlave;
 	}
+	
+	/*
+	 * @return intakeMotor
+	 * */
+	public static CANTalon getIntakeMotor() {
+		return intakeMotor;
+	}
+	
 	/*
 	 * @return driveShiftPneumatic
 	 * */
