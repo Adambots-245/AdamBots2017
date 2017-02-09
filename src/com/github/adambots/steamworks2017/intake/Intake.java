@@ -19,7 +19,7 @@ public class Intake {
 			buttonReleased = true;
 		}
 		
-		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP &&intakeButton && buttonReleased){
+		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP && intakeButton && buttonReleased){
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_START_VALUE);
 			buttonReleased = false;
 			intakeDisabled = false;
