@@ -102,9 +102,10 @@ public class Robot extends IterativeRobot {
 		 * Secondary Controllers Controls
 		 */
 		//Intake controls
-		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with B on second controller
+		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with Clicking in the Right Joystick on second controller
 		Intake.intakeSpeed(Gamepad.secondary.getRightY());
 		Intake.intakeDirection(Gamepad.secondary.getRightX());
+		Intake.intakeJam(Gamepad.secondary.getRB()); //Runs the unjamming procedure for a max of 3 seconds per press
 		
 		//Climb controls
 		Climb.climbStop(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
@@ -118,9 +119,12 @@ public class Robot extends IterativeRobot {
 		Score.outtakeToggle(Gamepad.secondary.getLB());
 		
 		//Conveyor Controls
-		Score.conveyor(Gamepad.secondary.getLeftButton());
+		Score.conveyor(Gamepad.secondary.getLeftButton()); //runs conveyor with Clicking in the Left Joystick on second controller
 		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
 		Score.conveyorDirection(Gamepad.secondary.getLeftX());
+		
+		//TODO:Add Sweeper Controls
+		//Sweeper
 		
 	}
 

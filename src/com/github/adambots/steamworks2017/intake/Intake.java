@@ -73,5 +73,7 @@ public class Intake {
 		}
 	}
 	
-	
+	public static void intakeJam(boolean intakeJamButton){
+		
+	}
 }

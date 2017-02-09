@@ -15,6 +15,7 @@ public class Score {
 	/*
 	 * Intake
 	 */
+	//TODO: Add Logic for when limit switches get tripped, the pneumatic stops.
 	public static void dispenseGear(boolean gearButton){
 		if(gearButton && !gearIsLocked){
 			Actuators.getDispenseGearReturnPneumatic().set(false);

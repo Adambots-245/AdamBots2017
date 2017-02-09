@@ -14,6 +14,7 @@ public class Climb {
 		}
 	}
 	//TODO: Add so it takes primary 2 seconds to disable
+	//TODO: Make motor stop automatically if limit switch gets tripped
 	public static void climbStop(boolean climbButton){
 		//if the button is pressed, then the motor will stop
 		if(climbButton){
