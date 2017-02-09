@@ -43,11 +43,17 @@ public class Drive {
 	/*
 	 * Toggle shifting gears
 	 * @param toggleButton
+	 * @param leftBumperReleased
+	 */
+	/*
+	 * shiftToggle takes in leftBumperReleased, which should be set to true only when this is called again
+	 * by the button being released and repressed.
+	 * The first time gears is shifted, leftBumperReleased will be set to false
+	 * once leftBumperReleased is set to false, shifting won't be possible until set to true again
 	 */
 	//TODO: Test please
-	public static void shiftToggle(boolean toggleButton){
-		boolean leftBumperReleased = true;
-		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){
+	public static void shiftToggle(boolean toggleButton, boolean leftBumperReleased){		
+		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){	
 			Actuators.getDriveShiftPneumatic().set(false);
 			leftBumperReleased = false;
 		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){

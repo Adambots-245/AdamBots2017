@@ -1,5 +1,6 @@
 package org.usfirst.frc.team245.robot;
 
+import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
 
@@ -84,8 +85,14 @@ public class Robot extends IterativeRobot {
 		//TODO: confirm right trigger forward, left trigger reverse
 		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //driving with triggers for speed and left joy for turning
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); //shifting with A low gear and Y high gear		
-		Drive.shiftToggle(Gamepad.primary.getLB());
+		Drive.shiftToggle(Gamepad.primary.getLB(), Constants.BUTTON_PRESSED);
+		
+		//TODO: change this to reflect requested controls
 		Intake.intake(Gamepad.secondary.getB()); //runs intake with B on second controller
+		
+		Climb.climbStop(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
+		Climb.climbStop(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
+		Climb.climbStart(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
 	}
 
 	/**

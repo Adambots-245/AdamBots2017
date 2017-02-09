@@ -33,4 +33,6 @@ public class Constants {
 	public static final int SWEEPER_MIN_LIMIT_SWITCH_PORT = 1;
 	public static final int GEAR_DISPENSED_LIMIT_SWITCH_PORT = 2;
 	public static final int CLIMBING_COMPLETE_BUMP_PORT = 3;
+	
+	public static final boolean BUTTON_PRESSED = true;	//Used for any toggles for the controls
 }
