@@ -97,7 +97,6 @@ public class Robot extends IterativeRobot {
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.primary.getBack());
-		Score.dispenseGear(Gamepad.primary.getLB());
 		
 		/*
 		 * Secondary Controllers Controls
