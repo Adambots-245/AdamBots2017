@@ -51,7 +51,7 @@ public class Drive {
 	 * The first time gears is shifted, leftBumperReleased will be set to false
 	 * once leftBumperReleased is set to false, shifting won't be possible until set to true again
 	 */
-	//TODO: Test please
+	//TODO: Test please, someone else check logic too
 	public static void shiftToggle(boolean toggleButton, boolean leftBumperReleased){		
 		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){	
 			Actuators.getDriveShiftPneumatic().set(false);

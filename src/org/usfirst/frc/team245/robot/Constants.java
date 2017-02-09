@@ -7,7 +7,9 @@ public class Constants {
 	
 	//Motor values
 	public static final double MOTOR_STOP = 0;
-	public static final double CLIMB_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor speed to climb 
+	public static final double CLIMB_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor speed to climb
+	public static final double INTAKE_START_VALUE = 0.5;
+	public static final double MOTOR_INCREMENT = 0.1; //TODO: Find correct value for the increment value
 	
 	//Port map
 	public static final int LEFT_FRONT_DRIVE_MOTOR_PORT = 0;
@@ -22,7 +24,7 @@ public class Constants {
 	public static final int GEAR_LIFT_PNEUMATIC_PORT = 3;
 	public static final int SWEEPER_ADVANCE_PNEUMATIC_PORT = 4 ;
 	public static final int SWEEPER_RETURN_PNEUMATIC_PORT = 5;
-	public static final int POWER_DISTRIBUTION_PANEL_PORT = 5;//currently unknown
+	public static final int POWER_DISTRIBUTION_PANEL_PORT = 5;//TODO: Find correct port for PDP
 	//PWM Port
 	public static final int FUEL_INTAKE_MOTOR_PWM_PORT = 0;
 	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 1;
@@ -34,5 +36,7 @@ public class Constants {
 	public static final int GEAR_DISPENSED_LIMIT_SWITCH_PORT = 2;
 	public static final int CLIMBING_COMPLETE_BUMP_PORT = 3;
 	
+	//Controller Constants
 	public static final boolean BUTTON_PRESSED = true;	//Used for any toggles for the controls
+	public static final double STICK_HALF_PRESSED = 0.5;
 }
