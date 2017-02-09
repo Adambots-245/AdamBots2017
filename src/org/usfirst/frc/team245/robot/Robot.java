@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot {
 		//Drive controls
 		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //driving with triggers for speed and left joy for turning
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); //shifting with A low gear and Y high gear		
-		Drive.shiftToggle(Gamepad.primary.getLB(), Constants.BUTTON_PRESSED);
+		Drive.shiftToggle(Gamepad.primary.getLB());
 		
 		//Climb controls
 		Climb.climbStop(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
@@ -103,11 +103,23 @@ public class Robot extends IterativeRobot {
 		 * Secondary Controllers Controls
 		 */
 		//Intake controls
-		Intake.intake(Gamepad.secondary.getRightButton(), Constants.BUTTON_PRESSED); //runs intake with B on second controller
+		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with B on second controller
+		Intake.intakeSpeed(Gamepad.secondary.getRightY());
+		Intake.intakeDirection(Gamepad.secondary.getRightX());
 		
 		//Climb controls
 		Climb.climbStop(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
 		Climb.climbStart(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+		
+		//Gear controls
+		Score.dispenseGear(Gamepad.secondary.getB());
+		Score.gearLock(Gamepad.secondary.getStart());
+		
+		//Outfeed Controls
+		
+		//Conveyor Controls
+		
+		
 	}
 
 	/**

@@ -9,7 +9,7 @@ public class Constants {
 	public static final double MOTOR_STOP = 0;
 	public static final double CLIMB_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor speed to climb
 	public static final double INTAKE_START_VALUE = 0.5;
-	public static final double MOTOR_INCREMENT = 0.1; //TODO: Find correct value for the increment value
+	public static final double MOTOR_INCREMENT = 0.05; //TODO: Find correct value for the increment value
 	
 	//Port map
 	public static final int LEFT_FRONT_DRIVE_MOTOR_PORT = 0;
@@ -38,5 +38,8 @@ public class Constants {
 	
 	//Controller Constants
 	public static final boolean BUTTON_PRESSED = true;	//Used for any toggles for the controls
-	public static final double STICK_HALF_PRESSED = 0.5;
+	public static final double STICK_HALF_PRESSED_UP = -0.5;
+	public static final double STICK_HALF_PRESSED_DOWN = 0.5;
+	public static final double STICK_HALF_PRESSED_LEFT = -0.5;
+	public static final double STICK_HALF_PRESSED_RIGHT = 0.5;
 }

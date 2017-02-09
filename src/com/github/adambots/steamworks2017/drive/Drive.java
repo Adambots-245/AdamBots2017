@@ -5,6 +5,9 @@ import org.usfirst.frc.team245.robot.Constants;
 
 
 public class Drive {
+	
+	static boolean leftBumperReleased;
+	
 	/*
 	 * Sets initial conditions for driving
 	 * */
@@ -52,7 +55,13 @@ public class Drive {
 	 * once leftBumperReleased is set to false, shifting won't be possible until set to true again
 	 */
 	//TODO: Test please, someone else check logic too
-	public static void shiftToggle(boolean toggleButton, boolean leftBumperReleased){		
+	public static void shiftToggle(boolean toggleButton){
+		
+		if(!toggleButton){
+			//this only runs if button is released
+			leftBumperReleased = true;
+		}
+		
 		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){	
 			Actuators.getDriveShiftPneumatic().set(false);
 			leftBumperReleased = false;
