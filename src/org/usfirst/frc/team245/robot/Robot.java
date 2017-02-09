@@ -83,7 +83,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		//TODO: confirm right trigger forward, left trigger reverse
 		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //driving with triggers for speed and left joy for turning
-		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getB()); //shifting with A low gear and B high gear		
+		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); //shifting with A low gear and Y high gear		
+		Drive.shiftToggle(Gamepad.primary.getLB());
 		Intake.intake(Gamepad.secondary.getB()); //runs intake with B on second controller
 	}
 

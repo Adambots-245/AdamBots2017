@@ -5,8 +5,9 @@ public class Constants {
 	public static final double MAX_MOTOR_SPEED = 1;
 	public static final double MIN_MOTOR_SPEED = -1;
 	
-	//Stops motor
+	//Motor values
 	public static final double MOTOR_STOP = 0;
+	public static final double CLIMB_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor speed to climb 
 	
 	//Port map
 	public static final int LEFT_FRONT_DRIVE_MOTOR_PORT = 0;

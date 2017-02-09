@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake {
 	
-	//TODO: Set MAX_CURRENT to a number once we get an exact value
-	public static double MAX_CURRENT;
-	public static double SPEED = 0.8;
+
 	
 	/*
 	 * Runs intakeMotor
@@ -16,21 +14,9 @@ public class Intake {
 	 * */
 	public static void intake(boolean intakeButton){
 		if (intakeButton){
-			Actuators.getIntakeMotor().set(SPEED);
+			Actuators.getFuelIntakeMotor().set(Constants.CLIMB_MOTOR_SPEED);
 		} else {
-			Actuators.getIntakeMotor().set(Constants.MOTOR_STOP);
-		}
-		currentCheck();
-	}
-	
-	/*
-	 * Checks current and stops motor if there is a current spike
-	 * */
-	public static void currentCheck(){
-		if (Actuators.getIntakeMotor().getOutputCurrent() >= MAX_CURRENT){
-			SmartDashboard.putBoolean("Current spike: ", true);
-		} else {
-			SmartDashboard.putBoolean("Current spike: ", false);
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
 		}
 	}
 }

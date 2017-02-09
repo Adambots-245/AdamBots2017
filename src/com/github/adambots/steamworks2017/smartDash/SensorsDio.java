@@ -4,7 +4,7 @@ import org.usfirst.frc.team245.robot.Sensors;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
-public class SensrosDio {
+public class SensorsDio {
 	public static double PDPCurrent(PowerDistributionPanel powerDistro){
 		return powerDistro.getTotalCurrent();
 	}

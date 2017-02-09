@@ -40,4 +40,19 @@ public class Drive {
 			Actuators.getDriveShiftPneumatic().set(true);
 		}
 	}
+	/*
+	 * Toggle shifting gears
+	 * @param toggleButton
+	 */
+	//TODO: Test please
+	public static void shiftToggle(boolean toggleButton){
+		boolean leftBumperReleased = true;
+		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){
+			Actuators.getDriveShiftPneumatic().set(false);
+			leftBumperReleased = false;
+		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){
+			Actuators.getDriveShiftPneumatic().set(true);
+			leftBumperReleased = false;
+		}
+	}
 }
