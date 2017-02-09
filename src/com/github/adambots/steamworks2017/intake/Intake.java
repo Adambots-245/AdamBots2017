@@ -20,7 +20,7 @@ public class Intake {
 		}
 		
 		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP &&intakeButton && buttonReleased){
-			Actuators.getFuelIntakeMotor().set(Constants.INTAKE_START_VALUE);
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_START_VALUE);
 			buttonReleased = false;
 			intakeDisabled = false;
 		} else if(intakeButton && buttonReleased){
@@ -33,6 +33,7 @@ public class Intake {
 	 * Changes Speed of Intake Motor
 	 * @Param speed
 	 */
+	//TODO: Check Direction of motor
 	public static void intakeSpeed(double speed){
 		//increases motor speed
 		double motorSpeed;

@@ -115,10 +115,13 @@ public class Robot extends IterativeRobot {
 		Score.dispenseGear(Gamepad.secondary.getB());
 		Score.gearLock(Gamepad.secondary.getStart());
 		
-		//Outfeed Controls
+		//Outtake Controls
+		Score.outtakeToggle(Gamepad.secondary.getLB());
 		
 		//Conveyor Controls
-		
+		Score.conveyor(Gamepad.secondary.getLeftButton());
+		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
+		Score.conveyorDirection(Gamepad.secondary.getLeftX());
 		
 	}
 

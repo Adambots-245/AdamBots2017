@@ -8,7 +8,8 @@ public class Constants {
 	//Motor values
 	public static final double MOTOR_STOP = 0;
 	public static final double CLIMB_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor speed to climb
-	public static final double INTAKE_START_VALUE = 0.5;
+	public static final double OUTTAKE_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor
+	public static final double MOTOR_START_VALUE = 0.5;
 	public static final double MOTOR_INCREMENT = 0.05; //TODO: Find correct value for the increment value
 	
 	//Port map
@@ -37,7 +38,6 @@ public class Constants {
 	public static final int CLIMBING_COMPLETE_BUMP_PORT = 3;
 	
 	//Controller Constants
-	public static final boolean BUTTON_PRESSED = true;	//Used for any toggles for the controls
 	public static final double STICK_HALF_PRESSED_UP = -0.5;
 	public static final double STICK_HALF_PRESSED_DOWN = 0.5;
 	public static final double STICK_HALF_PRESSED_LEFT = -0.5;
