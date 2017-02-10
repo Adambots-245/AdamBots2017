@@ -128,6 +128,7 @@ public class Robot extends IterativeRobot {
 		Score.conveyor(Gamepad.secondary.getLeftButton()); //runs conveyor with Clicking in the Left Joystick on second controller
 		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
 		Score.conveyorDirection(Gamepad.secondary.getLeftX());
+		Score.conveyorIn(Gamepad.secondary.getA());
 		
 		
 		//Sweeper

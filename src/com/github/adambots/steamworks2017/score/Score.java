@@ -10,6 +10,7 @@ public class Score {
 	static boolean outtakeButtonReleased;
 	static boolean gearIsLocked = false;
 	static double motorSpeed;
+	static boolean conveyorInButtonReleased;
 	
 	
 	/*
@@ -106,6 +107,16 @@ public class Score {
 				Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
 				outtakeButtonReleased = false;
 			}
+		}
+	}
+	public static void conveyorIn(boolean conveyorButton){
+		if(!conveyorButton){
+			conveyorInButtonReleased = true;
+		}
+		if(conveyorButton && conveyorInButtonReleased && Actuators.getFuelConveyorMotor().get() >= Constants.MOTOR_STOP){
+			Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
+		}else if(conveyorButton && conveyorInButtonReleased){
+			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 		}
 	}
 }
