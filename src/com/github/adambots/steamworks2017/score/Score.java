@@ -47,7 +47,7 @@ public class Score {
 			conveyorButtonReleased = true;
 		}
 		
-		if (Actuators.getFuelConveyorMotor().get() == Constants.MOTOR_STOP &&conveyorButton && conveyorButtonReleased){
+		if (Actuators.getFuelConveyorMotor().get() == Constants.MOTOR_STOP && conveyorButton && conveyorButtonReleased){
 			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_START_VALUE);
 			conveyorButtonReleased = false;
 
@@ -61,8 +61,8 @@ public class Score {
 	public static void conveyorSpeed(double speed){
 		//increases motor speed
 		if(speed <= Constants.STICK_HALF_PRESSED_UP &&
-				Constants.MOTOR_STOP < Actuators.getFuelConveyorMotor().get() &&
-				Actuators.getFuelConveyorMotor().get() < Constants.MAX_MOTOR_SPEED){
+				Constants.MOTOR_STOP < Math.abs(Actuators.getFuelConveyorMotor().get()) &&
+				Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MAX_MOTOR_SPEED){
 			
 			//Increments motor speed by a set value while stick is more than 50% pressed
 			motorSpeed = Actuators.getFuelConveyorMotor().get() + Constants.MOTOR_INCREMENT;
@@ -71,8 +71,8 @@ public class Score {
 				
 		}//decreases motor speed
 		else if(speed >= Constants.STICK_HALF_PRESSED_DOWN &&
-				Constants.MOTOR_STOP < Actuators.getFuelConveyorMotor().get() &&
-				Actuators.getFuelConveyorMotor().get() < Constants.MAX_MOTOR_SPEED){
+				Constants.MOTOR_STOP < Math.abs(Actuators.getFuelConveyorMotor().get()) &&
+				Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MAX_MOTOR_SPEED){
 			
 			//Increments motor speed by a set value while stick is more than 50% pressed
 			motorSpeed = Actuators.getFuelConveyorMotor().get() - Constants.MOTOR_INCREMENT;
@@ -101,7 +101,6 @@ public class Score {
 		if(outtakeButtonReleased){
 			if(Actuators.getFuelOuttakeMotor().get() == Constants.MOTOR_STOP && outtakeButton){
 				Actuators.getFuelOuttakeMotor().set(Constants.OUTTAKE_MOTOR_SPEED);
-				
 				outtakeButtonReleased = false;
 			}else if(Actuators.getFuelOuttakeMotor().get() == Constants.OUTTAKE_MOTOR_SPEED && outtakeButton){
 				Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);

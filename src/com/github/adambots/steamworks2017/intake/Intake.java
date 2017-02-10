@@ -19,7 +19,7 @@ public class Intake {
 			buttonReleased = true;
 		}
 		
-		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP &&intakeButton && buttonReleased){
+		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP && intakeButton && buttonReleased){
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_START_VALUE);
 			buttonReleased = false;
 			intakeDisabled = false;
@@ -39,8 +39,8 @@ public class Intake {
 		double motorSpeed;
 		if(!intakeDisabled){
 			if(speed <= Constants.STICK_HALF_PRESSED_UP &&
-					Constants.MOTOR_STOP < Actuators.getFuelIntakeMotor().get() &&
-					Actuators.getFuelIntakeMotor().get() < Constants.MAX_MOTOR_SPEED){
+					Constants.MOTOR_STOP < Math.abs(Actuators.getFuelIntakeMotor().get()) &&
+					Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
 				//Increments motor speed by a set value while stick is more than 50% pressed
 				motorSpeed = Actuators.getFuelIntakeMotor().get() + Constants.MOTOR_INCREMENT;
 				Actuators.getFuelIntakeMotor().set(motorSpeed);
@@ -48,8 +48,8 @@ public class Intake {
 				
 			}//decreases motor speed
 			else if(speed >= Constants.STICK_HALF_PRESSED_DOWN &&
-					Constants.MOTOR_STOP < Actuators.getFuelIntakeMotor().get() &&
-					Actuators.getFuelIntakeMotor().get() < Constants.MAX_MOTOR_SPEED){
+					Constants.MOTOR_STOP < Math.abs(Actuators.getFuelIntakeMotor().get()) &&
+					Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
 				//Increments motor speed by a set value while stick is more than 50% pressed
 				motorSpeed = Actuators.getFuelIntakeMotor().get() - Constants.MOTOR_INCREMENT;
 				Actuators.getFuelIntakeMotor().set(motorSpeed);
@@ -73,7 +73,12 @@ public class Intake {
 		}
 	}
 	
+<<<<<<< HEAD
 	public static void intakeJam(boolean intakeJamButton){
 		
 	}
 }
+=======
+	
+}
+>>>>>>> 2d544b63bd2b378310881b872d88e9b0d3c8da4c
