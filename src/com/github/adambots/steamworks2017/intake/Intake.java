@@ -94,6 +94,10 @@ public class Intake {
 		}
 	}
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 	public static void intakeJam(boolean intakeJamButton){
 		if(intakeJamButton){
 			Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
@@ -105,6 +109,13 @@ public class Intake {
 			intakeJamButtonReleased = true;
 		}
 	}
+<<<<<<< HEAD
+}
+=======
+	
+}
+>>>>>>> 2d544b63bd2b378310881b872d88e9b0d3c8da4c
+=======
 	public static void intakeIn(boolean intakeButton){
 		if(!intakeButton){
 			intakeInButtonReleased = true;
@@ -116,3 +127,4 @@ public class Intake {
 		}
 	}
 }
+>>>>>>> origin/master
