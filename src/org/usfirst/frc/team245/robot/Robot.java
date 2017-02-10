@@ -4,6 +4,7 @@ import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
 import com.github.adambots.steamworks2017.score.Score;
+import com.github.adambots.steamworks2017.smartDash.Vibrations;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -107,6 +108,7 @@ public class Robot extends IterativeRobot {
 		Intake.intakeSpeed(Gamepad.secondary.getRightY());
 		Intake.intakeDirection(Gamepad.secondary.getRightX());
 		Intake.intakeJam(Gamepad.secondary.getRB()); //Runs the unjamming procedure for a max of 3 seconds per press
+		Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
 		
 		//Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary

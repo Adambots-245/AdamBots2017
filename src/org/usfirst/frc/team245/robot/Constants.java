@@ -11,7 +11,7 @@ public class Constants {
 	public static final double OUTTAKE_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor
 	public static final double MOTOR_START_VALUE = 0.5;
 	public static final double MOTOR_INCREMENT = 0.05; //TODO: Find correct value for the increment value
-	public static final double MOTOR_CIM_STALL_CURRENT = 115; //TODO: Find correct current value for motor stall
+	public static final double MOTOR_CIM_STALL_CURRENT = 20; //TODO: Find correct current value for motor stall
 	
 	//Port map
 	public static final int LEFT_FRONT_DRIVE_MOTOR_PORT = 0;
@@ -43,4 +43,14 @@ public class Constants {
 	public static final double STICK_HALF_PRESSED_DOWN = 0.5;
 	public static final double STICK_HALF_PRESSED_LEFT = -0.5;
 	public static final double STICK_HALF_PRESSED_RIGHT = 0.5;
+	
+	//Rumble Constants
+	public static final double MAX_RUMBLE = 1;
+	public static final double HALF_RUMBLE = 0.5;
+	public static final double NO_RUMBLE = 0;
+	public static final double TIME_RUMBLE = 45;
+	
+	//Safety Constants
+	public static final int COUNTER_END = 3;	//If the counter for button presses is at this amount, then the safety will be disabled
+	public static final int COUNTER_START = 0;
 }
