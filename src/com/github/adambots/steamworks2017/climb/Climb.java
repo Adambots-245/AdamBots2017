@@ -9,6 +9,7 @@ public class Climb {
 	static boolean climbSafetySecondary = true;
 	static boolean climbSafetyPrimaryReleased;
 	static boolean climbSafetySecondaryReleased;
+	static int counter = Constants.COUNTER_START;
 	
 	//Will only allow Primary to toggle the motor off if two button safety is pressed to toggle safety off
 	public static void climbSafetyTogglePrimary(boolean climbSafetyButton1, boolean climbSafetyButton2){
@@ -22,13 +23,16 @@ public class Climb {
 		
 	}
 	
-	public static void climbSafetyToggleSecondary(boolean climbSafetyButton1, boolean climbSafetyButton2){
-		if(!climbSafetyButton1 && !climbSafetyButton2){
+	public static void climbSafetyToggleSecondary(boolean climbSafetyButton){
+		if(climbSafetyButton && climbSafetySecondaryReleased){
+			counter++;
+			climbSafetySecondaryReleased = false;
+		}else{
 			climbSafetySecondaryReleased = true;
 		}
-		if(climbSafetyButton1 && climbSafetyButton2 && climbSafetySecondaryReleased){
+		if(counter == Constants.COUNTER_END){
+			counter = Constants.COUNTER_START;
 			climbSafetySecondary = !climbSafetySecondary;
-			climbSafetySecondaryReleased = false;
 		}
 	}
 	

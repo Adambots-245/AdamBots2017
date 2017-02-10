@@ -113,7 +113,7 @@ public class Robot extends IterativeRobot {
 		//Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
 		Climb.climbStartSecondary(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
-		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack(), Gamepad.secondary.getStart());
+		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); //Have to press 3 times to toggle the safety
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.secondary.getB());
