@@ -31,7 +31,7 @@ public class TalonDio {
 		//Will return true if motor is about to stall
 		public static boolean CIMStall(CANTalon CANTalon3){
 			double outputCurrent = CANTalon3.getOutputCurrent();
-			if (outputCurrent >= 115){
+			if (outputCurrent >= Constants.MOTOR_CIM_STALL_CURRENT){
 				return true;
 			}else{
 				return false;
