@@ -1,13 +1,32 @@
 package com.github.adambots.steamworks2017.intake;
 
 import org.usfirst.frc.team245.robot.Actuators;
-import org.usfirst.frc.team245.robot.Constants;
+import org.usfirst.frc.team245.robot.Constants; 
 
 public class Intake {
 	
 	//variables for this class
-	static boolean intakeDisabled = true;
-	static boolean buttonReleased;
+	static boolean intakeDisabled = true;		//checks if intake has been enabled yet
+	static boolean intakeButtonReleased = true;		//checks to see if the button for enabling intake has been released
+	static boolean intakeSafetyButtonReleased = true;	//checks to see if the safety has been released to prevent double counts	
+	public static boolean intakeSafety = true; 		//prevents running intake out of robot
+	static int counter = Constants.COUNTER_START;//to check if the button has been pressed enough times to release safety
+	static boolean intakeJamButtonReleased = true;	//checks to see if the jam button has been released
+	static boolean intakeInButtonReleased = true;
+	
+	public static void intakeSafety(boolean intakeSafetyButton){
+
+		if(intakeSafetyButton){
+			counter++;
+			intakeSafetyButtonReleased = false;
+		}else{
+			intakeSafetyButtonReleased = true;
+		}
+		if(counter == Constants.COUNTER_END){
+			counter = Constants.COUNTER_START;
+			intakeSafety = !intakeSafety;
+		}
+	}
 	/*
 	 * Runs intakeMotor
 	 * @Param intakeButon
@@ -16,16 +35,16 @@ public class Intake {
 		
 		if(!intakeButton){
 			//only runs if button is released
-			buttonReleased = true;
+			intakeButtonReleased = true;
 		}
 		
-		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP && intakeButton && buttonReleased){
+		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP && intakeButton && intakeButtonReleased){
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_START_VALUE);
-			buttonReleased = false;
+			intakeButtonReleased = false;
 			intakeDisabled = false;
-		} else if(intakeButton && buttonReleased){
+		} else if(intakeButton && intakeButtonReleased){
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
-			buttonReleased = false;
+			intakeButtonReleased = false;
 			intakeDisabled = true;
 		}
 	}
@@ -38,18 +57,18 @@ public class Intake {
 		//increases motor speed
 		double motorSpeed;
 		if(!intakeDisabled){
-			if(speed <= Constants.STICK_HALF_PRESSED_UP &&
+			if(speed <= Constants.STICK_PRESSED_UP &&
 					Constants.MOTOR_STOP < Math.abs(Actuators.getFuelIntakeMotor().get()) &&
-					Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
+					Actuators.getFuelIntakeMotor().get() < Constants.MAX_MOTOR_SPEED){
 				//Increments motor speed by a set value while stick is more than 50% pressed
 				motorSpeed = Actuators.getFuelIntakeMotor().get() + Constants.MOTOR_INCREMENT;
 				Actuators.getFuelIntakeMotor().set(motorSpeed);
 				
 				
 			}//decreases motor speed
-			else if(speed >= Constants.STICK_HALF_PRESSED_DOWN &&
+			else if(speed >= Constants.STICK_PRESSED_DOWN &&
 					Constants.MOTOR_STOP < Math.abs(Actuators.getFuelIntakeMotor().get()) &&
-					Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
+					Actuators.getFuelIntakeMotor().get() < Constants.MAX_MOTOR_SPEED){
 				//Increments motor speed by a set value while stick is more than 50% pressed
 				motorSpeed = Actuators.getFuelIntakeMotor().get() - Constants.MOTOR_INCREMENT;
 				Actuators.getFuelIntakeMotor().set(motorSpeed);
@@ -64,21 +83,48 @@ public class Intake {
 	public static void intakeDirection(double direction){
 		if(!intakeDisabled){
 			//reverses direction, if needed
-			if(direction <= Constants.STICK_HALF_PRESSED_LEFT && !Actuators.getFuelIntakeMotor().getInverted()){
+			if(direction <= Constants.STICK_PRESSED_LEFT && !Actuators.getFuelIntakeMotor().getInverted()){
 				Actuators.getFuelIntakeMotor().setInverted(true);
 				
-			}else if(direction >= Constants.STICK_HALF_PRESSED_RIGHT && Actuators.getFuelIntakeMotor().getInverted()){
+			}else if(direction >= Constants.STICK_PRESSED_RIGHT && Actuators.getFuelIntakeMotor().getInverted()
+					&& !intakeSafety ){
+				//won't allow running the motor to eject balls unless safety has been released
 				Actuators.getFuelIntakeMotor().setInverted(false);
 			}
 		}
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 	public static void intakeJam(boolean intakeJamButton){
-		
+		if(intakeJamButton){
+			Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
+			Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
+			intakeJamButtonReleased = false;
+		}else if(!intakeJamButtonReleased){
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
+			intakeJamButtonReleased = true;
+		}
 	}
+<<<<<<< HEAD
 }
 =======
 	
 }
 >>>>>>> 2d544b63bd2b378310881b872d88e9b0d3c8da4c
+=======
+	public static void intakeIn(boolean intakeButton){
+		if(!intakeButton){
+			intakeInButtonReleased = true;
+		}
+		if(intakeButton && intakeInButtonReleased && Actuators.getFuelIntakeMotor().get() >= Constants.MOTOR_STOP){
+			Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+		}else if(intakeButton && intakeInButtonReleased){
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+		}
+	}
+}
+>>>>>>> origin/master

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team245.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class Gamepad {
 	private Joystick joy;
@@ -191,5 +192,33 @@ public class Gamepad {
 	
 	public boolean getRightButton(){
 		return joy.getRawButton(BUTTON_RIGHT_STICK);
+	}
+	
+	
+	/*
+	 * Set Methods
+	 */
+	
+	/*
+	 * Make the controller vibrate on the left side
+	 * @param intensity How strong the rumble is
+	 */
+	public void setRumbleLeft(double intensity){
+		joy.setRumble(RumbleType.kLeftRumble, intensity);
+	}
+	/*
+	 * Make the controller vibrate on the right side
+	 * @param intensity How strong the rumble is
+	 */
+	public void setRumbleRight(double intensity){
+		joy.setRumble(RumbleType.kRightRumble, intensity);
+	}
+	/*
+	 * Make the controller vibrate on both sides
+	 * @param intensity How strong the rumble is
+	 */
+	public void setRumbleBoth(double intensity){
+		joy.setRumble(RumbleType.kLeftRumble, intensity);
+		joy.setRumble(RumbleType.kRightRumble, intensity);
 	}
 }
