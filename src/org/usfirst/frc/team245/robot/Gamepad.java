@@ -46,6 +46,14 @@ public class Gamepad {
 	 */
 	private static final int BUTTON_START = 8;
 	/**
+	 * XBOX 360 Left Stick Button
+	 */
+	private static final int BUTTON_LEFT_STICK = 9;
+	/**
+	 * XBOX 360 Right Stick Button
+	 */
+	private static final int BUTTON_RIGHT_STICK = 10;
+	/**
 	 * XBOX 360 Left Horizontal Axis (Left=-1, Right=1)
 	 */
 	private static final int AXIS_LEFT_X = 0;
@@ -175,5 +183,13 @@ public class Gamepad {
 
 	public boolean getBack() {
 		return joy.getRawButton(BUTTON_BACK);
+	}
+	
+	public boolean getLeftButton(){
+		return joy.getRawButton(BUTTON_LEFT_STICK);
+	}
+	
+	public boolean getRightButton(){
+		return joy.getRawButton(BUTTON_RIGHT_STICK);
 	}
 }

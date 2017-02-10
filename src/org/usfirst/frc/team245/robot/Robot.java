@@ -1,7 +1,9 @@
 package org.usfirst.frc.team245.robot;
 
+import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
+import com.github.adambots.steamworks2017.score.Score;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -81,10 +83,45 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		/*
+		 * Primary Controllers Controls
+		 */
 		//TODO: confirm right trigger forward, left trigger reverse
+		//Drive controls
 		Drive.drive(Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //driving with triggers for speed and left joy for turning
-		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getB()); //shifting with A low gear and B high gear		
-		Intake.intake(Gamepad.secondary.getB()); //runs intake with B on second controller
+		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); //shifting with A low gear and Y high gear		
+		Drive.shiftToggle(Gamepad.primary.getLB());
+		
+		//Climb controls
+		Climb.climbStop(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
+		
+		//Gear controls
+		Score.dispenseGear(Gamepad.primary.getBack());
+		
+		/*
+		 * Secondary Controllers Controls
+		 */
+		//Intake controls
+		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with B on second controller
+		Intake.intakeSpeed(Gamepad.secondary.getRightY());
+		Intake.intakeDirection(Gamepad.secondary.getRightX());
+		
+		//Climb controls
+		Climb.climbStop(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
+		Climb.climbStart(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+		
+		//Gear controls
+		Score.dispenseGear(Gamepad.secondary.getB());
+		Score.gearLock(Gamepad.secondary.getStart());
+		
+		//Outtake Controls
+		Score.outtakeToggle(Gamepad.secondary.getLB());
+		
+		//Conveyor Controls
+		Score.conveyor(Gamepad.secondary.getLeftButton());
+		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
+		Score.conveyorDirection(Gamepad.secondary.getLeftX());
+		
 	}
 
 	/**

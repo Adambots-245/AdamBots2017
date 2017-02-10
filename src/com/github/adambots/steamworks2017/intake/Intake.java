@@ -2,35 +2,76 @@ package com.github.adambots.steamworks2017.intake;
 
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake {
 	
-	//TODO: Set MAX_CURRENT to a number once we get an exact value
-	public static double MAX_CURRENT;
-	public static double SPEED = 0.8;
-	
+	//variables for this class
+	static boolean intakeDisabled = true;
+	static boolean buttonReleased;
 	/*
 	 * Runs intakeMotor
 	 * @Param intakeButon
 	 * */
 	public static void intake(boolean intakeButton){
-		if (intakeButton){
-			Actuators.getIntakeMotor().set(SPEED);
-		} else {
-			Actuators.getIntakeMotor().set(Constants.MOTOR_STOP);
+		
+		if(!intakeButton){
+			//only runs if button is released
+			buttonReleased = true;
 		}
-		currentCheck();
+		
+		if (Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP && intakeButton && buttonReleased){
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_START_VALUE);
+			buttonReleased = false;
+			intakeDisabled = false;
+		} else if(intakeButton && buttonReleased){
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+			buttonReleased = false;
+			intakeDisabled = true;
+		}
+	}
+	/*
+	 * Changes Speed of Intake Motor
+	 * @Param speed
+	 */
+	//TODO: Check Direction of motor
+	public static void intakeSpeed(double speed){
+		//increases motor speed
+		double motorSpeed;
+		if(!intakeDisabled){
+			if(speed <= Constants.STICK_HALF_PRESSED_UP &&
+					Constants.MOTOR_STOP < Math.abs(Actuators.getFuelIntakeMotor().get()) &&
+					Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
+				//Increments motor speed by a set value while stick is more than 50% pressed
+				motorSpeed = Actuators.getFuelIntakeMotor().get() + Constants.MOTOR_INCREMENT;
+				Actuators.getFuelIntakeMotor().set(motorSpeed);
+				
+				
+			}//decreases motor speed
+			else if(speed >= Constants.STICK_HALF_PRESSED_DOWN &&
+					Constants.MOTOR_STOP < Math.abs(Actuators.getFuelIntakeMotor().get()) &&
+					Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
+				//Increments motor speed by a set value while stick is more than 50% pressed
+				motorSpeed = Actuators.getFuelIntakeMotor().get() - Constants.MOTOR_INCREMENT;
+				Actuators.getFuelIntakeMotor().set(motorSpeed);
+			}
+		}
+	}
+	/*
+	 * Changes direction of Intake motor
+	 * @Param direction
+	 */
+	//TODO: Check direction of motor, switch the true and false if needed
+	public static void intakeDirection(double direction){
+		if(!intakeDisabled){
+			//reverses direction, if needed
+			if(direction <= Constants.STICK_HALF_PRESSED_LEFT && !Actuators.getFuelIntakeMotor().getInverted()){
+				Actuators.getFuelIntakeMotor().setInverted(true);
+				
+			}else if(direction >= Constants.STICK_HALF_PRESSED_RIGHT && Actuators.getFuelIntakeMotor().getInverted()){
+				Actuators.getFuelIntakeMotor().setInverted(false);
+			}
+		}
 	}
 	
-	/*
-	 * Checks current and stops motor if there is a current spike
-	 * */
-	public static void currentCheck(){
-		if (Actuators.getIntakeMotor().getOutputCurrent() >= MAX_CURRENT){
-			SmartDashboard.putBoolean("Current spike: ", true);
-		} else {
-			SmartDashboard.putBoolean("Current spike: ", false);
-		}
-	}
+	
 }

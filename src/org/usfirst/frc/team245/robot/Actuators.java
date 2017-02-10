@@ -4,6 +4,8 @@ import com.ctre.CANTalon;
 
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.VictorSP;
+
 import org.usfirst.frc.team245.robot.Constants;
 public class Actuators {
 	
@@ -14,11 +16,21 @@ public class Actuators {
 	private static CANTalon leftDriveMotor;
 	private static CANTalon leftDriveMotorSlave;
 	
-	private static CANTalon intakeMotor;
+	private static CANTalon climbMotor;
+	
+	private static VictorSP fuelIntakeMotor;
+	private static VictorSP fuelOuttakeMotor;
+	private static VictorSP fuelConveyorMotor;
+
+
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
-	
+	private static Solenoid dispenseGearAdvancePneumatic;
+	private static Solenoid dispenseGearReturnPneumatic;
+	private static Solenoid gearLiftPneumatic;
+	private static Solenoid sweeperAdvancePneumatic;
+	private static Solenoid sweeperReturnPneumatic;
 	/*
 	 * Initializes all actuators
 	 */
@@ -36,9 +48,20 @@ public class Actuators {
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
 		
-		intakeMotor = new CANTalon(Constants.INTAKE_MOTOR_PORT);
 
+		climbMotor = new CANTalon(Constants.CLIMB_MOTOR_PORT);
+		
+		fuelIntakeMotor = new VictorSP(Constants.FUEL_INTAKE_MOTOR_PWM_PORT);
+		fuelOuttakeMotor = new VictorSP(Constants.FUEL_OUTTAKE_MOTOR_PWM_PORT);
+		fuelConveyorMotor = new VictorSP(Constants.FUEL_CONVEYOR_MOTOR_PWM_PORT);
+		
+		//Pneumatics
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
+		dispenseGearAdvancePneumatic = new Solenoid(Constants.DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT);
+		dispenseGearReturnPneumatic = new Solenoid(Constants.DISPENSE_GEAR_RETURN_PNEUMATIC_PORT);
+		gearLiftPneumatic = new Solenoid(Constants.GEAR_LIFT_PNEUMATIC_PORT);
+		sweeperAdvancePneumatic = new Solenoid(Constants.SWEEPER_ADVANCE_PNEUMATIC_PORT);
+		sweeperReturnPneumatic = new Solenoid(Constants.SWEEPER_RETURN_PNEUMATIC_PORT);
 	}
 
 	/*
@@ -68,12 +91,11 @@ public class Actuators {
 	public static CANTalon getLeftDriveMotorSlave() {
 		return leftDriveMotorSlave;
 	}
-	
 	/*
-	 * @return intakeMotor
-	 * */
-	public static CANTalon getIntakeMotor() {
-		return intakeMotor;
+	 * @return climbMotor
+	 */
+	public static CANTalon getClimbMotor() {
+		return climbMotor;
 	}
 	
 	/*
@@ -82,5 +104,53 @@ public class Actuators {
 	public static Solenoid getDriveShiftPneumatic() {
 		return driveShiftPneumatic;
 	}
-	
+	/*
+	 * @return fuelIntakeMotor
+	 */
+	public static VictorSP getFuelIntakeMotor() {
+		return fuelIntakeMotor;
+	}
+	/*
+	 * @return fuelOuttakeMotor
+	 */
+	public static VictorSP getFuelOuttakeMotor() {
+		return fuelOuttakeMotor;
+	}
+	/*
+	 * @return fuelConveyorMotor
+	 */
+	public static VictorSP getFuelConveyorMotor() {
+		return fuelConveyorMotor;
+	}
+	/*
+	 * @return dispenseGearAdvancePneumatic
+	 */
+	public static Solenoid getDispenseGearAdvancePneumatic() {
+		return dispenseGearAdvancePneumatic;
+	}
+	/*
+	 * @return dispenseGearReturnPneumatic
+	 */
+	public static Solenoid getDispenseGearReturnPneumatic() {
+		return dispenseGearReturnPneumatic;
+	}
+	/*
+	 * @return gearLiftPneumatic
+	 */
+	public static Solenoid getGearLiftPneumatic() {
+		return gearLiftPneumatic;
+	}
+	/*
+	 * @return sweeperAdvancePneumatic
+	 */
+	public static Solenoid getSweeperAdvancePneumatic() {
+		return sweeperAdvancePneumatic;
+	}
+	/*
+	 * @return sweeperReturnPneumatic
+	 */
+	public static Solenoid getSweeperReturnPneumatic() {
+		return sweeperReturnPneumatic;
+	}
 }
+
