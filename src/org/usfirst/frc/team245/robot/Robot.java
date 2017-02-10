@@ -93,7 +93,8 @@ public class Robot extends IterativeRobot {
 		Drive.shiftToggle(Gamepad.primary.getLB());
 		
 		//Climb controls
-		Climb.climbStop(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
+		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
+		Climb.climbSafetyTogglePrimary(Gamepad.primary.getBack(), Gamepad.primary.getStart());
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.primary.getBack());
@@ -108,8 +109,9 @@ public class Robot extends IterativeRobot {
 		Intake.intakeJam(Gamepad.secondary.getRB()); //Runs the unjamming procedure for a max of 3 seconds per press
 		
 		//Climb controls
-		Climb.climbStop(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
-		Climb.climbStart(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
+		Climb.climbStartSecondary(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack(), Gamepad.secondary.getStart());
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.secondary.getB());
