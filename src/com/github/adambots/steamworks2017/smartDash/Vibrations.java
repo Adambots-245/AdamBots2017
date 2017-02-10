@@ -26,7 +26,7 @@ public class Vibrations {
 		//			44			45			45				45
 		//for 46.5 seconds left
 		//			46			45			45				47
-		if(Math.floor(time) <= timeLeft && timeLeft <= Math.ceil(time)){
+		if(Math.floor(time) >= timeLeft && timeLeft <= Math.ceil(time)){
 			Gamepad.primary.setRumbleLeft(intensity);
 			Gamepad.secondary.setRumbleLeft(intensity);
 		}else{

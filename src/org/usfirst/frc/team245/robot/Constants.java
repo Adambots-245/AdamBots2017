@@ -39,10 +39,12 @@ public class Constants {
 	public static final int CLIMBING_COMPLETE_BUMP_PORT = 3;
 	
 	//Controller Constants
-	public static final double STICK_HALF_PRESSED_UP = -0.5;
-	public static final double STICK_HALF_PRESSED_DOWN = 0.5;
-	public static final double STICK_HALF_PRESSED_LEFT = -0.5;
-	public static final double STICK_HALF_PRESSED_RIGHT = 0.5;
+	public static final double STICK_PRESSED_UP = -0.5;		//TODO: Test Values to make sure they feel natural
+	public static final double STICK_PRESSED_DOWN = 0.5;	//TODO: Test Values to make sure they feel natural
+	public static final double STICK_PRESSED_LEFT = -0.5;	//TODO: Test Values to make sure they feel natural
+	public static final double STICK_PRESSED_RIGHT = 0.5;	//TODO: Test Values to make sure they feel natural
+	public static final double TRIGGER_PRESSED_LEFT = -0.5;	//TODO: Test Values to make sure they feel natural
+	public static final double TRIGGER_PRESSED_RIGHT = 0.5;	//TODO: Test Values to make sure they feel natural
 	
 	//Rumble Constants
 	public static final double MAX_RUMBLE = 1;

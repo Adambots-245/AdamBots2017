@@ -4,6 +4,7 @@ import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
 import com.github.adambots.steamworks2017.score.Score;
+import com.github.adambots.steamworks2017.score.Sweeper;
 import com.github.adambots.steamworks2017.smartDash.Vibrations;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -95,7 +96,7 @@ public class Robot extends IterativeRobot {
 		
 		//Climb controls
 		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
-		Climb.climbSafetyTogglePrimary(Gamepad.primary.getBack(), Gamepad.primary.getStart());
+		Climb.climbSafetyTogglePrimary(Gamepad.primary.getStart());	//toggles safety if pressed 3 times
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.primary.getBack());
@@ -105,10 +106,11 @@ public class Robot extends IterativeRobot {
 		 */
 		//Intake controls
 		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with Clicking in the Right Joystick on second controller
-		Intake.intakeSpeed(Gamepad.secondary.getRightY());
-		Intake.intakeDirection(Gamepad.secondary.getRightX());
+		Intake.intakeSpeed(Gamepad.secondary.getRightY());		//Override Y Button
+		Intake.intakeDirection(Gamepad.secondary.getRightX());	//Override Y Button
 		Intake.intakeJam(Gamepad.secondary.getRB()); //Runs the unjamming procedure for a max of 3 seconds per press
 		Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
+		Intake.intakeIn(Gamepad.secondary.getY());			//Toggles Intake running into the robot at full speed
 		
 		//Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
@@ -117,7 +119,7 @@ public class Robot extends IterativeRobot {
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.secondary.getB());
-		Score.gearLock(Gamepad.secondary.getStart());
+		Score.gearLock(Gamepad.secondary.getStart(), Gamepad.secondary.getBack());
 		
 		//Outtake Controls
 		Score.outtakeToggle(Gamepad.secondary.getLB());
@@ -127,9 +129,9 @@ public class Robot extends IterativeRobot {
 		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
 		Score.conveyorDirection(Gamepad.secondary.getLeftX());
 		
-		//TODO:Add Sweeper Controls
-		//Sweeper
 		
+		//Sweeper
+		Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());
 	}
 
 	/**
