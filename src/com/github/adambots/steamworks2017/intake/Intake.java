@@ -11,11 +11,10 @@ public class Intake {
 	private static boolean intakeSafetyButtonReleased = true;	//checks to see if the safety has been released to prevent double counts	
 	public static boolean intakeSafety = true; 		//prevents running intake out of robot
 	private static int counter = Constants.COUNTER_START;//to check if the button has been pressed enough times to release safety
-	private static boolean intakeJamButtonReleased = true;	//checks to see if the jam button has been released
 	private static boolean intakeInButtonReleased = true;
 	
 	public static void intakeSafety(boolean intakeSafetyButton){
-		if(intakeSafetyButton){
+		if(intakeSafetyButton && intakeSafetyButtonReleased){
 			counter++;
 			intakeSafetyButtonReleased = false;
 		}else if(!intakeSafetyButton){
