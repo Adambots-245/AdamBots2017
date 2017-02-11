@@ -6,7 +6,7 @@ import org.usfirst.frc.team245.robot.Constants;
 public class Intake {
 	
 	//variables for this class
-	privaate static boolean intakeDisabled = true;		//checks if intake has been enabled yet
+	private static boolean intakeDisabled = true;		//checks if intake has been enabled yet
 	private static boolean intakeButtonReleased = true;		//checks to see if the button for enabling intake has been released
 	private static boolean intakeSafetyButtonReleased = true;	//checks to see if the safety has been released to prevent double counts	
 	public static boolean intakeSafety = true; 		//prevents running intake out of robot
