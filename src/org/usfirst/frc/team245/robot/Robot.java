@@ -5,14 +5,8 @@ import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.score.Sweeper;
-import com.github.adambots.steamworks2017.smartDash.Vibrations;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-
-
-import edu.wpi.first.wpilibj.IterativeRobot;
-//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
