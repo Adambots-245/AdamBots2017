@@ -31,7 +31,7 @@ public class Climb {
 		if(climbSafetyButton && climbSafetySecondaryReleased){
 			counterSecondary++;
 			climbSafetySecondaryReleased = false;
-		}else{
+		}else if(!climbSafetyButton){
 			climbSafetySecondaryReleased = true;
 		}
 		if(counterSecondary == Constants.COUNTER_END){
