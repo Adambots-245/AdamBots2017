@@ -7,8 +7,8 @@ import org.usfirst.frc.team245.robot.Constants;
 public class Climb {
 	public static boolean climbSafetyPrimary = true;
 	public static boolean climbSafetySecondary = true;
-	static boolean climbSafetyPrimaryReleased;
-	static boolean climbSafetySecondaryReleased;
+	static boolean climbSafetyPrimaryReleased = true;
+	static boolean climbSafetySecondaryReleased = true;
 	static int counterPrimary = Constants.COUNTER_START;
 	static int counterSecondary = Constants.COUNTER_START;
 	
@@ -17,7 +17,7 @@ public class Climb {
 		if(climbSafetyButton1 && climbSafetyPrimaryReleased){
 			counterPrimary++;
 			climbSafetyPrimaryReleased = false;
-		}else{
+		}else if(!climbSafetyButton1){
 			climbSafetyPrimaryReleased = true;
 		}
 		if(counterPrimary == Constants.COUNTER_END){
