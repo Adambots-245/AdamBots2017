@@ -5,18 +5,63 @@ import org.usfirst.frc.team245.robot.Constants;
 
 
 public class Climb {
+	public static boolean climbSafetyPrimary = true;
+	public static boolean climbSafetySecondary = true;
+	static boolean climbSafetyPrimaryReleased = true;
+	static boolean climbSafetySecondaryReleased = true;
+	static int counterPrimary = Constants.COUNTER_START;
+	static int counterSecondary = Constants.COUNTER_START;
 	
-	//TODO: Add so it takes 2 seconds to enable the first time
-	public static void climbStart(boolean climbButton){
-		//if the button is pressed, then the motor will be set to a speed and will run
-		if(climbButton){
-			Actuators.getClimbMotor().set(Constants.CLIMB_MOTOR_SPEED);
+	//Will only allow Primary to toggle the motor off if two button safety is pressed to toggle safety off
+	public static void climbSafetyTogglePrimary(boolean climbSafetyButton1){
+		if(climbSafetyButton1 && climbSafetyPrimaryReleased){
+			counterPrimary++;
+			climbSafetyPrimaryReleased = false;
+		}else if(!climbSafetyButton1){
+			climbSafetyPrimaryReleased = true;
+		}
+		if(counterPrimary == Constants.COUNTER_END){
+			counterPrimary = Constants.COUNTER_START;
+			climbSafetyPrimary = !climbSafetyPrimary;
+		}
+		
+	}
+	
+	public static void climbSafetyToggleSecondary(boolean climbSafetyButton){
+		if(climbSafetyButton && climbSafetySecondaryReleased){
+			counterSecondary++;
+			climbSafetySecondaryReleased = false;
+		}else if(!climbSafetyButton){
+			climbSafetySecondaryReleased = true;
+		}
+		if(counterSecondary == Constants.COUNTER_END){
+			counterSecondary = Constants.COUNTER_START;
+			climbSafetySecondary = !climbSafetySecondary;
 		}
 	}
-	//TODO: Add so it takes primary 2 seconds to disable
-	public static void climbStop(boolean climbButton){
+	
+	public static void climbStartSecondary(boolean climbButton){
+		//if the button is pressed, then the motor will be set to a speed and will run
+		//will only run if climbSafetySecondary is toggled to false
+		//Disables all internal motors when climb button is pressed
+		if(climbButton && !climbSafetySecondary){
+			Actuators.getClimbMotor().set(Constants.CLIMB_MOTOR_SPEED);
+			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+			Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
+		}
+	}
+	
+	//TODO: Make motor stop automatically if limit switch gets tripped
+	public static void climbStopPrimary(boolean climbButton){
 		//if the button is pressed, then the motor will stop
-		if(climbButton){
+		if(climbButton && !climbSafetyPrimary){
+			Actuators.getClimbMotor().set(Constants.MOTOR_STOP);
+		}
+	}
+	
+	public static void climbStopSecondary(boolean climbButton){
+		if(climbButton && !climbSafetySecondary){
 			Actuators.getClimbMotor().set(Constants.MOTOR_STOP);
 		}
 	}

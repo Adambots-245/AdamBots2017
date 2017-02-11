@@ -4,6 +4,8 @@ import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
 import com.github.adambots.steamworks2017.score.Score;
+import com.github.adambots.steamworks2017.score.Sweeper;
+import com.github.adambots.steamworks2017.smartDash.Vibrations;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -93,7 +95,8 @@ public class Robot extends IterativeRobot {
 		Drive.shiftToggle(Gamepad.primary.getLB());
 		
 		//Climb controls
-		Climb.climbStop(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
+		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
+		Climb.climbSafetyTogglePrimary(Gamepad.primary.getStart());	//toggles safety if pressed 3 times
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.primary.getBack());
@@ -102,26 +105,34 @@ public class Robot extends IterativeRobot {
 		 * Secondary Controllers Controls
 		 */
 		//Intake controls
-		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with B on second controller
-		Intake.intakeSpeed(Gamepad.secondary.getRightY());
-		Intake.intakeDirection(Gamepad.secondary.getRightX());
+		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with Clicking in the Right Joystick on second controller
+		Intake.intakeSpeed(Gamepad.secondary.getRightY());		//Override Y Button
+		Intake.intakeDirection(Gamepad.secondary.getRightX());	//Override Y Button
+		Intake.intakeJam(Gamepad.secondary.getRB()); //Runs the unjamming procedure for a max of 3 seconds per press
+		Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
+		Intake.intakeIn(Gamepad.secondary.getY());			//Toggles Intake running into the robot at full speed
 		
 		//Climb controls
-		Climb.climbStop(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
-		Climb.climbStart(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
+		Climb.climbStartSecondary(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); //Have to press 3 times to toggle the safety
 		
 		//Gear controls
 		Score.dispenseGear(Gamepad.secondary.getB());
-		Score.gearLock(Gamepad.secondary.getStart());
+		Score.gearLock(Gamepad.secondary.getStart(), Gamepad.secondary.getBack());
 		
 		//Outtake Controls
 		Score.outtakeToggle(Gamepad.secondary.getLB());
 		
 		//Conveyor Controls
-		Score.conveyor(Gamepad.secondary.getLeftButton());
+		Score.conveyor(Gamepad.secondary.getLeftButton()); //runs conveyor with Clicking in the Left Joystick on second controller
 		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
 		Score.conveyorDirection(Gamepad.secondary.getLeftX());
+		Score.conveyorIn(Gamepad.secondary.getA());
 		
+		
+		//Sweeper
+		Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());
 	}
 
 	/**

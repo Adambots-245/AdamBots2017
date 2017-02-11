@@ -10,11 +10,13 @@ public class Score {
 	static boolean outtakeButtonReleased;
 	static boolean gearIsLocked = false;
 	static double motorSpeed;
+	static boolean conveyorInButtonReleased;
 	
 	
 	/*
 	 * Intake
 	 */
+	//TODO: Add Logic for when limit switches get tripped, the pneumatic stops.
 	public static void dispenseGear(boolean gearButton){
 		if(gearButton && !gearIsLocked){
 			Actuators.getDispenseGearReturnPneumatic().set(false);
@@ -26,11 +28,11 @@ public class Score {
 	}
 	
 	//toggles if the gear system is locked in position or not
-	public static void gearLock(boolean lock){
-		if(!lock){
+	public static void gearLock(boolean lock, boolean lock1){
+		if(!lock && !lock1){
 			gearButtonReleased = true;
 		}
-		if(lock && gearButtonReleased){
+		if(lock && lock1 && gearButtonReleased){
 			gearButtonReleased = false;
 			gearIsLocked = !gearIsLocked;
 		}
@@ -59,7 +61,7 @@ public class Score {
 	
 	public static void conveyorSpeed(double speed){
 		//increases motor speed
-		if(speed <= Constants.STICK_HALF_PRESSED_UP &&
+		if(speed <= Constants.STICK_PRESSED_UP &&
 				Constants.MOTOR_STOP < Math.abs(Actuators.getFuelConveyorMotor().get()) &&
 				Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MAX_MOTOR_SPEED){
 			
@@ -69,7 +71,7 @@ public class Score {
 				
 				
 		}//decreases motor speed
-		else if(speed >= Constants.STICK_HALF_PRESSED_DOWN &&
+		else if(speed >= Constants.STICK_PRESSED_DOWN &&
 				Constants.MOTOR_STOP < Math.abs(Actuators.getFuelConveyorMotor().get()) &&
 				Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MAX_MOTOR_SPEED){
 			
@@ -80,10 +82,10 @@ public class Score {
 	}
 	public static void conveyorDirection(double direction){
 		//reverses direction, if needed
-		if(direction <= Constants.STICK_HALF_PRESSED_LEFT && !Actuators.getFuelIntakeMotor().getInverted()){
+		if(direction <= Constants.STICK_PRESSED_LEFT && !Actuators.getFuelIntakeMotor().getInverted()){
 			Actuators.getFuelIntakeMotor().setInverted(true);
 				
-		}else if(direction >= Constants.STICK_HALF_PRESSED_RIGHT && Actuators.getFuelIntakeMotor().getInverted()){
+		}else if(direction >= Constants.STICK_PRESSED_RIGHT && Actuators.getFuelIntakeMotor().getInverted()){
 			Actuators.getFuelIntakeMotor().setInverted(false);
 		}
 	}
@@ -105,6 +107,16 @@ public class Score {
 				Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
 				outtakeButtonReleased = false;
 			}
+		}
+	}
+	public static void conveyorIn(boolean conveyorButton){
+		if(!conveyorButton){
+			conveyorInButtonReleased = true;
+		}
+		if(conveyorButton && conveyorInButtonReleased && Actuators.getFuelConveyorMotor().get() >= Constants.MOTOR_STOP){
+			Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
+		}else if(conveyorButton && conveyorInButtonReleased){
+			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 		}
 	}
 }
