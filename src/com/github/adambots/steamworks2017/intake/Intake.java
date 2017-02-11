@@ -15,11 +15,10 @@ public class Intake {
 	static boolean intakeInButtonReleased = true;
 	
 	public static void intakeSafety(boolean intakeSafetyButton){
-
 		if(intakeSafetyButton){
 			counter++;
 			intakeSafetyButtonReleased = false;
-		}else{
+		}else if(!intakeSafetyButton){
 			intakeSafetyButtonReleased = true;
 		}
 		if(counter == Constants.COUNTER_END){
@@ -27,12 +26,12 @@ public class Intake {
 			intakeSafety = !intakeSafety;
 		}
 	}
+	
 	/*
 	 * Runs intakeMotor
 	 * @Param intakeButon
 	 * */
 	public static void intake(boolean intakeButton){
-		
 		if(!intakeButton){
 			//only runs if button is released
 			intakeButtonReleased = true;
@@ -48,6 +47,7 @@ public class Intake {
 			intakeDisabled = true;
 		}
 	}
+	
 	/*
 	 * Changes Speed of Intake Motor
 	 * @Param speed
@@ -75,6 +75,7 @@ public class Intake {
 			}
 		}
 	}
+	
 	/*
 	 * Changes direction of Intake motor
 	 * @Param direction
@@ -105,6 +106,7 @@ public class Intake {
 			intakeJamButtonReleased = true;
 		}
 	}
+	
 	public static void intakeIn(boolean intakeButton){
 		if(!intakeButton){
 			intakeInButtonReleased = true;
