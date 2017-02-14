@@ -7,8 +7,8 @@ import org.usfirst.frc.team245.robot.Constants;
 public class Climb {
 	public static boolean climbSafetyPrimary = true;
 	public static boolean climbSafetySecondary = true;
-	static boolean climbSafetyPrimaryReleased;
-	static boolean climbSafetySecondaryReleased;
+	static boolean climbSafetyPrimaryReleased = true;
+	static boolean climbSafetySecondaryReleased = true;
 	static int counterPrimary = Constants.COUNTER_START;
 	static int counterSecondary = Constants.COUNTER_START;
 	
@@ -17,7 +17,7 @@ public class Climb {
 		if(climbSafetyButton1 && climbSafetyPrimaryReleased){
 			counterPrimary++;
 			climbSafetyPrimaryReleased = false;
-		}else{
+		}else if(!climbSafetyButton1){
 			climbSafetyPrimaryReleased = true;
 		}
 		if(counterPrimary == Constants.COUNTER_END){
@@ -31,7 +31,7 @@ public class Climb {
 		if(climbSafetyButton && climbSafetySecondaryReleased){
 			counterSecondary++;
 			climbSafetySecondaryReleased = false;
-		}else{
+		}else if(!climbSafetyButton){
 			climbSafetySecondaryReleased = true;
 		}
 		if(counterSecondary == Constants.COUNTER_END){
@@ -44,7 +44,7 @@ public class Climb {
 		//if the button is pressed, then the motor will be set to a speed and will run
 		//will only run if climbSafetySecondary is toggled to false
 		//Disables all internal motors when climb button is pressed
-		if(climbButton && !climbSafetySecondary && !climbSafetySecondary){
+		if(climbButton && !climbSafetySecondary){
 			Actuators.getClimbMotor().set(Constants.CLIMB_MOTOR_SPEED);
 			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
@@ -59,8 +59,8 @@ public class Climb {
 			Actuators.getClimbMotor().set(Constants.MOTOR_STOP);
 		}
 	}
+	
 	public static void climbStopSecondary(boolean climbButton){
-		
 		if(climbButton && !climbSafetySecondary){
 			Actuators.getClimbMotor().set(Constants.MOTOR_STOP);
 		}
