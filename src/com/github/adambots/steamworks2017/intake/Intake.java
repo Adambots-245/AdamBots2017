@@ -90,6 +90,7 @@ public class Intake {
 		}
 	}
 	
+
 	public static void intakeJam(boolean intakeJamButton){
 		if(intakeJamButton){
 			Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
@@ -99,7 +100,12 @@ public class Intake {
 			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 		}
 	}
+
+
+
 	
+
+
 	public static void intakeIn(boolean intakeButton){
 		if(!intakeButton){
 			intakeInButtonReleased = true;
@@ -111,3 +117,4 @@ public class Intake {
 		}
 	}
 }
+
