@@ -12,12 +12,12 @@ public class Vibrations {
 		//Will only set the Rumble if CIMStall is returning true(current draw is over Constants.MOTOR_CIM_STALL_CURRENT
 		if(TalonDio.CIMStall(Actuators.getClimbMotor())){
 
-			//Gamepad.secondary.setRumbleBoth(intensity);
+			Gamepad.secondary.setRumbleBoth(intensity);
 
-			//Gamepad.secondary.setRumbleBoth(intensity);
+			Gamepad.secondary.setRumbleBoth(intensity);
 
 		}else{
-			//Gamepad.secondary.setRumbleBoth(Constants.NO_RUMBLE);
+			Gamepad.secondary.setRumbleBoth(Constants.NO_RUMBLE);
 		}
 	}
 	

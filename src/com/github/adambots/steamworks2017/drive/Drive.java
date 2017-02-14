@@ -3,7 +3,6 @@ package com.github.adambots.steamworks2017.drive;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
-
 public class Drive {
 	
 	static boolean leftBumperReleased = true;
@@ -61,19 +60,13 @@ public class Drive {
 			//this only runs if button is released
 			leftBumperReleased = true;
 		}
-		try{
 		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){	
-			Actuators.getDriveShiftPneumatic().set(false);
+			Actuators.getDriveShiftPneumatic().set(false);	//TODO: Find why this isn't working
 			leftBumperReleased = false;
 		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){
-			Actuators.getDriveShiftPneumatic().set(true);
+			Actuators.getDriveShiftPneumatic().set(true); //TODO:Find why this isn't working
 			leftBumperReleased = false;
 		}
-		}
-		catch(Exception e){
-			System.out.println(toggleButton);
-			System.out.println(Actuators.getDriveShiftPneumatic().get());
-			System.out.println(leftBumperReleased);
-		}
-	}
+	}	
 }
+
