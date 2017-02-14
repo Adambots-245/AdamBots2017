@@ -11,9 +11,9 @@ public class Vibrations {
 	public static void climbStallVibrate(double intensity){
 		//Will only set the Rumble if CIMStall is returning true(current draw is over Constants.MOTOR_CIM_STALL_CURRENT
 		if(TalonDio.CIMStall(Actuators.getClimbMotor())){
-			Gamepad.secondary.setRumbleBoth(intensity);
+			//Gamepad.secondary.setRumbleBoth(intensity);
 		}else{
-			Gamepad.secondary.setRumbleBoth(Constants.NO_RUMBLE);
+			//Gamepad.secondary.setRumbleBoth(Constants.NO_RUMBLE);
 		}
 	}
 	
@@ -29,11 +29,11 @@ public class Vibrations {
 		//for 46.5 seconds left
 		//			46			45			45			47
 		if(Math.floor(time) >= timeLeft && timeLeft <= Math.ceil(time)){
-			Gamepad.primary.setRumbleLeft(intensity);
-			Gamepad.secondary.setRumbleLeft(intensity);
+			//Gamepad.primary.setRumbleLeft(intensity);
+			//Gamepad.secondary.setRumbleLeft(intensity);
 		}else{
-			Gamepad.primary.setRumbleLeft(Constants.NO_RUMBLE);
-			Gamepad.secondary.setRumbleLeft(Constants.NO_RUMBLE);
+			//Gamepad.primary.setRumbleLeft(Constants.NO_RUMBLE);
+			//Gamepad.secondary.setRumbleLeft(Constants.NO_RUMBLE);
 		}
 	}
 }

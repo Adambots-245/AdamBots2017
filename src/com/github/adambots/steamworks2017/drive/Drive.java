@@ -6,7 +6,7 @@ import org.usfirst.frc.team245.robot.Constants;
 
 public class Drive {
 	
-	static boolean leftBumperReleased;
+	static boolean leftBumperReleased = true;
 	
 	/*
 	 * Sets initial conditions for driving
@@ -61,13 +61,19 @@ public class Drive {
 			//this only runs if button is released
 			leftBumperReleased = true;
 		}
-		
+		try{
 		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){	
 			Actuators.getDriveShiftPneumatic().set(false);
 			leftBumperReleased = false;
 		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){
 			Actuators.getDriveShiftPneumatic().set(true);
 			leftBumperReleased = false;
+		}
+		}
+		catch(Exception e){
+			System.out.println(toggleButton);
+			System.out.println(Actuators.getDriveShiftPneumatic().get());
+			System.out.println(leftBumperReleased);
 		}
 	}
 }

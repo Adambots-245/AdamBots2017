@@ -90,11 +90,11 @@ public class Robot extends IterativeRobot {
 		Drive.shiftToggle(Gamepad.primary.getLB());
 		
 		//Climb controls
-		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
+//		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
 		Climb.climbSafetyTogglePrimary(Gamepad.primary.getStart());	//toggles safety if pressed 3 times
 		
 		//Gear controls
-		Score.dispenseGear(Gamepad.primary.getBack());
+		//Score.dispenseGear(Gamepad.primary.getBack());
 		
 		/*
 		 * Secondary Controllers Controls
@@ -109,23 +109,24 @@ public class Robot extends IterativeRobot {
 		
 		//Climb controls
 		//TODO: Find out why axis 6 is not detected
-		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
-		Climb.climbStartSecondary(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+//		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
+//		Climb.climbStartSecondary(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
 		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); //Have to press 3 times to toggle the safety
 		
 		//Gear controls
-		Score.dispenseGear(Gamepad.secondary.getB());
+		//Score.dispenseGear(Gamepad.secondary.getB());
 		Score.gearLock(Gamepad.secondary.getStart(), Gamepad.secondary.getBack());
 		
 		//Outtake Controls
 		Score.outtakeToggle(Gamepad.secondary.getLB()); 
 		
 		//Conveyor Controls
+		/*
 		Score.conveyor(Gamepad.secondary.getLeftButton()); //runs conveyor with Clicking in the Left Joystick on second controller
 		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
 		Score.conveyorDirection(Gamepad.secondary.getLeftX());
 		Score.conveyorIn(Gamepad.secondary.getA());
-		
+		*/
 		
 		//Sweeper
 		Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());

@@ -5,15 +5,15 @@ import org.usfirst.frc.team245.robot.Constants;
 
 public class Score {
 	
-	private static boolean gearButtonReleased = false;
-	private static boolean conveyorButtonReleased = false;
-	private static boolean outtakeButtonReleased = false;
-	private static boolean gearIsLocked = false;
+	static boolean gearButtonReleased = false;
+	static boolean conveyorButtonReleased = false;
+	static boolean outtakeButtonReleased = false;
+	static boolean gearIsLocked = false;
 	public static double conveyorMotorSpeed = Constants.MOTOR_STOP;
-	private static boolean conveyorInButtonReleased = false;
+	static boolean conveyorInButtonReleased = false;
 	public static boolean conveyorDisabled = true;
-	private static double oldMotorSpeed = Constants.MOTOR_STOP;
-	private static double newMotorSpeed = Constants.MOTOR_STOP;
+	static double oldMotorSpeed = Constants.MOTOR_STOP;
+	static double newMotorSpeed = Constants.MOTOR_STOP;
 	
 	/*
 	 * Intake

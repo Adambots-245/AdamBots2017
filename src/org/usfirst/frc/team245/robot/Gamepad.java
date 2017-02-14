@@ -109,35 +109,35 @@ public class Gamepad {
 		return deaden(joy.getRawAxis(LEFT_AXIS_TRIGGERS)-joy.getRawAxis(RIGHT_AXIS_TRIGGERS));
 	}
 
-	public boolean getDPadRight() {
-		if( joy.getPOV(AXIS_DPAD) == AXIS_DPAD_RIGHT){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	public boolean getDPadUp() {
-		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_UP){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public boolean getDPadDown(){
-		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_DOWN){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public boolean getDPadLeft(){
-		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_LEFT){
-			return true;
-		}else{
-			return false;
-		}
-	}
+//	public boolean getDPadRight() {
+//		if( joy.getPOV(AXIS_DPAD) == AXIS_DPAD_RIGHT){
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
+//
+//	public boolean getDPadUp() {
+//		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_UP){
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
+//	public boolean getDPadDown(){
+//		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_DOWN){
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
+//	public boolean getDPadLeft(){
+//		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_LEFT){
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
 
 	/**
 	 * Corresponds to HORIZONTAL input on the LEFT joystick.
@@ -232,22 +232,22 @@ public class Gamepad {
 	 * Make the controller vibrate on the left side
 	 * @param intensity How strong the rumble is
 	 */
-	public void setRumbleLeft(double intensity){
-		joy.setRumble(RumbleType.kLeftRumble, intensity);
-	}
-	/*
-	 * Make the controller vibrate on the right side
-	 * @param intensity How strong the rumble is
-	 */
-	public void setRumbleRight(double intensity){
-		joy.setRumble(RumbleType.kRightRumble, intensity);
-	}
-	/*
-	 * Make the controller vibrate on both sides
-	 * @param intensity How strong the rumble is
-	 */
-	public void setRumbleBoth(double intensity){
-		joy.setRumble(RumbleType.kLeftRumble, intensity);
-		joy.setRumble(RumbleType.kRightRumble, intensity);
-	}
+//	public void setRumbleLeft(double intensity){
+//		joy.setRumble(RumbleType.kLeftRumble, intensity);
+//	}
+//	/*
+//	 * Make the controller vibrate on the right side
+//	 * @param intensity How strong the rumble is
+//	 */
+//	public void setRumbleRight(double intensity){
+//		joy.setRumble(RumbleType.kRightRumble, intensity);
+//	}
+//	/*
+//	 * Make the controller vibrate on both sides
+//	 * @param intensity How strong the rumble is
+//	 */
+//	public void setRumbleBoth(double intensity){
+//		joy.setRumble(RumbleType.kLeftRumble, intensity);
+//		joy.setRumble(RumbleType.kRightRumble, intensity);
+//	}
 }
