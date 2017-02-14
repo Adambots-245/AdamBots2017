@@ -78,7 +78,14 @@ public class Gamepad {
 	 * XBOX 360 Right Vertical Axis (Up=-1, Down=1)
 	 */
 	private static final int AXIS_RIGHT_Y = 5;
-	private static final int AXIS_DPAD_HORIZONTAL = 6;
+	/**
+	 * XBOX 369 DPAD POV Port(Up=0, Right=90, Down = 180, Left = 270, Not pressed=-1)
+	 */
+	private static final int AXIS_DPAD = 0;
+	private static final int AXIS_DPAD_UP = 0;
+	private static final int AXIS_DPAD_RIGHT = 90;
+	private static final int AXIS_DPAD_DOWN = 180;
+	private static final int AXIS_DPAD_LEFT = 270;
 	//// Control Instances
 	public static Gamepad primary = new Gamepad(PRIMARY_DRIVER);
 	public static Gamepad secondary = new Gamepad(SECONDARY_DRIVER);
@@ -102,12 +109,34 @@ public class Gamepad {
 		return deaden(joy.getRawAxis(LEFT_AXIS_TRIGGERS)-joy.getRawAxis(RIGHT_AXIS_TRIGGERS));
 	}
 
-	public boolean getDPadLeft() {
-		return joy.getRawAxis(AXIS_DPAD_HORIZONTAL) < -0.5;
+	public boolean getDPadRight() {
+		if( joy.getPOV(AXIS_DPAD) == AXIS_DPAD_RIGHT){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
-	public boolean getDPadRight() {
-		return joy.getRawAxis(AXIS_DPAD_HORIZONTAL) > 0.5;
+	public boolean getDPadUp() {
+		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_UP){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public boolean getDPadDown(){
+		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_DOWN){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public boolean getDPadLeft(){
+		if(joy.getPOV(AXIS_DPAD) == AXIS_DPAD_LEFT){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/**

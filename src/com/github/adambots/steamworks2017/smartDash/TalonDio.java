@@ -1,9 +1,7 @@
 package com.github.adambots.steamworks2017.smartDash;
-import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
 import com.ctre.CANTalon;
-import edu.wpi.first.wpilibj.Solenoid;
 
 
 public class TalonDio {

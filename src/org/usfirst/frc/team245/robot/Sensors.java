@@ -1,9 +1,8 @@
 package org.usfirst.frc.team245.robot;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 
 public class Sensors {
@@ -47,5 +46,12 @@ public class Sensors {
 	 */
 	public static DigitalInput getClimbingCompleteSensor(){
 		return climbingCompleteSensor;
+	}
+	
+	/*
+	 * Analog Sensors
+	 */
+	public static AnalogGyro getGyro(){
+		return robotGyro;
 	}
 }

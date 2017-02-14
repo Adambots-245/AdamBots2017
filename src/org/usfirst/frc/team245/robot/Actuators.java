@@ -50,9 +50,13 @@ public class Actuators {
 		
 
 		climbMotor = new CANTalon(Constants.CLIMB_MOTOR_PORT);
+		climbMotor.set(Constants.MOTOR_STOP);
+		climbMotor.enableBrakeMode(true);
 		
 		fuelIntakeMotor = new VictorSP(Constants.FUEL_INTAKE_MOTOR_PWM_PORT);
+		fuelIntakeMotor.set(Constants.MOTOR_STOP);
 		fuelOuttakeMotor = new VictorSP(Constants.FUEL_OUTTAKE_MOTOR_PWM_PORT);
+		fuelOuttakeMotor.set(Constants.MOTOR_STOP);
 		fuelConveyorMotor = new VictorSP(Constants.FUEL_CONVEYOR_MOTOR_PWM_PORT);
 		
 		//Pneumatics
