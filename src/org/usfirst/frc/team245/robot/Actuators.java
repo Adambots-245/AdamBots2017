@@ -4,9 +4,10 @@ import com.ctre.CANTalon;
 
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
-
 import org.usfirst.frc.team245.robot.Constants;
+
 public class Actuators {
 	
 	//Motors
@@ -26,11 +27,9 @@ public class Actuators {
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
-	private static Solenoid dispenseGearAdvancePneumatic;
-	private static Solenoid dispenseGearReturnPneumatic;
+	private static DoubleSolenoid dispenseGearPneumatic;
 	private static Solenoid gearLiftPneumatic;
-	private static Solenoid sweeperAdvancePneumatic;
-	private static Solenoid sweeperReturnPneumatic;
+	private static DoubleSolenoid sweeperPneumatic;
 	/*
 	 * Initializes all actuators
 	 */
@@ -61,11 +60,10 @@ public class Actuators {
 		
 		//Pneumatics
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
-		dispenseGearAdvancePneumatic = new Solenoid(Constants.DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT);
-		dispenseGearReturnPneumatic = new Solenoid(Constants.DISPENSE_GEAR_RETURN_PNEUMATIC_PORT);
+		//dispenseGearPneumatic = new DoubleSolenoid(Constants.DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT, Constants.DISPENSE_GEAR_RETURN_PNEUMATIC_PORT);
 		gearLiftPneumatic = new Solenoid(Constants.GEAR_LIFT_PNEUMATIC_PORT);
-		sweeperAdvancePneumatic = new Solenoid(Constants.SWEEPER_ADVANCE_PNEUMATIC_PORT);
-		sweeperReturnPneumatic = new Solenoid(Constants.SWEEPER_RETURN_PNEUMATIC_PORT);
+		//sweeperPneumatic = new DoubleSolenoid(Constants.SWEEPER_ADVANCE_PNEUMATIC_PORT, Constants.SWEEPER_RETURN_PNEUMATIC_PORT);
+
 	}
 
 	/*
@@ -128,16 +126,12 @@ public class Actuators {
 	}
 	/*
 	 * @return dispenseGearAdvancePneumatic
+	 * values can be off, forward, or reverse
 	 */
-	public static Solenoid getDispenseGearAdvancePneumatic() {
-		return dispenseGearAdvancePneumatic;
-	}
-	/*
-	 * @return dispenseGearReturnPneumatic
-	 */
-	public static Solenoid getDispenseGearReturnPneumatic() {
-		return dispenseGearReturnPneumatic;
-	}
+//	public static DoubleSolenoid getDispenseGearPneumatic() {
+//		return dispenseGearPneumatic;
+//	}
+
 	/*
 	 * @return gearLiftPneumatic
 	 */
@@ -145,16 +139,12 @@ public class Actuators {
 		return gearLiftPneumatic;
 	}
 	/*
-	 * @return sweeperAdvancePneumatic
+	 * @return sweeperPneumatic
+	 *  values can be off, forward, or reverse
 	 */
-	public static Solenoid getSweeperAdvancePneumatic() {
-		return sweeperAdvancePneumatic;
-	}
-	/*
-	 * @return sweeperReturnPneumatic
-	 */
-	public static Solenoid getSweeperReturnPneumatic() {
-		return sweeperReturnPneumatic;
-	}
+//	public static DoubleSolenoid getSweeperPneumatic() {
+//		return sweeperPneumatic;
+//	}
+
 }
 

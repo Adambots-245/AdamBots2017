@@ -28,7 +28,8 @@ public class Constants {
 	public static final int GEAR_LIFT_PNEUMATIC_PORT = 3;
 	public static final int SWEEPER_ADVANCE_PNEUMATIC_PORT = 4 ;
 	public static final int SWEEPER_RETURN_PNEUMATIC_PORT = 5;
-	public static final int POWER_DISTRIBUTION_PANEL_PORT = 5;//TODO: Find correct port for PDP
+	public static final int POWER_DISTRIBUTION_PANEL_PORT = 0;
+	
 	//PWM Port
 	public static final int FUEL_INTAKE_MOTOR_PWM_PORT = 2;
 	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 1;

@@ -16,6 +16,7 @@ public class Dash {
 	 * SmartDash
 	 */
 	//TODO: Add more 
+
 		SmartDashboard.putBoolean("Is Climbing:", TalonDio.climbEncodDio(Actuators.getClimbMotor()));
 		SmartDashboard.putBoolean("Is Driving:", TalonDio.driveEncodDio(Actuators.getLeftDriveMotor(), Actuators.getRightDriveMotor()));
 		SmartDashboard.putBoolean("Is Intake Disabled:", Intake.intakeDisabled);
@@ -23,8 +24,14 @@ public class Dash {
 		SmartDashboard.putNumber("conveyorMotorSpeed", Score.conveyorMotorSpeed);
 		SmartDashboard.putBoolean("Intake Motor Inverted?:", Actuators.getFuelIntakeMotor().getInverted());
 		SmartDashboard.putBoolean("Is Climbing Motor Stalling:", TalonDio.CIMStall(Actuators.getClimbMotor()));
-		SmartDashboard.putNumber("Total Current Draw:", SensorsDio.PDPCurrent(Sensors.getPowerDistro()));
+//		SmartDashboard.putNumber("Total Current Draw:", SensorsDio.PDPCurrent(Sensors.getPowerDistro()));
 		
+
+		SmartDashboard.putBoolean("Is Climbing:", TalonDio.climbEncodDio(Actuators.getClimbMotor()));
+		SmartDashboard.putBoolean("Is Driving:", TalonDio.driveEncodDio(Actuators.getLeftDriveMotor(), Actuators.getRightDriveMotor()));
+		SmartDashboard.putBoolean("Is Climbing Motor Stalling:", TalonDio.CIMStall(Actuators.getClimbMotor()));
+//		SmartDashboard.putNumber("Total Current Draw:", SensorsDio.PDPCurrent(Sensors.getPowerDistro()));
+
 	
 	//TODO: Add Gear Vibrations for both controllers
 	//Vibration Feedback

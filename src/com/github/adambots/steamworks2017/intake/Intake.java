@@ -8,16 +8,16 @@ public class Intake {
 	
 	//variables for this class
 	public static boolean intakeDisabled = true;		//checks if intake has been enabled yet
-	private static boolean intakeButtonReleased = true;		//checks to see if the button for enabling intake has been released
-	private static boolean intakeSafetyButtonReleased = true;	//checks to see if the safety has been released to prevent double counts	
+	static boolean intakeButtonReleased = true;		//checks to see if the button for enabling intake has been released
+	static boolean intakeSafetyButtonReleased = true;	//checks to see if the safety has been released to prevent double counts	
 	public static boolean intakeSafety = true; 		//prevents running intake out of robot
-	private static int counter = Constants.COUNTER_START;//to check if the button has been pressed enough times to release safety
-	private static boolean intakeInButtonReleased = true;
+	static int counter = Constants.COUNTER_START;//to check if the button has been pressed enough times to release safety
+	static boolean intakeInButtonReleased = true;
 	public static double intakeMotorSpeed = 0;
-	private static boolean intakeJamButtonReleased = true;
+	static boolean intakeJamButtonReleased = true;
 
-	private static double oldMotorSpeed = Constants.MOTOR_STOP;
-	private static double newMotorSpeed = Constants.MOTOR_STOP;
+	static double oldMotorSpeed = Constants.MOTOR_STOP;
+	static double newMotorSpeed = Constants.MOTOR_STOP;
 	
 	public static void intakeSafety(boolean intakeSafetyButton){
 		if(intakeSafetyButton && intakeSafetyButtonReleased){
