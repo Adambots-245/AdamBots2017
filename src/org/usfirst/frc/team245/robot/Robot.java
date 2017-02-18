@@ -35,11 +35,13 @@ public class Robot extends IterativeRobot {
 		try{
 			Actuators.init();
 			Drive.init();
-//			Sensors.init();
+			Sensors.init();
 		} catch(Exception e){
 			System.out.println("Errors occurred during initialization.");
+			System.out.println(e.getMessage());
 		}
 		System.out.println("Initialization is complete.");
+		
 	}
 
 	/**
@@ -99,7 +101,7 @@ public class Robot extends IterativeRobot {
 		Climb.climbSafetyTogglePrimary(Gamepad.primary.getStart());	//toggles safety if pressed 3 times
 		
 		//Gear controls
-		//Score.dispenseGear(Gamepad.primary.getBack());
+		Score.dispenseGear(Gamepad.primary.getBack());
 		
 		/*
 		 * Secondary Controllers Controls
@@ -118,7 +120,7 @@ public class Robot extends IterativeRobot {
 		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); //Have to press 3 times to toggle the safety
 		
 		//Gear controls
-		//Score.dispenseGear(Gamepad.secondary.getB());
+		Score.dispenseGear(Gamepad.secondary.getB());
 		Score.gearLock(Gamepad.secondary.getStart(), Gamepad.secondary.getBack());
 		
 		//Outtake Controls
@@ -133,7 +135,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		//Sweeper
-		//Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());
+		Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());
 		
 		Dash.driveMode();
 	}

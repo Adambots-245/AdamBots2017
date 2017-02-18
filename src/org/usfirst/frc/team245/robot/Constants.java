@@ -31,9 +31,9 @@ public class Constants {
 	public static final int POWER_DISTRIBUTION_PANEL_PORT = 0;
 	
 	//PWM Port
-	public static final int FUEL_INTAKE_MOTOR_PWM_PORT = 2;
-	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 1;
-	public static final int FUEL_CONVEYOR_MOTOR_PWM_PORT = 1;
+	public static final int FUEL_INTAKE_MOTOR_PWM_PORT = 1;
+	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 0;
+	public static final int FUEL_CONVEYOR_MOTOR_PWM_PORT = 2;
 	
 	//Sensor Ports
 	public static final int SWEEPER_MAX_LIMIT_SWITCH_PORT = 0;
@@ -58,4 +58,7 @@ public class Constants {
 	//Safety Constants
 	public static final int COUNTER_END = 3;	//If the counter for button presses is at this amount, then the safety will be disabled
 	public static final int COUNTER_START = 0;
+	
+	//Ring Light
+	public static final int RING_LIGHT = 3;
 }

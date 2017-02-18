@@ -21,14 +21,14 @@ public class Score {
 	 * Intake
 	 */
 	//TODO: Add Logic for when limit switches get tripped, the pneumatic stops.
-//	public static void dispenseGear(boolean gearButton){
-//		if(gearButton && !gearIsLocked){
-//			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kForward);
-//
-//		}else if(!gearButton && !gearIsLocked){
-//			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kReverse);
-//		}
-//	}
+	public static void dispenseGear(boolean gearButton){
+		if(gearButton && !gearIsLocked){
+			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kForward);
+
+		}else if(!gearButton && !gearIsLocked){
+			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kReverse);
+		}
+	}
 	
 	//toggles if the gear system is locked in position or not
 	public static void gearLock(boolean lock, boolean lock1){

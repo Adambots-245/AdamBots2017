@@ -28,8 +28,10 @@ public class Actuators {
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
 	private static DoubleSolenoid dispenseGearPneumatic;
-	private static Solenoid gearLiftPneumatic;
 	private static DoubleSolenoid sweeperPneumatic;
+	
+	//Ring light
+	private static Solenoid ringLight;
 	/*
 	 * Initializes all actuators
 	 */
@@ -51,6 +53,7 @@ public class Actuators {
 		climbMotor = new CANTalon(Constants.CLIMB_MOTOR_PORT);
 		climbMotor.set(Constants.MOTOR_STOP);
 		climbMotor.enableBrakeMode(true);
+		climbMotor.setInverted(true);
 		
 		fuelIntakeMotor = new VictorSP(Constants.FUEL_INTAKE_MOTOR_PWM_PORT);
 		fuelIntakeMotor.set(Constants.MOTOR_STOP);
@@ -60,10 +63,11 @@ public class Actuators {
 		
 		//Pneumatics
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
-		//dispenseGearPneumatic = new DoubleSolenoid(Constants.DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT, Constants.DISPENSE_GEAR_RETURN_PNEUMATIC_PORT);
-		gearLiftPneumatic = new Solenoid(Constants.GEAR_LIFT_PNEUMATIC_PORT);
-		//sweeperPneumatic = new DoubleSolenoid(Constants.SWEEPER_ADVANCE_PNEUMATIC_PORT, Constants.SWEEPER_RETURN_PNEUMATIC_PORT);
-
+		dispenseGearPneumatic = new DoubleSolenoid(Constants.DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT, Constants.DISPENSE_GEAR_RETURN_PNEUMATIC_PORT);
+		sweeperPneumatic = new DoubleSolenoid(Constants.SWEEPER_ADVANCE_PNEUMATIC_PORT, Constants.SWEEPER_RETURN_PNEUMATIC_PORT);
+		
+		ringLight = new Solenoid(Constants.RING_LIGHT);
+		ringLight.set(true);
 	}
 
 	/*
@@ -128,23 +132,17 @@ public class Actuators {
 	 * @return dispenseGearAdvancePneumatic
 	 * values can be off, forward, or reverse
 	 */
-//	public static DoubleSolenoid getDispenseGearPneumatic() {
-//		return dispenseGearPneumatic;
-//	}
-
-	/*
-	 * @return gearLiftPneumatic
-	 */
-	public static Solenoid getGearLiftPneumatic() {
-		return gearLiftPneumatic;
+	public static DoubleSolenoid getDispenseGearPneumatic() {
+		return dispenseGearPneumatic;
 	}
+
 	/*
 	 * @return sweeperPneumatic
 	 *  values can be off, forward, or reverse
 	 */
-//	public static DoubleSolenoid getSweeperPneumatic() {
-//		return sweeperPneumatic;
-//	}
+	public static DoubleSolenoid getSweeperPneumatic() {
+		return sweeperPneumatic;
+	}
 
 }
 
