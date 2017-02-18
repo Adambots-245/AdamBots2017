@@ -42,13 +42,16 @@ public class Actuators {
 		rightDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting right rear motor to follow right front motor
 		rightDriveMotorSlave.set(rightDriveMotor.getDeviceID());
 		rightDriveMotorSlave.reverseOutput(true); //reversing right slave motor because of gear design
+		rightDriveMotor.enableBrakeMode(true);
+		rightDriveMotorSlave.enableBrakeMode(true);
 		
 		leftDriveMotor = new CANTalon(Constants.LEFT_FRONT_DRIVE_MOTOR_PORT);
 		leftDriveMotorSlave = new CANTalon(Constants.LEFT_REAR_DRIVE_MOTOR_PORT);
 		leftDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting left rear motor to follow left front motor
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
 		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
-		
+		leftDriveMotor.enableBrakeMode(true);
+		leftDriveMotorSlave.enableBrakeMode(true);
 
 		climbMotor = new CANTalon(Constants.CLIMB_MOTOR_PORT);
 		climbMotor.set(Constants.MOTOR_STOP);
