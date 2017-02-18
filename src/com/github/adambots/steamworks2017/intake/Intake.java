@@ -118,8 +118,10 @@ public class Intake {
 		}
 		if(intakeButton && intakeInButtonReleased && Actuators.getFuelIntakeMotor().get() == Constants.MOTOR_STOP){
 			Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+			intakeInButtonReleased = false;
 		}else if(intakeButton && intakeInButtonReleased){
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+			intakeInButtonReleased = false;
 		}
 	}
 }
