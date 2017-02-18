@@ -102,7 +102,7 @@ public class Gamepad {
 	}
 
 	private double deaden(double u) {
-		return Math.abs(u) < .17 ? 0 : u;
+		return Math.abs(u) < .2 ? 0 : u;
 	}
 
 	public double getTriggers() {
