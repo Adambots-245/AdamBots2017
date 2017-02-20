@@ -115,8 +115,8 @@ public class Robot extends IterativeRobot {
 		Intake.intakeIn(Gamepad.secondary.getY());	//Toggles Intake running into the robot at full speed
 		
 		//Climb controls
-		Climb.climbStopSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStop using left on the DPad - Secondary
-		Climb.climbStartSecondary(Gamepad.secondary.getDPadRight()); //runs climbStart using right on the DPad - Secondary
+		Climb.climbStopSecondary(Gamepad.secondary.getDPadRight()); //runs climbStop using left on the DPad - Secondary
+		Climb.climbStartSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStart using right on the DPad - Secondary
 		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); //Have to press 3 times to toggle the safety
 		
 		//Gear controls

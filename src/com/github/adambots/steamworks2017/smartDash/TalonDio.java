@@ -20,7 +20,7 @@ public class TalonDio {
 		//Will return if current is going to Climbing motor
 		public static boolean climbEncodDio(CANTalon CANTalon){
 			double outputCurrent = CANTalon.getOutputCurrent();
-			if (outputCurrent >= 0){
+			if (outputCurrent > 0){
 				return true;
 			}else{
 				return false;

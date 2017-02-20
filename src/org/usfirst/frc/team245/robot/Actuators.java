@@ -57,6 +57,7 @@ public class Actuators {
 		climbMotor.set(Constants.MOTOR_STOP);
 		climbMotor.enableBrakeMode(true);
 		climbMotor.setInverted(true);
+		climbMotor.set(Constants.MOTOR_STOP);
 		
 		fuelIntakeMotor = new VictorSP(Constants.FUEL_INTAKE_MOTOR_PWM_PORT);
 		fuelIntakeMotor.set(Constants.MOTOR_STOP);

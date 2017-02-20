@@ -17,12 +17,12 @@ public class Constants {
 	
 	//Port map
 	public static final int LEFT_FRONT_DRIVE_MOTOR_PORT = 0;
-	public static final int RIGHT_FRONT_DRIVE_MOTOR_PORT = 4; //switched with climbing motor to have same build model for all drive controllers
-	public static final int LEFT_REAR_DRIVE_MOTOR_PORT = 2;
+	public static final int RIGHT_FRONT_DRIVE_MOTOR_PORT = 2; //switched with climbing motor to have same build model for all drive controllers
+	public static final int LEFT_REAR_DRIVE_MOTOR_PORT = 1;
 	public static final int RIGHT_REAR_DRIVE_MOTOR_PORT = 3;
 	public static final int INTAKE_MOTOR_PORT = 5;
 	public static final int DRIVE_SHIFT_PNEUMATIC_PORT = 0;
-	public static final int CLIMB_MOTOR_PORT = 1;	//switched with right front drive motor to have same build model for all drive controllers
+	public static final int CLIMB_MOTOR_PORT = 4;	//switched with right front drive motor to have same build model for all drive controllers
 	public static final int DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT = 1;
 	public static final int DISPENSE_GEAR_RETURN_PNEUMATIC_PORT = 2;
 	public static final int GEAR_LIFT_PNEUMATIC_PORT = 3;
