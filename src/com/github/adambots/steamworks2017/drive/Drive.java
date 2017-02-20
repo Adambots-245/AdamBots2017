@@ -3,8 +3,10 @@ package com.github.adambots.steamworks2017.drive;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
-
 public class Drive {
+	
+	static boolean leftBumperReleased = true;
+	
 	/*
 	 * Sets initial conditions for driving
 	 * */
@@ -40,4 +42,31 @@ public class Drive {
 			Actuators.getDriveShiftPneumatic().set(true);
 		}
 	}
+	/*
+	 * Toggle shifting gears
+	 * @param toggleButton
+	 * @param leftBumperReleased
+	 */
+	/*
+	 * shiftToggle takes in leftBumperReleased, which should be set to true only when this is called again
+	 * by the button being released and repressed.
+	 * The first time gears is shifted, leftBumperReleased will be set to false
+	 * once leftBumperReleased is set to false, shifting won't be possible until set to true again
+	 */
+	//TODO: Test please, someone else check logic too
+	public static void shiftToggle(boolean toggleButton){
+		
+		if(!toggleButton){
+			//this only runs if button is released
+			leftBumperReleased = true;
+		}
+		if(toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){	
+			Actuators.getDriveShiftPneumatic().set(false);	//TODO: Find why this isn't working
+			leftBumperReleased = false;
+		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && leftBumperReleased){
+			Actuators.getDriveShiftPneumatic().set(true); //TODO:Find why this isn't working
+			leftBumperReleased = false;
+		}
+	}	
 }
+
