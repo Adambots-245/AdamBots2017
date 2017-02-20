@@ -11,7 +11,7 @@ public class Constants {
 	public static final double OUTTAKE_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor
 	public static final double MOTOR_START_VALUE = 0.5;
 	public static final double MOTOR_INCREMENT = 0.05; //TODO: Find correct value for the increment value
-	public static final double MOTOR_CIM_STALL_CURRENT = 5; //TODO: Find correct current value for motor stall
+	public static final double MOTOR_CIM_STALL_CURRENT = 15; //TODO: Find correct current value for motor stall
 	public static final double MOTOR_REVERSE = -0.6;	//TODO: Find correct value
 	public static final double MOTOR_ACCEL = 0.05;		//TOD: Find correct value
 	

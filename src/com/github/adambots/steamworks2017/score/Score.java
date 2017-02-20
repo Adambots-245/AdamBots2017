@@ -22,24 +22,24 @@ public class Score {
 	 */
 	//TODO: Add Logic for when limit switches get tripped, the pneumatic stops.
 	public static void dispenseGear(boolean gearButton){
-		if(gearButton && !gearIsLocked){
+		if(gearButton){
 			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kForward);
 
-		}else if(!gearButton && !gearIsLocked){
+		}else if(!gearButton){
 			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kReverse);
 		}
 	}
 	
 	//toggles if the gear system is locked in position or not
-	public static void gearLock(boolean lock, boolean lock1){
-		if(!lock && !lock1){
-			gearButtonReleased = true;
-		}
-		if(lock && lock1 && gearButtonReleased){
-			gearButtonReleased = false;
-			gearIsLocked = !gearIsLocked;
-		}
-	}
+//	public static void gearLock(boolean lock, boolean lock1){
+//		if(!lock && !lock1){
+//			gearButtonReleased = true;
+//		}
+//		if(lock && lock1 && gearButtonReleased){
+//			gearButtonReleased = false;
+//			gearIsLocked = !gearIsLocked;
+//		}
+//	}
 	
 	/*
 	 * Conveyor

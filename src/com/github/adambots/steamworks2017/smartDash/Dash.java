@@ -24,7 +24,7 @@ public class Dash {
 		SmartDashboard.putNumber("conveyorMotorSpeed", Score.conveyorMotorSpeed);
 		SmartDashboard.putBoolean("Intake Motor Inverted?:", Actuators.getFuelIntakeMotor().getInverted());
 		SmartDashboard.putBoolean("Is Climbing Motor Stalling:", TalonDio.CIMStall(Actuators.getClimbMotor()));
-//		SmartDashboard.putNumber("Total Current Draw:", SensorsDio.PDPCurrent(Sensors.getPowerDistro()));
+
 		
 
 		SmartDashboard.putBoolean("Is Climbing:", TalonDio.climbEncodDio(Actuators.getClimbMotor()));

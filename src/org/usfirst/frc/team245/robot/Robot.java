@@ -91,51 +91,49 @@ public class Robot extends IterativeRobot {
 		//Drive controls
 		Drive.drive(-Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //negative because of motor polarity, driving with triggers for speed and left joy for turning
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); //shifting with A low gear and Y high gear		
-		try{
-			Drive.shiftToggle(Gamepad.primary.getLB());
-		} catch(Exception e){
-			SmartDashboard.putString("Drive Shift Error", e.toString());
-		}
+		Drive.shiftToggle(Gamepad.primary.getLB());
+		
 		//Climb controls
 		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); //runs climbStop using left on the DPad - Primary
-		Climb.climbSafetyTogglePrimary(Gamepad.primary.getStart());	//toggles safety if pressed 3 times
+//		Climb.climbSafetyTogglePrimary(Gamepad.primary.getBack());	//toggles safety if pressed 3 times
 		
 		//Gear controls
-		Score.dispenseGear(Gamepad.primary.getBack());
+		Score.dispenseGear(Gamepad.primary.getB());
 		
 		/*
 		 * Secondary Controllers Controls
 		 */
 		//Intake controls
-		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with Clicking in the Right Joystick on second controller
-		Intake.intakeSpeed(Gamepad.secondary.getRightY());		//Override Y Button
-		Intake.intakeDirection(Gamepad.secondary.getRightX());	//Override Y Button
-		Intake.intakeJam(Gamepad.secondary.getRB()); //Runs the unjamming procedure for a max of 3 seconds per press
-		Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
-		Intake.intakeIn(Gamepad.secondary.getY());	//Toggles Intake running into the robot at full speed
-		
+//		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with Clicking in the Right Joystick on second controller
+//		Intake.intakeSpeed(Gamepad.secondary.getRightY());		//Override Y Button
+//		Intake.intakeDirection(Gamepad.secondary.getRightX());	//Override Y Button
+		Intake.intakeJam(Gamepad.secondary.getLB()); //Runs the unjamming procedure for a max of 3 seconds per press
+//		Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
+		Intake.intakeIn(Gamepad.secondary.getA());	//Toggles Intake running into the robot at full speed
+		Intake.intakeRun(Gamepad.secondary.getRB());	//Runs all stuff for intake in(conveyor and intake motor)
+		Intake.intakeOut(Gamepad.secondary.getB());
 		//Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadRight()); //runs climbStop using left on the DPad - Secondary
 		Climb.climbStartSecondary(Gamepad.secondary.getDPadLeft()); //runs climbStart using right on the DPad - Secondary
 		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); //Have to press 3 times to toggle the safety
 		
 		//Gear controls
-		Score.dispenseGear(Gamepad.secondary.getB());
-		Score.gearLock(Gamepad.secondary.getStart(), Gamepad.secondary.getBack());
+		Score.dispenseGear(Gamepad.secondary.getDPadUp());
+		//Score.gearLock(Gamepad.secondary.getStart(), Gamepad.secondary.getBack());
 		
 		//Outtake Controls
-		Score.outtakeToggle(Gamepad.secondary.getLB()); 
+//		Score.outtakeToggle(Gamepad.secondary.getLB()); 
 		
 		//Conveyor Controls
 		
 		//Score.conveyor(Gamepad.secondary.getLeftButton()); //runs conveyor with Clicking in the Left Joystick on second controller
-		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
-		Score.conveyorDirection(Gamepad.secondary.getLeftX());
-		Score.conveyorIn(Gamepad.secondary.getA());
+//		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
+//		Score.conveyorDirection(Gamepad.secondary.getLeftX());
+//		Score.conveyorIn(Gamepad.secondary.getA());
 		
 		
 		//Sweeper
-		Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());
+//		Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());
 		
 		Dash.driveMode();
 	}

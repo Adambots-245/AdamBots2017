@@ -60,7 +60,7 @@ public class Climb {
 	//TODO: Make motor stop automatically if limit switch gets tripped
 	public static void climbStopPrimary(boolean climbButton){
 		//if the button is pressed, then the motor will stop
-		if(climbButton && !climbSafetyPrimary){
+		if(climbButton){
 			Actuators.getClimbMotor().set(Constants.MOTOR_STOP);
 		}
 	}
