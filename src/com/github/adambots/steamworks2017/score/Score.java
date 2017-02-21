@@ -3,6 +3,8 @@ package com.github.adambots.steamworks2017.score;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
+import com.github.adambots.steamworks2017.climb.Climb;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Score {
@@ -23,10 +25,10 @@ public class Score {
 	//TODO: Add Logic for when limit switches get tripped, the pneumatic stops.
 	public static void dispenseGear(boolean gearButton){
 		if(gearButton){
-			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kForward);
+			Actuators.getDispenseGearPneumatic().set(true);
 
 		}else if(!gearButton){
-			Actuators.getDispenseGearPneumatic().set(DoubleSolenoid.Value.kReverse);
+			Actuators.getDispenseGearPneumatic().set(false);
 		}
 	}
 	
@@ -45,54 +47,60 @@ public class Score {
 	 * Conveyor
 	 */
 	public static void conveyor(boolean conveyorButton){
+		if(Climb.climbEnabled){
 		
-		if(!conveyorButton){
-			//only runs if button is released
-			conveyorButtonReleased = true;
-		}
-		if (Actuators.getFuelConveyorMotor().get() == Constants.MOTOR_STOP && conveyorButton && conveyorButtonReleased){
-			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_START_VALUE);
-			conveyorButtonReleased = false;
-			conveyorDisabled = false;
-		} else if(conveyorButton && conveyorButtonReleased){
-			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
-			conveyorButtonReleased = false;
-			conveyorDisabled = true;
+			if(!conveyorButton){
+				//only runs if button is released
+				conveyorButtonReleased = true;
+			}
+			if (Actuators.getFuelConveyorMotor().get() == Constants.MOTOR_STOP && conveyorButton && conveyorButtonReleased){
+				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_START_VALUE);
+				conveyorButtonReleased = false;
+				conveyorDisabled = false;
+			} else if(conveyorButton && conveyorButtonReleased){
+				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
+				conveyorButtonReleased = false;
+				conveyorDisabled = true;
+			}
 		}
 	}
 	
 	public static void conveyorSpeed(double speed){
-		if(!conveyorDisabled){	
-			//increases motor speed
+		if(Climb.climbEnabled){
+			if(!conveyorDisabled){	
+				//increases motor speed
 			
-			if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MAX_MOTOR_SPEED){
-				//Increments motor speed by a set value while stick is more than 50% pressed
-				conveyorMotorSpeed = Actuators.getFuelConveyorMotor().get() + Constants.MOTOR_INCREMENT;
-				Actuators.getFuelConveyorMotor().set(conveyorMotorSpeed);
-				oldMotorSpeed = Actuators.getFuelConveyorMotor().get();
-			}//decreases motor speed
-			else if(speed >= Constants.STICK_PRESSED_DOWN && Constants.MOTOR_STOP < Actuators.getFuelConveyorMotor().get()){
-				//Increments motor speed by a set value while stick is more than 50% pressed
-				conveyorMotorSpeed = Actuators.getFuelConveyorMotor().get() - Constants.MOTOR_INCREMENT;
-				Actuators.getFuelConveyorMotor().set(conveyorMotorSpeed);
-				oldMotorSpeed = Actuators.getFuelConveyorMotor().get();
+				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MAX_MOTOR_SPEED){
+					//Increments motor speed by a set value while stick is more than 50% pressed
+					conveyorMotorSpeed = Actuators.getFuelConveyorMotor().get() + Constants.MOTOR_INCREMENT;
+					Actuators.getFuelConveyorMotor().set(conveyorMotorSpeed);
+					oldMotorSpeed = Actuators.getFuelConveyorMotor().get();
+				}//decreases motor speed
+				else if(speed >= Constants.STICK_PRESSED_DOWN && Constants.MOTOR_STOP < Actuators.getFuelConveyorMotor().get()){
+					//Increments motor speed by a set value while stick is more than 50% pressed
+					conveyorMotorSpeed = Actuators.getFuelConveyorMotor().get() - Constants.MOTOR_INCREMENT;
+					Actuators.getFuelConveyorMotor().set(conveyorMotorSpeed);
+					oldMotorSpeed = Actuators.getFuelConveyorMotor().get();
+				}
 			}
 
 		}
 	}
 	
 	public static void conveyorDirection(double direction){
-		//reverses direction, if needed
-		if(!conveyorDisabled){
-			if(direction <= Constants.STICK_PRESSED_LEFT){
-				if(Actuators.getFuelConveyorMotor().get() > Constants.MOTOR_REVERSE){
-					newMotorSpeed = Actuators.getFuelConveyorMotor().get() - Constants.MOTOR_ACCEL;
-					Actuators.getFuelConveyorMotor().set(newMotorSpeed);
-				}
-			}else if(direction >= Constants.STICK_PRESSED_LEFT){	//runs this if the left stick is no longer held
-				if(Actuators.getFuelConveyorMotor().get() < oldMotorSpeed){
-					newMotorSpeed = Actuators.getFuelConveyorMotor().get();
-					Actuators.getFuelConveyorMotor().set(newMotorSpeed);
+		if(Climb.climbEnabled){
+			//reverses direction, if needed
+			if(!conveyorDisabled){
+				if(direction <= Constants.STICK_PRESSED_LEFT){
+					if(Actuators.getFuelConveyorMotor().get() > Constants.MOTOR_REVERSE){
+						newMotorSpeed = Actuators.getFuelConveyorMotor().get() - Constants.MOTOR_ACCEL;
+						Actuators.getFuelConveyorMotor().set(newMotorSpeed);
+					}	
+				}else if(direction >= Constants.STICK_PRESSED_LEFT){	//runs this if the left stick is no longer held
+					if(Actuators.getFuelConveyorMotor().get() < oldMotorSpeed){
+						newMotorSpeed = Actuators.getFuelConveyorMotor().get();
+						Actuators.getFuelConveyorMotor().set(newMotorSpeed);
+					}
 				}
 			}
 		}
@@ -104,30 +112,34 @@ public class Score {
 	 */
 	//TODO: turn internal rollers on towards outtake while outtake is running
 	public static void outtakeToggle(boolean outtakeButton){
+		if(Climb.climbEnabled){
 		
-		if(!outtakeButton){
-			//only runs if button is released
-			outtakeButtonReleased = true;
-		}
-		if(outtakeButtonReleased){
-			if(Actuators.getFuelOuttakeMotor().get() == Constants.MOTOR_STOP && outtakeButton){
-				Actuators.getFuelOuttakeMotor().set(Constants.OUTTAKE_MOTOR_SPEED);
-				outtakeButtonReleased = false;
-			}else if(/*Actuators.getFuelOuttakeMotor().get() == Constants.OUTTAKE_MOTOR_SPEED && */outtakeButton){
-				Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
-				outtakeButtonReleased = false;
+			if(!outtakeButton){
+				//only runs if button is released
+				outtakeButtonReleased = true;
+			}
+			if(outtakeButtonReleased){
+				if(Actuators.getFuelOuttakeMotor().get() == Constants.MOTOR_STOP && outtakeButton){
+					Actuators.getFuelOuttakeMotor().set(Constants.OUTTAKE_MOTOR_SPEED);
+					outtakeButtonReleased = false;
+				}else if(/*Actuators.getFuelOuttakeMotor().get() == Constants.OUTTAKE_MOTOR_SPEED && */outtakeButton){
+					Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
+					outtakeButtonReleased = false;
+				}
 			}
 		}
 	}
 	
 	public static void conveyorIn(boolean conveyorButton){
-		if(!conveyorButton){
-			conveyorInButtonReleased = true;
-		}
-		if(conveyorButton && conveyorInButtonReleased && Actuators.getFuelConveyorMotor().get() >= Constants.MOTOR_STOP){
-			Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
-		}else if(conveyorButton && conveyorInButtonReleased){
-			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
+		if(Climb.climbEnabled){
+			if(!conveyorButton){
+				conveyorInButtonReleased = true;
+			}
+			if(conveyorButton && conveyorInButtonReleased && Actuators.getFuelConveyorMotor().get() >= Constants.MOTOR_STOP){
+				Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
+			}else if(conveyorButton && conveyorInButtonReleased){
+				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
+			}
 		}
 	}
 }

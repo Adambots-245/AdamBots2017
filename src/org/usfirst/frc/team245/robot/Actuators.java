@@ -27,8 +27,8 @@ public class Actuators {
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
-	private static DoubleSolenoid dispenseGearPneumatic;
-	private static DoubleSolenoid sweeperPneumatic;
+	private static Solenoid dispenseGearPneumatic;
+	private static Solenoid sweeperPneumatic;
 	
 	//Ring light
 	private static Solenoid ringLight;
@@ -136,7 +136,7 @@ public class Actuators {
 	 * @return dispenseGearAdvancePneumatic
 	 * values can be off, forward, or reverse
 	 */
-	public static DoubleSolenoid getDispenseGearPneumatic() {
+	public static Solenoid getDispenseGearPneumatic() {
 		return dispenseGearPneumatic;
 	}
 
@@ -144,7 +144,7 @@ public class Actuators {
 	 * @return sweeperPneumatic
 	 *  values can be off, forward, or reverse
 	 */
-	public static DoubleSolenoid getSweeperPneumatic() {
+	public static Solenoid getSweeperPneumatic() {
 		return sweeperPneumatic;
 	}
 

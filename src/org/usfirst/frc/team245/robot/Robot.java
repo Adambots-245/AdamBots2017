@@ -104,9 +104,9 @@ public class Robot extends IterativeRobot {
 		 * Secondary Controllers Controls
 		 */
 		//Intake controls
-//		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with Clicking in the Right Joystick on second controller
-//		Intake.intakeSpeed(Gamepad.secondary.getRightY());		//Override Y Button
-//		Intake.intakeDirection(Gamepad.secondary.getRightX());	//Override Y Button
+		Intake.intake(Gamepad.secondary.getRightButton()); //runs intake with Clicking in the Right Joystick on second controller
+		Intake.intakeSpeed(Gamepad.secondary.getRightY());		//Override Y Button
+		Intake.intakeDirection(Gamepad.secondary.getRightX());	//Override Y Button
 		Intake.intakeJam(Gamepad.secondary.getLB()); //Runs the unjamming procedure for a max of 3 seconds per press
 //		Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
 		Intake.intakeIn(Gamepad.secondary.getA());	//Toggles Intake running into the robot at full speed
@@ -126,10 +126,10 @@ public class Robot extends IterativeRobot {
 		
 		//Conveyor Controls
 		
-		//Score.conveyor(Gamepad.secondary.getLeftButton()); //runs conveyor with Clicking in the Left Joystick on second controller
-//		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
-//		Score.conveyorDirection(Gamepad.secondary.getLeftX());
-//		Score.conveyorIn(Gamepad.secondary.getA());
+		Score.conveyor(Gamepad.secondary.getLeftButton()); //runs conveyor with Clicking in the Left Joystick on second controller
+		Score.conveyorSpeed(Gamepad.secondary.getLeftY());
+		Score.conveyorDirection(Gamepad.secondary.getLeftX());
+		Score.conveyorIn(Gamepad.secondary.getY());
 		
 		
 		//Sweeper
