@@ -23,16 +23,14 @@ public class Constants {
 	public static final int INTAKE_MOTOR_PORT = 5;
 	public static final int DRIVE_SHIFT_PNEUMATIC_PORT = 0;
 	public static final int CLIMB_MOTOR_PORT = 4;	//switched with right front drive motor to have same build model for all drive controllers
-	public static final int DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT = 1;
-	public static final int DISPENSE_GEAR_RETURN_PNEUMATIC_PORT = 2;
+	public static final int DISPENSE_GEAR_PNEUMATIC_PORT = 1;
 	public static final int GEAR_LIFT_PNEUMATIC_PORT = 3;
-	public static final int SWEEPER_ADVANCE_PNEUMATIC_PORT = 4 ;
-	public static final int SWEEPER_RETURN_PNEUMATIC_PORT = 5;
+	public static final int SWEEPER_PNEUMATIC_PORT = 4 ;
 	public static final int POWER_DISTRIBUTION_PANEL_PORT = 0;
 	
 	//PWM Port
-	public static final int FUEL_INTAKE_MOTOR_PWM_PORT = 1;
-	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 0;
+	public static final int FUEL_INTAKE_MOTOR_PWM_PORT = 0;
+	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 3;
 	public static final int FUEL_CONVEYOR_MOTOR_PWM_PORT = 2;
 	
 	//Sensor Ports

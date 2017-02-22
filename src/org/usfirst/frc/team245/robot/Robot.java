@@ -89,7 +89,7 @@ public class Robot extends IterativeRobot {
 		 */
 		//TODO: confirm right trigger forward, left trigger reverse
 		//Drive controls
-		Drive.drive(-Gamepad.primary.getTriggers(), Gamepad.primary.getLeftX()); //negative because of motor polarity, driving with triggers for speed and left joy for turning
+		Drive.drive(-Gamepad.primary.getLeftX(), Gamepad.primary.getTriggers()); //TODO: FIGURE OUT WHY WE NEED TO FLIP THESE //negative because of motor polarity, driving with triggers for speed and left joy for turning
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); //shifting with A low gear and Y high gear		
 		Drive.shiftToggle(Gamepad.primary.getLB());
 		
