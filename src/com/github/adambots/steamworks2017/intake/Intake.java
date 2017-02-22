@@ -43,19 +43,21 @@ public class Intake {
 	 * @Param intakeButon
 	 * */
 	public static void intakeOut(boolean intakeButton){
-		if(Climb.climbEnabled){
+		
 			if(intakeButton){
-				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
+				Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+				Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
 				intakeOutReleased = true;
 			}else if(!intakeButton && intakeOutReleased){
 				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 				intakeOutReleased = false;
 		
-			}
+			
 		}
 	}
 	public static void intake(boolean intakeButton){
-		if(Climb.climbEnabled){
+		
 			if(!intakeButton){
 				//only runs if button is released
 				intakeButtonReleased = true;
@@ -68,7 +70,7 @@ public class Intake {
 				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
 				intakeButtonReleased = false;
 				intakeDisabled = true;
-			}
+			
 		}
 	}
 	
@@ -78,7 +80,7 @@ public class Intake {
 //	 */
 //	//TODO: Check Direction of motor
 	public static void intakeSpeed(double speed){
-		if(Climb.climbEnabled){
+		
 //			//increases motor speed
 			if(!intakeDisabled){
 				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
@@ -92,7 +94,7 @@ public class Intake {
 					intakeMotorSpeed = Actuators.getFuelIntakeMotor().get() - Constants.MOTOR_INCREMENT;
 					Actuators.getFuelIntakeMotor().set(intakeMotorSpeed);
 					oldMotorSpeed = Actuators.getFuelIntakeMotor().get();
-				}
+				
 			}
 		}
 	}
@@ -102,7 +104,7 @@ public class Intake {
 //	 */
 //	//TODO: Check direction of motor, switch the true and false if needed
 	public static void intakeDirection(double direction){
-		if(Climb.climbEnabled){
+	
 			if(!intakeDisabled){
 				//when left is held, keeps motor at constant speed until released
 				//needs to ramp the motor value down slowly
@@ -117,31 +119,31 @@ public class Intake {
 					if(Actuators.getFuelIntakeMotor().get() < oldMotorSpeed){
 						newMotorSpeed = Actuators.getFuelIntakeMotor().get() + Constants.MOTOR_ACCEL;
 						Actuators.getFuelIntakeMotor().set(newMotorSpeed);
-					}
+					
 				}
 			}
 		}
 	}
 	
 	public static void intakeJam(boolean intakeJamButton){
-		if(Climb.climbEnabled){
+		
 			if(intakeJamButton){
-				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
-				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
+				Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+				Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
 				intakeJamButtonReleased = false;
 			}else if(!intakeJamButtonReleased && !intakeJamButton){
 				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
 				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 				intakeJamButtonReleased = true;
-			}
+			
 		}
 	}
 	
 	public static void intakeRun(boolean intakeButton){
-		if(Climb.climbEnabled){
+		
 			if(intakeButton && intakeJamButtonReleased){
-				Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
-				Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
+				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
+				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
 				Actuators.getSweeperPneumatic().set(true);
 				Actuators.getFuelOuttakeMotor().set(Constants.MAX_MOTOR_SPEED);
 				intakeRunButtonReleased = true;
@@ -151,19 +153,21 @@ public class Intake {
 				Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
 				Actuators.getSweeperPneumatic().set(false);
 				intakeRunButtonReleased = false;
-			}
+			
 		}
 	}
 	
 	public static void intakeIn(boolean intakeButton){
-		if(Climb.climbEnabled){
+		
 			if(intakeButton){
-				Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
+				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
 				intakeInButtonReleased = true;
 			}else if(!intakeButton && intakeInButtonReleased){
 				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 				intakeInButtonReleased = false;
-			}
+			
 		}
 	}
 }

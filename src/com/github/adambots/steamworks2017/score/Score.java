@@ -47,7 +47,7 @@ public class Score {
 	 * Conveyor
 	 */
 	public static void conveyor(boolean conveyorButton){
-		if(Climb.climbEnabled){
+		
 		
 			if(!conveyorButton){
 				//only runs if button is released
@@ -61,12 +61,12 @@ public class Score {
 				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 				conveyorButtonReleased = false;
 				conveyorDisabled = true;
-			}
+			
 		}
 	}
 	
 	public static void conveyorSpeed(double speed){
-		if(Climb.climbEnabled){
+		
 			if(!conveyorDisabled){	
 				//increases motor speed
 			
@@ -81,14 +81,14 @@ public class Score {
 					conveyorMotorSpeed = Actuators.getFuelConveyorMotor().get() - Constants.MOTOR_INCREMENT;
 					Actuators.getFuelConveyorMotor().set(conveyorMotorSpeed);
 					oldMotorSpeed = Actuators.getFuelConveyorMotor().get();
-				}
+				
 			}
 
 		}
 	}
 	
 	public static void conveyorDirection(double direction){
-		if(Climb.climbEnabled){
+		
 			//reverses direction, if needed
 			if(!conveyorDisabled){
 				if(direction <= Constants.STICK_PRESSED_LEFT){
@@ -100,7 +100,7 @@ public class Score {
 					if(Actuators.getFuelConveyorMotor().get() < oldMotorSpeed){
 						newMotorSpeed = Actuators.getFuelConveyorMotor().get();
 						Actuators.getFuelConveyorMotor().set(newMotorSpeed);
-					}
+					
 				}
 			}
 		}
@@ -112,7 +112,7 @@ public class Score {
 	 */
 	//TODO: turn internal rollers on towards outtake while outtake is running
 	public static void outtakeToggle(boolean outtakeButton){
-		if(Climb.climbEnabled){
+		
 		
 			if(!outtakeButton){
 				//only runs if button is released
@@ -125,21 +125,23 @@ public class Score {
 				}else if(/*Actuators.getFuelOuttakeMotor().get() == Constants.OUTTAKE_MOTOR_SPEED && */outtakeButton){
 					Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
 					outtakeButtonReleased = false;
-				}
+				
 			}
 		}
 	}
 	
 	public static void conveyorIn(boolean conveyorButton){
-		if(Climb.climbEnabled){
+		
 			if(!conveyorButton){
 				conveyorInButtonReleased = true;
 			}
 			if(conveyorButton && conveyorInButtonReleased && Actuators.getFuelConveyorMotor().get() >= Constants.MOTOR_STOP){
-				Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
+				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
+				conveyorInButtonReleased = false;
 			}else if(conveyorButton && conveyorInButtonReleased){
 				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
-			}
+				conveyorInButtonReleased = false;
+			
 		}
 	}
 }
