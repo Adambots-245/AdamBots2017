@@ -30,7 +30,7 @@ public class Constants {
 	
 	//PWM Port
 	public static final int FUEL_INTAKE_MOTOR_PWM_PORT = 0;
-	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 3;
+	public static final int FUEL_OUTTAKE_MOTOR_PWM_PORT = 1;
 	public static final int FUEL_CONVEYOR_MOTOR_PWM_PORT = 2;
 	
 	//Sensor Ports
