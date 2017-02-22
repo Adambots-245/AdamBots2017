@@ -3,6 +3,7 @@ package org.usfirst.frc.team245.robot;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
+import com.github.adambots.steamworks2017.networkTables.NetworkTables;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.score.Sweeper;
 import com.github.adambots.steamworks2017.smartDash.Dash;
@@ -27,14 +28,19 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-	@Override
+	private String state; 
+	private String lastState;
+	
 	public void robotInit() {
 //		chooser.addDefault("Default Auto", defaultAuto);
 //		chooser.addObject("My Auto", customAuto);
 //		SmartDashboard.putData("Auto choices", chooser);
+		state = "disabled";
+		lastState = "disabled";
 		try{
 			Actuators.init();
 			Sensors.init();
+			NetworkTables.init();
 		} catch(Exception e){
 			System.out.println("Errors occurred during initialization.");
 			System.out.println(e.getMessage());
@@ -56,10 +62,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		state = "auton";
 //		autoSelected = chooser.getSelected();
 //		// autoSelected = SmartDashboard.getString("Auto Selector",
 //		// defaultAuto);
 //		System.out.println("Auto selected: " + autoSelected);
+		NetworkTables.getControlsTable().putBoolean("auton", true);
 	}
 
 	/**
@@ -67,6 +75,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		if(state == "auton"){
+			lastState = "auton";
+		}
 //		switch (autoSelected) {
 //		case customAuto:
 //			// Put custom auto code here
@@ -83,6 +94,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		if(state.equals("teleop")){
+			lastState = "teleop";
+		}
+		state = "teleop";
+		
+		if(lastState.equals("auton")){
+			NetworkTables.getControlsTable().putBoolean("auton", false);
+		}
+		
+		NetworkTables.putStream(Gamepad.primary.getX() || Gamepad.secondary.getX());
 		/*
 		 * Primary Controllers Controls
 		 */
@@ -97,7 +118,7 @@ public class Robot extends IterativeRobot {
 //		Climb.climbSafetyTogglePrimary(Gamepad.primary.getBack());	//toggles safety if pressed 3 times
 		
 		//Gear controls
-		Score.dispenseGear(Gamepad.primary.getB());
+		Score.dispenseGear(Gamepad.primary.getB() || Gamepad.secondary.getDPadUp());
 		
 		/*
 		 * Secondary Controllers Controls
@@ -117,7 +138,6 @@ public class Robot extends IterativeRobot {
 		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); //Have to press 3 times to toggle the safety
 		
 		//Gear controls
-		Score.dispenseGear(Gamepad.secondary.getDPadUp());
 		//Score.gearLock(Gamepad.secondary.getStart(), Gamepad.secondary.getBack());
 		
 		//Outtake Controls
@@ -135,6 +155,10 @@ public class Robot extends IterativeRobot {
 //		Sweeper.sweeperMotion(Gamepad.secondary.getTriggers());
 		
 		Dash.driveMode();
+		
+		SmartDashboard.putString("Controls Table", NetworkTables.getControlsTable().getKeys().toString());
+		SmartDashboard.putString("Stream", NetworkTables.getControlsTable().getString("stream", "nothing"));
+		
 	}
 
 	/**
