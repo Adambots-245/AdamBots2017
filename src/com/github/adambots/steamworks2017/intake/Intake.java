@@ -46,9 +46,11 @@ public class Intake {
 		
 			if(intakeButton){
 				Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+				Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
 				intakeOutReleased = true;
 			}else if(!intakeButton && intakeOutReleased){
 				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 				intakeOutReleased = false;
 		
 			
@@ -159,9 +161,11 @@ public class Intake {
 		
 			if(intakeButton){
 				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
+				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
 				intakeInButtonReleased = true;
 			}else if(!intakeButton && intakeInButtonReleased){
 				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 				intakeInButtonReleased = false;
 			
 		}
