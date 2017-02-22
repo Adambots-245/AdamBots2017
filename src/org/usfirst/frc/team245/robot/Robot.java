@@ -34,7 +34,6 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putData("Auto choices", chooser);
 		try{
 			Actuators.init();
-			Drive.init();
 			Sensors.init();
 		} catch(Exception e){
 			System.out.println("Errors occurred during initialization.");

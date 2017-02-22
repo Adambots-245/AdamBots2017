@@ -69,9 +69,12 @@ public class Actuators {
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
 		dispenseGearPneumatic = new Solenoid(Constants.DISPENSE_GEAR_PNEUMATIC_PORT);
 		sweeperPneumatic = new Solenoid(Constants.SWEEPER_PNEUMATIC_PORT);
+		driveShiftPneumatic.set(false);
 		
 		ringLight = new Solenoid(Constants.RING_LIGHT);
 		ringLight.set(true);
+		
+		
 	}
 
 	/*
