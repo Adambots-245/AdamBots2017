@@ -7,13 +7,7 @@ public class Drive {
 	
 	static boolean leftBumperReleased = true;
 	
-	/*
-	 * Sets initial conditions for driving
-	 * */
-	public static void init(){
-		Actuators.getDriveShiftPneumatic().set(false);
-	}
-	
+
 	/*
 	 * Drives robot with turning ability
 	 * @param speed

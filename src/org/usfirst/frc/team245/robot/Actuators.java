@@ -4,7 +4,6 @@ import com.ctre.CANTalon;
 
 
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 import org.usfirst.frc.team245.robot.Constants;
 
@@ -27,8 +26,8 @@ public class Actuators {
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
-	private static DoubleSolenoid dispenseGearPneumatic;
-	private static DoubleSolenoid sweeperPneumatic;
+	private static Solenoid dispenseGearPneumatic;
+	private static Solenoid sweeperPneumatic;
 	
 	//Ring light
 	private static Solenoid ringLight;
@@ -41,7 +40,7 @@ public class Actuators {
 		rightDriveMotorSlave = new CANTalon(Constants.RIGHT_REAR_DRIVE_MOTOR_PORT);
 		rightDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting right rear motor to follow right front motor
 		rightDriveMotorSlave.set(rightDriveMotor.getDeviceID());
-		rightDriveMotorSlave.reverseOutput(true); //reversing right slave motor because of gear design
+		rightDriveMotorSlave.reverseOutput(false); //reversing right slave motor because of gear design
 		rightDriveMotor.enableBrakeMode(true);
 		rightDriveMotorSlave.enableBrakeMode(true);
 		
@@ -49,7 +48,7 @@ public class Actuators {
 		leftDriveMotorSlave = new CANTalon(Constants.LEFT_REAR_DRIVE_MOTOR_PORT);
 		leftDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting left rear motor to follow left front motor
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
-		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
+		leftDriveMotorSlave.reverseOutput(false); //reversing left slave motor because of gear design
 		leftDriveMotor.enableBrakeMode(true);
 		leftDriveMotorSlave.enableBrakeMode(true);
 
@@ -67,11 +66,14 @@ public class Actuators {
 		
 		//Pneumatics
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
-		dispenseGearPneumatic = new DoubleSolenoid(Constants.DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT, Constants.DISPENSE_GEAR_RETURN_PNEUMATIC_PORT);
-		sweeperPneumatic = new DoubleSolenoid(Constants.SWEEPER_ADVANCE_PNEUMATIC_PORT, Constants.SWEEPER_RETURN_PNEUMATIC_PORT);
+		dispenseGearPneumatic = new Solenoid(Constants.DISPENSE_GEAR_PNEUMATIC_PORT);
+		sweeperPneumatic = new Solenoid(Constants.SWEEPER_PNEUMATIC_PORT);
+		driveShiftPneumatic.set(false);
 		
 		ringLight = new Solenoid(Constants.RING_LIGHT);
 		ringLight.set(true);
+		
+		
 	}
 
 	/*
@@ -136,7 +138,7 @@ public class Actuators {
 	 * @return dispenseGearAdvancePneumatic
 	 * values can be off, forward, or reverse
 	 */
-	public static DoubleSolenoid getDispenseGearPneumatic() {
+	public static Solenoid getDispenseGearPneumatic() {
 		return dispenseGearPneumatic;
 	}
 
@@ -144,7 +146,7 @@ public class Actuators {
 	 * @return sweeperPneumatic
 	 *  values can be off, forward, or reverse
 	 */
-	public static DoubleSolenoid getSweeperPneumatic() {
+	public static Solenoid getSweeperPneumatic() {
 		return sweeperPneumatic;
 	}
 
