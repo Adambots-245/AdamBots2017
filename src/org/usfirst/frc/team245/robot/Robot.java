@@ -1,5 +1,6 @@
 package org.usfirst.frc.team245.robot;
 
+import com.github.adambots.steamworks2017.auton.Gear;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -9,6 +10,8 @@ import com.github.adambots.steamworks2017.score.Sweeper;
 import com.github.adambots.steamworks2017.smartDash.Dash;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -19,6 +22,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	Command autonomousCommand;
+	SendableChooser autoChooser;
+	SendableChooser backupChooser;
+	final String BaseLine = "baseline";
 //	final String defaultAuto = "Default";
 //	final String customAuto = "My Auto";
 //	String autoSelected;
@@ -32,6 +39,14 @@ public class Robot extends IterativeRobot {
 	private String lastState;
 	
 	public void robotInit() {
+		
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Default program", new Baseline());
+		autoChooser.addObject("Gear Left", new Gear(1));
+		autoChooser.addObject("Gear Center", new Gear(2));
+		autoChooser.addObject("Gear Right", new Gear(3));
+		SmartDashboard.putData("Autonomous Chooser", autoChooser);
+		
 //		chooser.addDefault("Default Auto", defaultAuto);
 //		chooser.addObject("My Auto", customAuto);
 //		SmartDashboard.putData("Auto choices", chooser);
@@ -39,13 +54,10 @@ public class Robot extends IterativeRobot {
 		lastState = "disabled";
 		try{
 			Actuators.init();
-<<<<<<< HEAD
 			Drive.init();
 			Sensors.init();
-=======
-			Sensors.init();
-			NetworkTables.init();
->>>>>>> e02fe234003f2c329b8fd622538b34828664b980
+
+
 		} catch(Exception e){
 			System.out.println("Errors occurred during initialization.");
 			System.out.println(e.getMessage());

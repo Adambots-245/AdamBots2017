@@ -19,11 +19,9 @@ public class Intake {
 	static boolean intakeInButtonReleased = true;
 	public static double intakeMotorSpeed = 0;
 	static boolean intakeJamButtonReleased = true;
-<<<<<<< HEAD
-=======
+
 	static boolean intakeRunButtonReleased = true;
 	static boolean intakeOutReleased = true;
->>>>>>> e02fe234003f2c329b8fd622538b34828664b980
 
 	static double oldMotorSpeed = Constants.MOTOR_STOP;
 	static double newMotorSpeed = Constants.MOTOR_STOP;
