@@ -42,7 +42,7 @@ public class MotionProfiler {
 			// Do nothing
 		} else {
 			if (_loopTimeout == 0) {
-				instrumentation.OnNoProgress();
+				Instrumentation.OnNoProgress();
 			} else {
 				--_loopTimeout;
 			}
@@ -82,7 +82,7 @@ public class MotionProfiler {
 					break;
 			}
 		}
-		instrumentation.process(_status);
+		Instrumentation.process(_status);
 	}
 	
 	private void startFilling() {
@@ -93,7 +93,7 @@ public class MotionProfiler {
 		CANTalon.TrajectoryPoint point = new CANTalon.TrajectoryPoint();
 
 		if (_status.hasUnderrun) {
-			instrumentation.OnUnderrun();
+			Instrumentation.OnUnderrun();
 			_talon.clearMotionProfileHasUnderrun();
 		}
 		_talon.clearMotionProfileTrajectories();
