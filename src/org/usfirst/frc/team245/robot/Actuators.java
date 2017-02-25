@@ -5,8 +5,8 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
-
 import org.usfirst.frc.team245.robot.Constants;
+
 public class Actuators {
 	
 	//Motors
@@ -26,11 +26,11 @@ public class Actuators {
 	
 	//Pneumatics
 	private static Solenoid driveShiftPneumatic;
-	private static Solenoid dispenseGearAdvancePneumatic;
-	private static Solenoid dispenseGearReturnPneumatic;
-	private static Solenoid gearLiftPneumatic;
-	private static Solenoid sweeperAdvancePneumatic;
-	private static Solenoid sweeperReturnPneumatic;
+	private static Solenoid dispenseGearPneumatic;
+	private static Solenoid sweeperPneumatic;
+	
+	//Ring light
+	private static Solenoid ringLight;
 	/*
 	 * Initializes all actuators
 	 */
@@ -40,18 +40,23 @@ public class Actuators {
 		rightDriveMotorSlave = new CANTalon(Constants.RIGHT_REAR_DRIVE_MOTOR_PORT);
 		rightDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting right rear motor to follow right front motor
 		rightDriveMotorSlave.set(rightDriveMotor.getDeviceID());
-		rightDriveMotorSlave.reverseOutput(true); //reversing right slave motor because of gear design
+		rightDriveMotorSlave.reverseOutput(false); //reversing right slave motor because of gear design
+		rightDriveMotor.enableBrakeMode(true);
+		rightDriveMotorSlave.enableBrakeMode(true);
 		
 		leftDriveMotor = new CANTalon(Constants.LEFT_FRONT_DRIVE_MOTOR_PORT);
 		leftDriveMotorSlave = new CANTalon(Constants.LEFT_REAR_DRIVE_MOTOR_PORT);
 		leftDriveMotorSlave.changeControlMode(CANTalon.TalonControlMode.Follower); //setting left rear motor to follow left front motor
 		leftDriveMotorSlave.set(leftDriveMotor.getDeviceID());
-		leftDriveMotorSlave.reverseOutput(true); //reversing left slave motor because of gear design
-		
+		leftDriveMotorSlave.reverseOutput(false); //reversing left slave motor because of gear design
+		leftDriveMotor.enableBrakeMode(true);
+		leftDriveMotorSlave.enableBrakeMode(true);
 
 		climbMotor = new CANTalon(Constants.CLIMB_MOTOR_PORT);
 		climbMotor.set(Constants.MOTOR_STOP);
 		climbMotor.enableBrakeMode(true);
+		climbMotor.setInverted(true);
+		climbMotor.set(Constants.MOTOR_STOP);
 		
 		fuelIntakeMotor = new VictorSP(Constants.FUEL_INTAKE_MOTOR_PWM_PORT);
 		fuelIntakeMotor.set(Constants.MOTOR_STOP);
@@ -61,11 +66,14 @@ public class Actuators {
 		
 		//Pneumatics
 		driveShiftPneumatic = new Solenoid(Constants.DRIVE_SHIFT_PNEUMATIC_PORT);
-		dispenseGearAdvancePneumatic = new Solenoid(Constants.DISPENSE_GEAR_ADVANCE_PNEUMATIC_PORT);
-		dispenseGearReturnPneumatic = new Solenoid(Constants.DISPENSE_GEAR_RETURN_PNEUMATIC_PORT);
-		gearLiftPneumatic = new Solenoid(Constants.GEAR_LIFT_PNEUMATIC_PORT);
-		sweeperAdvancePneumatic = new Solenoid(Constants.SWEEPER_ADVANCE_PNEUMATIC_PORT);
-		sweeperReturnPneumatic = new Solenoid(Constants.SWEEPER_RETURN_PNEUMATIC_PORT);
+		dispenseGearPneumatic = new Solenoid(Constants.DISPENSE_GEAR_PNEUMATIC_PORT);
+		sweeperPneumatic = new Solenoid(Constants.SWEEPER_PNEUMATIC_PORT);
+		driveShiftPneumatic.set(false);
+		
+		ringLight = new Solenoid(Constants.RING_LIGHT);
+		ringLight.set(true);
+		
+		
 	}
 
 	/*
@@ -128,33 +136,19 @@ public class Actuators {
 	}
 	/*
 	 * @return dispenseGearAdvancePneumatic
+	 * values can be off, forward, or reverse
 	 */
-	public static Solenoid getDispenseGearAdvancePneumatic() {
-		return dispenseGearAdvancePneumatic;
+	public static Solenoid getDispenseGearPneumatic() {
+		return dispenseGearPneumatic;
 	}
+
 	/*
-	 * @return dispenseGearReturnPneumatic
+	 * @return sweeperPneumatic
+	 *  values can be off, forward, or reverse
 	 */
-	public static Solenoid getDispenseGearReturnPneumatic() {
-		return dispenseGearReturnPneumatic;
+	public static Solenoid getSweeperPneumatic() {
+		return sweeperPneumatic;
 	}
-	/*
-	 * @return gearLiftPneumatic
-	 */
-	public static Solenoid getGearLiftPneumatic() {
-		return gearLiftPneumatic;
-	}
-	/*
-	 * @return sweeperAdvancePneumatic
-	 */
-	public static Solenoid getSweeperAdvancePneumatic() {
-		return sweeperAdvancePneumatic;
-	}
-	/*
-	 * @return sweeperReturnPneumatic
-	 */
-	public static Solenoid getSweeperReturnPneumatic() {
-		return sweeperReturnPneumatic;
-	}
+
 }
 

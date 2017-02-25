@@ -7,6 +7,7 @@ import org.usfirst.frc.team245.robot.Constants;
 public class Climb {
 	public static boolean climbSafetyPrimary = true;
 	public static boolean climbSafetySecondary = true;
+	public static boolean climbEnabled = true;
 	private static boolean climbSafetyPrimaryReleased = true;
 	private static boolean climbSafetySecondaryReleased = true;
 	private static int counterPrimary = Constants.COUNTER_START;
@@ -46,6 +47,7 @@ public class Climb {
 		//Disables all internal motors when climb button is pressed
 		if(climbButton && !climbSafetySecondary){
 			Actuators.getClimbMotor().set(Constants.CLIMB_MOTOR_SPEED);
+			climbEnabled = false;
 			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
 			Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);
@@ -60,14 +62,18 @@ public class Climb {
 	//TODO: Make motor stop automatically if limit switch gets tripped
 	public static void climbStopPrimary(boolean climbButton){
 		//if the button is pressed, then the motor will stop
-		if(climbButton && !climbSafetyPrimary){
+		if(climbButton){
 			Actuators.getClimbMotor().set(Constants.MOTOR_STOP);
+			climbEnabled = true;
 		}
 	}
 	
 	public static void climbStopSecondary(boolean climbButton){
 		if(climbButton){
 			Actuators.getClimbMotor().set(Constants.MOTOR_STOP);
+			climbEnabled = true;
+			
+	
 		}
 	}
 }
