@@ -41,8 +41,8 @@ public class Robot extends IterativeRobot {
 	private int backupNumber;
 	
 	Command autonomousCommand;
-	SendableChooser autoChooser;
-	SendableChooser backup;
+	SendableChooser<SendableChooserValue> autoChooser;
+	SendableChooser<SendableChooserValue> backup;
 
 	/*
 	 * creation of sendable chooser and
@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
 //		chooser.addObject("My Auto", customAuto);
 //		SmartDashboard.putData("Auto choices", chooser);
 
-			autoChooser = new SendableChooser();
+			autoChooser = new SendableChooser<SendableChooserValue>();
 			autoChooser.addDefault("Do nothing", new SendableChooserValue(1, Constants.VISION_WORKING));
 			autoChooser.addObject("Cross baseline", new SendableChooserValue(2, Constants.VISION_WORKING));
 			autoChooser.addObject("Baseline Center", new SendableChooserValue(3, Constants.VISION_WORKING));
@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putData("Autonomous paths", autoChooser);
 		
 		
-			backup = new SendableChooser();
+			backup = new SendableChooser<SendableChooserValue>();
 			backup.addDefault("Do nothing", new SendableChooserValue(1, Constants.VISION_FAIL));
 			backup.addObject("Cross baseline", new SendableChooserValue(2, Constants.VISION_FAIL));
 			backup.addObject("Baseline Center", new SendableChooserValue(3, Constants.VISION_FAIL));
@@ -166,7 +166,7 @@ public class Robot extends IterativeRobot {
 			}
 				
 		
-		autonomousCommand = (Command) autoChooser.getSelected();
+		
 		Scheduler.getInstance().run();
 		
 		
