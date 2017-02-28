@@ -95,9 +95,9 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// runs the autonomous smartdashboard display for auton
 		autonomousCommand = autoChooser.getSelected();
-		Scheduler.getInstance().run();
 		
-//		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {
+		
+//		
 			autonomousNumber = autoChooser.getSelected().getNumber();
 //		} else {
 			backupNumber = autoChooser.getSelected().getBackupNumber();
@@ -126,30 +126,48 @@ public class Robot extends IterativeRobot {
 			lastState = "auton";
 		}
 		Scheduler.getInstance().run();
-		switch (autonomousNumber) {
+		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
+			switch (autonomousNumber) {
 
-		default:
-		case 1: // do nothing
-			break;
-		case 2: // cross baseline
-			break;
-		case 3: // baseline Center
-			break;
-		case 4: // left gear lift
-			break;
-		case 5: // right gear lift
-			break;
-		case 6: // front gear lift
-			break;
-		case 7: // left hopper
-			break;
-		case 8: // right Hopper
-			break;
-		case 9: // score then gear left
-			break;
-		case 10: // score then gear right
-			break;
+			default:
+			case 1: // do nothing
+				break;
+			case 2: // cross baseline
+				break;
+			case 3: // baseline Center
+				break;
+			case 4: // left gear lift
+				break;
+			case 5: // right gear lift
+				break;
+			case 6: // front gear lift
+				break;
+			case 7: // left hopper
+				break;
+			case 8: // right Hopper
+				break;
+			case 9: // score then gear left
+				break;
+			case 10: // score then gear right
+				break;
 			}
+		}else{		//Auto for non-working camera
+			switch(backupNumber){
+			default:
+			case 1:	//do nothing
+				break;
+			case 2:	//baseline left/right
+				break;
+			case 3:	//baseline center
+				break;
+			case 4:	//Front Gear Lift
+				break;
+			case 5:	//Left Hopper
+				break;
+			case 6:	//Right Hopper
+				break;
+			}
+		}
 			SmartDashboard.putNumber("Auton Number:" , autonomousNumber);
 			SmartDashboard.putNumber("Backup Number:", backupNumber);
 		}

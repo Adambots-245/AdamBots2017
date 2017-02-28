@@ -13,10 +13,10 @@ public class SendableChooserValue {
 		
 		SendableChooserValue.number = number;
 	}
-	public static int getNumber(){
+	public int getNumber(){
 		return number;
 	}
-	public static int getBackupNumber(){
+	public int getBackupNumber(){
 		return backupNumber;
 	}
 }
