@@ -19,6 +19,7 @@ public class Intake {
 	static boolean intakeInButtonReleased = true;
 	public static double intakeMotorSpeed = 0;
 	static boolean intakeJamButtonReleased = true;
+
 	static boolean intakeRunButtonReleased = true;
 	static boolean intakeOutReleased = true;
 

@@ -6,6 +6,15 @@ import org.usfirst.frc.team245.robot.Constants;
 public class Drive {
 	
 	static boolean leftBumperReleased = true;
+
+	
+	/*
+	 * Sets initial conditions for driving
+	 * */
+	public static void init(){
+		Actuators.getDriveShiftPneumatic().set(false);
+	}
+
 	
 
 	/*
