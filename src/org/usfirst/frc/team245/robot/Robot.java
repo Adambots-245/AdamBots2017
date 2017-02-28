@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	private int autonomousNumber;
-	public int backupNumber;
+	private int backupNumber;
 
 	SendableChooserValue autonomousCommand;
 	SendableChooser<SendableChooserValue> autoChooser;
@@ -52,8 +52,8 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Right Hopper", new SendableChooserValue(8, Constants.VISION_WORKING));
 		autoChooser.addObject("Score then Gear Left", new SendableChooserValue(9, Constants.VISION_WORKING));
 		autoChooser.addObject("Score then Gear Right", new SendableChooserValue(10, Constants.VISION_WORKING));
-
 		SmartDashboard.putData("Autonomous paths", autoChooser);
+
 
 		backup = new SendableChooser<SendableChooserValue>();
 		backup.addDefault("Do nothing", new SendableChooserValue(1, Constants.VISION_FAIL));
@@ -63,7 +63,8 @@ public class Robot extends IterativeRobot {
 		backup.addObject("left Hopper", new SendableChooserValue(7, Constants.VISION_FAIL));
 		backup.addObject("right Hopper", new SendableChooserValue(8, Constants.VISION_FAIL));
 		SmartDashboard.putData("Camera is not working", backup);
-
+		SmartDashboard.putData(Scheduler.getInstance());
+		
 		state = "disabled";
 		lastState = "disabled";
 		try {
@@ -94,17 +95,18 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// runs the autonomous smartdashboard display for auton
 		autonomousCommand = autoChooser.getSelected();
+		Scheduler.getInstance().run();
 		
 //		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {
-			autonomousNumber = SendableChooserValue.getBackupNumber();
+			autonomousNumber = autoChooser.getSelected().getNumber();
 //		} else {
-			backupNumber = SendableChooserValue.getNumber();
+			backupNumber = autoChooser.getSelected().getBackupNumber();
 //		}
 		// TODO: Add the methods for the code
 
 
 		
-		Scheduler.getInstance().run();
+		
 
 		state = "auton";
 		// autoSelected = chooser.getSelected();
@@ -123,6 +125,7 @@ public class Robot extends IterativeRobot {
 		if (state == "auton") {
 			lastState = "auton";
 		}
+		Scheduler.getInstance().run();
 		switch (autonomousNumber) {
 
 		default:
