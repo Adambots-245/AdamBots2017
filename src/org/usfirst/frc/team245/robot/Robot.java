@@ -93,49 +93,17 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// runs the autonomous smartdashboard display for auton
-
-		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {
-			autonomousNumber = ((SendableChooserValue) autoChooser.getSelected()).getNumber();
-		} else if (!NetworkTables.getControlsTable().getBoolean("camera0", false)) {
-			backupNumber = ((SendableChooserValue) autoChooser.getSelected()).getBackupNumber();
-		}
-
-		// TODO: Add the methods for the code
-		switch (autonomousNumber) {
-
-		default:
-		case 1: // do nothing
-			break;
-		case 2: // cross baseline
-			break;
-
-		case 3: // baseline Center
-			break;
-
-		case 4: // left gear lift
-			break;
-
-		case 5: // right gear lift
-			break;
-
-		case 6: // front gear lift
-			break;
-
-		case 7: // left hopper
-			break;
-
-		case 8: // right Hopper
-			break;
-
-		case 9: // score then gear left
-			break;
-
-		case 10: // score then gear right
-			break;
-
-		}
-
 		autonomousCommand = autoChooser.getSelected();
+		
+//		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {
+			autonomousNumber = SendableChooserValue.getBackupNumber();
+//		} else {
+			backupNumber = SendableChooserValue.getNumber();
+//		}
+		// TODO: Add the methods for the code
+
+
+		
 		Scheduler.getInstance().run();
 
 		state = "auton";
@@ -144,6 +112,7 @@ public class Robot extends IterativeRobot {
 		// // defaultAuto);
 		// System.out.println("Auto selected: " + autoSelected);
 		NetworkTables.getControlsTable().putBoolean("auton", true);
+
 	}
 
 	/**
@@ -154,6 +123,33 @@ public class Robot extends IterativeRobot {
 		if (state == "auton") {
 			lastState = "auton";
 		}
+		switch (autonomousNumber) {
+
+		default:
+		case 1: // do nothing
+			break;
+		case 2: // cross baseline
+			break;
+		case 3: // baseline Center
+			break;
+		case 4: // left gear lift
+			break;
+		case 5: // right gear lift
+			break;
+		case 6: // front gear lift
+			break;
+		case 7: // left hopper
+			break;
+		case 8: // right Hopper
+			break;
+		case 9: // score then gear left
+			break;
+		case 10: // score then gear right
+			break;
+			}
+			SmartDashboard.putNumber("Auton Number:" , autonomousNumber);
+			SmartDashboard.putNumber("Backup Number:", backupNumber);
+		}
 		// switch (autoSelected) {
 		// case customAuto:
 		// // Put custom auto code here
@@ -163,7 +159,6 @@ public class Robot extends IterativeRobot {
 		// // Put default auto code here
 		// break;
 		// }
-	}
 
 	/**
 	 * This function is called periodically during operator control
@@ -234,8 +229,7 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Controls Table", NetworkTables.getControlsTable().getKeys().toString());
 		SmartDashboard.putString("Stream", NetworkTables.getControlsTable().getString("stream", "nothing"));
-		SmartDashboard.putNumber("Auton number:", autonomousNumber);
-		SmartDashboard.putNumber("Backup number:", backupNumber);
+
 	}
 
 	/**
