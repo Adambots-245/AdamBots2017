@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Front Gear lift", new Gear());			//untested
 		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
 		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
-		autoChooser.addObject("Only Score", new Score());				//untested
+//		autoChooser.addObject("Only Score", new Score());				//untested
 //		autoChooser.addObject("Score then Gear Left", new ScoreGearLeft());
 //		autoChooser.addObject("Score then Gear Right", new ScoreGearRight());
 		SmartDashboard.putData("Autonomous paths", autoChooser);
@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot {
 		backupChooser.addObject("Front gear lift", new Gear());				//untested
 		backupChooser.addObject("Left Hopper", new LeftHopper());			//untested
 		backupChooser.addObject("Right Hopper", new RightHopper());			//untested
-		backupChooser.addObject("Only Score", new Score());					//untested
+//		backupChooser.addObject("Only Score", new Score());					//untested
 		SmartDashboard.putData("Camera is not working", backupChooser);
 		SmartDashboard.putData(Scheduler.getInstance());
 		

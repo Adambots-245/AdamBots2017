@@ -1,11 +1,16 @@
 package com.github.adambots.steamworks2017.autonModes;
 
+import org.usfirst.frc.team245.robot.Actuators;
+
+import com.github.adambots.steamworks2017.auton.MotionProfiler;
+
 public class Score {
+	
+	public MotionProfiler LeftMotionProfile = new MotionProfiler(Actuators.getLeftDriveMotor());
+	public MotionProfiler RightMotionProfile = new MotionProfiler(Actuators.getRightDriveMotorSlave());
+	
 	public Score(){
 		
-	}
-	public static double[][] getPoints(){
-		return Points;
 	}
 	public static double [][]Points = new double[][]{
 		{0,	0	,10},
