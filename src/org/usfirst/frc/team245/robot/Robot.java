@@ -1,6 +1,7 @@
 package org.usfirst.frc.team245.robot;
 
 import com.github.adambots.steamworks2017.auton.SendableChooserValue;
+import com.github.adambots.steamworks2017.auton.GeneratedMotionProfile;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -100,41 +101,7 @@ public class Robot extends IterativeRobot {
 			backupNumber = ((SendableChooserValue) autoChooser.getSelected()).getBackupNumber();
 		}
 
-		// TODO: Add the methods for the code
-		switch (autonomousNumber) {
-
-		default:
-		case 1: // do nothing
-			break;
-		case 2: // cross baseline
-			break;
-
-		case 3: // baseline Center
-			break;
-
-		case 4: // left gear lift
-			break;
-
-		case 5: // right gear lift
-			break;
-
-		case 6: // front gear lift
-			break;
-
-		case 7: // left hopper
-			break;
-
-		case 8: // right Hopper
-			break;
-
-		case 9: // score then gear left
-			break;
-
-		case 10: // score then gear right
-			break;
-
-		}
-
+		
 		autonomousCommand = autoChooser.getSelected();
 		Scheduler.getInstance().run();
 
@@ -153,6 +120,44 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		if (state == "auton") {
 			lastState = "auton";
+			// TODO: Add the methods for the code
+			switch (autonomousNumber) {
+
+			default:
+			case 1: // do nothing
+				
+				break;
+			case 2: // cross baseline
+				Actuators.getLeftDriveMotor().set(GeneratedMotionProfile.readProfile());
+				Actuators.getRightDriveMotor().set(GeneratedMotionProfile.readProfile());
+				break;
+			case 3: // baseline Center 				
+				break;
+				
+			case 4: // left gear lift
+				break;
+
+			case 5: // right gear lift
+				break;
+
+			case 6: // front gear lift
+				break;
+
+			case 7: // left hopper
+				break;
+
+			case 8: // right Hopper
+				break;
+
+			case 9: // score then gear left
+				break;
+
+			case 10: // score then gear right
+				break;
+
+			}
+
+			
 		}
 		// switch (autoSelected) {
 		// case customAuto:
