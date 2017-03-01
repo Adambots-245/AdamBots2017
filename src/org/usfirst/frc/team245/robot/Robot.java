@@ -1,5 +1,6 @@
 package org.usfirst.frc.team245.robot;
 
+import com.github.adambots.steamworks2017.auton.*;
 import com.github.adambots.steamworks2017.auton.SendableChooserValue;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
@@ -8,6 +9,7 @@ import com.github.adambots.steamworks2017.networkTables.NetworkTables;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.smartDash.Dash;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,14 +21,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot {	
+	Command autonomousCommand;
+	SendableChooser autoChooser;
+	Command backupCommand;
+	SendableChooser backupChooser;
 
-	private int autonomousNumber;
-	private int backupNumber;
-
-	SendableChooserValue autonomousCommand;
-	SendableChooser<SendableChooserValue> autoChooser;
-	SendableChooser<SendableChooserValue> backup;
 
 	/*
 	 * creation of sendable chooser and
@@ -41,28 +41,28 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit() {
 
-		autoChooser = new SendableChooser<SendableChooserValue>();
-		autoChooser.addDefault("Do nothing", new SendableChooserValue(1, Constants.VISION_WORKING));
-		autoChooser.addObject("Cross baseline", new SendableChooserValue(2, Constants.VISION_WORKING));
-		autoChooser.addObject("Baseline Center", new SendableChooserValue(3, Constants.VISION_WORKING));
-		autoChooser.addObject("Left gear lift", new SendableChooserValue(4, Constants.VISION_WORKING));
-		autoChooser.addObject("Right gear lift", new SendableChooserValue(5, Constants.VISION_WORKING));
-		autoChooser.addObject("Front Gear lift", new SendableChooserValue(6, Constants.VISION_WORKING));
-		autoChooser.addObject("Left Hopper", new SendableChooserValue(7, Constants.VISION_WORKING));
-		autoChooser.addObject("Right Hopper", new SendableChooserValue(8, Constants.VISION_WORKING));
-		autoChooser.addObject("Score then Gear Left", new SendableChooserValue(9, Constants.VISION_WORKING));
-		autoChooser.addObject("Score then Gear Right", new SendableChooserValue(10, Constants.VISION_WORKING));
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Do nothing", new DoNothing());
+		autoChooser.addObject("Cross baseline", new Baseline());
+		autoChooser.addObject("Baseline Center", new BaselineCenter());
+		autoChooser.addObject("Left gear lift", new DoNothing());
+		autoChooser.addObject("Right gear lift", new DoNothing());
+		autoChooser.addObject("Front Gear lift", new DoNothing());
+		autoChooser.addObject("Left Hopper", new DoNothing());
+		autoChooser.addObject("Right Hopper", new DoNothing());
+		autoChooser.addObject("Score then Gear Left", new DoNothing());
+		autoChooser.addObject("Score then Gear Right", new DoNothing());
 		SmartDashboard.putData("Autonomous paths", autoChooser);
 
 
-		backup = new SendableChooser<SendableChooserValue>();
-		backup.addDefault("Do nothing", new SendableChooserValue(1, Constants.VISION_FAIL));
-		backup.addObject("Cross baseline", new SendableChooserValue(2, Constants.VISION_FAIL));
-		backup.addObject("Baseline Center", new SendableChooserValue(3, Constants.VISION_FAIL));
-		backup.addObject("Front gear lift", new SendableChooserValue(6, Constants.VISION_FAIL));
-		backup.addObject("left Hopper", new SendableChooserValue(7, Constants.VISION_FAIL));
-		backup.addObject("right Hopper", new SendableChooserValue(8, Constants.VISION_FAIL));
-		SmartDashboard.putData("Camera is not working", backup);
+		backupChooser = new SendableChooser();
+		backupChooser.addDefault("Do nothing", new DoNothing());
+		backupChooser.addObject("Cross baseline", new DoNothing());
+		backupChooser.addObject("Baseline Center", new DoNothing());
+		backupChooser.addObject("Front gear lift", new DoNothing());
+		backupChooser.addObject("left Hopper", new DoNothing());
+		backupChooser.addObject("right Hopper", new DoNothing());
+		SmartDashboard.putData("Camera is not working", backupChooser);
 		SmartDashboard.putData(Scheduler.getInstance());
 		
 		state = "disabled";
@@ -94,18 +94,16 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// runs the autonomous smartdashboard display for auton
-		autonomousCommand = autoChooser.getSelected();
-		
-		
-//		
-			autonomousNumber = autoChooser.getSelected().getNumber();
-//		} else {
-			backupNumber = autoChooser.getSelected().getBackupNumber();
-//		}
-		// TODO: Add the methods for the code
+		autonomousCommand = (Command) autoChooser.getSelected();
+		backupCommand = (Command) backupChooser.getSelected();
+		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
+			autonomousCommand.start();
+			
+		}
+		else{
+			backupCommand.start();
 
-
-		
+		}
 		
 
 		state = "auton";
@@ -125,52 +123,15 @@ public class Robot extends IterativeRobot {
 		if (state == "auton") {
 			lastState = "auton";
 		}
+		//TEST CODE FOR autoChooser
+		System.out.println(autonomousCommand);
+		System.out.println(backupCommand);
+		
+		
 		Scheduler.getInstance().run();
-		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
-			switch (autonomousNumber) {
+	}
+		
 
-			default:
-			case 1: // do nothing
-				break;
-			case 2: // cross baseline
-				break;
-			case 3: // baseline Center
-				break;
-			case 4: // left gear lift
-				break;
-			case 5: // right gear lift
-				break;
-			case 6: // front gear lift
-				break;
-			case 7: // left hopper
-				break;
-			case 8: // right Hopper
-				break;
-			case 9: // score then gear left
-				break;
-			case 10: // score then gear right
-				break;
-			}
-		}else{		//Auto for non-working camera
-			switch(backupNumber){
-			default:
-			case 1:	//do nothing
-				break;
-			case 2:	//baseline left/right
-				break;
-			case 3:	//baseline center
-				break;
-			case 4:	//Front Gear Lift
-				break;
-			case 5:	//Left Hopper
-				break;
-			case 6:	//Right Hopper
-				break;
-			}
-		}
-			SmartDashboard.putNumber("Auton Number:" , autonomousNumber);
-			SmartDashboard.putNumber("Backup Number:", backupNumber);
-		}
 		// switch (autoSelected) {
 		// case customAuto:
 		// // Put custom auto code here
