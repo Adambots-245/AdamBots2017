@@ -3,11 +3,11 @@ package com.github.adambots.steamworks2017.auton;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Notifier;
 import com.ctre.CANTalon.TalonControlMode;
-import org.usfirst.frc.team245.robot.*;
 
 public class MotionProfiler {
 	private CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
 	
+	private CANTalon _talon;
 	// For state machine
 	private int _state = 0;
 	// Timeout for loop, at -1 to disable
@@ -25,23 +25,23 @@ public class MotionProfiler {
 	// Call twice as many times as the loop
 	class PeriodicRunnable implements java.lang.Runnable {
 	    public void run() {
-	    	Actuators.getRightDriveMotor().processMotionProfileBuffer();
-	    	Actuators.getLeftDriveMotor().processMotionProfileBuffer();
+	    	_talon.processMotionProfileBuffer();
+	    	
 	    }
 	}
 	
 	Notifier _notifer = new Notifier(new PeriodicRunnable());
 
 	public MotionProfiler(CANTalon talon) {
+		_talon = talon;
 		// Since the Motion Profiler runs at 10ms per point, control framerate and notifier will be half
-		Actuators.getRightDriveMotor().changeMotionControlFramePeriod(5);
+		_talon.changeMotionControlFramePeriod(5);
 		_notifer.startPeriodic(0.005);
 	}
 
 	// Resets when inactive/disabled
 	public void reset() {
-		Actuators.getRightDriveMotor().clearMotionProfileTrajectories();
-		Actuators.getLeftDriveMotor().clearMotionProfileTrajectories();
+		_talon.clearMotionProfileTrajectories();
 		_setValue = CANTalon.SetValueMotionProfile.Disable;
 		_state = 0;
 		_bStart = false;
@@ -49,8 +49,7 @@ public class MotionProfiler {
 
 	// Called every loop
 	public void control() {
-		Actuators.getRightDriveMotor().getMotionProfileStatus(_status);
-		Actuators.getLeftDriveMotor().getMotionProfileStatus(_status);
+		_talon.getMotionProfileStatus(_status);
 
 		if (_loopTimeout < 0) {
 			// Do nothing
@@ -62,8 +61,7 @@ public class MotionProfiler {
 		}
 
 		// Check if in Motion Profile mode
-		if (Actuators.getRightDriveMotor().getControlMode() != TalonControlMode.MotionProfile &&
-			Actuators.getLeftDriveMotor().getControlMode() != TalonControlMode.MotionProfile) {
+		if (_talon.getControlMode() != TalonControlMode.MotionProfile) {
 			_state = 0;
 			_loopTimeout = -1;
 		} else {
@@ -120,12 +118,10 @@ public class MotionProfiler {
 			// Log the condition
 			Instrumentation.OnUnderrun();
 			// Clear error
-			Actuators.getRightDriveMotor().clearMotionProfileHasUnderrun();
-			Actuators.getLeftDriveMotor().clearMotionProfileHasUnderrun();
+			_talon.clearMotionProfileHasUnderrun();
 		}
 		// Clear in case interrupting another Motion Profile
-		Actuators.getRightDriveMotor().clearMotionProfileTrajectories();
-		Actuators.getLeftDriveMotor().clearMotionProfileTrajectories();
+		_talon.clearMotionProfileTrajectories();
 
 		for (int i = 0; i < totalCnt; ++i) {
 			// Fill structure and pass to API
@@ -145,13 +141,13 @@ public class MotionProfiler {
 			if ((i + 1) == totalCnt)
 				// True only on last point
 				point.isLastPoint = true;
-			Actuators.getRightDriveMotor().pushMotionProfileTrajectory(point);
-			Actuators.getLeftDriveMotor().pushMotionProfileTrajectory(point);
+			_talon.pushMotionProfileTrajectory(point);
+
 		}
 	}
 
 	// Called by application to start buffered Motion Profile
-	void startMotionProfile() {
+	public void startMotionProfile() {
 		_bStart = true;
 	}
 

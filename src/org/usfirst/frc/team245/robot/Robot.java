@@ -1,6 +1,7 @@
 package org.usfirst.frc.team245.robot;
 
 
+import com.ctre.CANTalon.TalonControlMode;
 import com.github.adambots.steamworks2017.autonModes.*;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
@@ -22,6 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {	
+	
+	
 	Command autonomousCommand;
 	SendableChooser<Object> autoChooser;
 	Command backupCommand;
@@ -42,26 +45,28 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 
 		autoChooser = new SendableChooser<Object>();
-		autoChooser.addDefault("Do nothing", new DoNothing());
-		autoChooser.addObject("Cross baseline", new Baseline());
-		autoChooser.addObject("Baseline Center", new BaselineCenter());
-		autoChooser.addObject("Left gear lift", new GearLeft());
-		autoChooser.addObject("Right gear lift", new GearRight());
-		autoChooser.addObject("Front Gear lift", new Gear());
-		autoChooser.addObject("Left Hopper", new LeftHopper());
-		autoChooser.addObject("Right Hopper", new RightHopper());
-		autoChooser.addObject("Score then Gear Left", new ScoreGearLeft());
-		autoChooser.addObject("Score then Gear Right", new ScoreGearRight());
+		autoChooser.addDefault("Do nothing", new DoNothing());			//works
+		autoChooser.addObject("Cross baseline", new Baseline());		//untested
+		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+		autoChooser.addObject("Left gear lift", new GearLeft());		//untested
+		autoChooser.addObject("Right gear lift", new GearRight());		//untested
+		autoChooser.addObject("Front Gear lift", new Gear());			//untested
+		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
+		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
+		autoChooser.addObject("Only Score", new Score());				//untested
+//		autoChooser.addObject("Score then Gear Left", new ScoreGearLeft());
+//		autoChooser.addObject("Score then Gear Right", new ScoreGearRight());
 		SmartDashboard.putData("Autonomous paths", autoChooser);
 
 
 		backupChooser = new SendableChooser<Object>();
-		backupChooser.addDefault("Do nothing", new DoNothing());
-		backupChooser.addObject("Cross baseline", new Baseline());
-		backupChooser.addObject("Baseline Center", new BaselineCenter());
-		backupChooser.addObject("Front gear lift", new Gear());
-		backupChooser.addObject("Left Hopper", new LeftHopper());
-		backupChooser.addObject("Right Hopper", new RightHopper());
+		backupChooser.addDefault("Do nothing", new DoNothing());			//works
+		backupChooser.addObject("Cross baseline", new Baseline());			//untested
+		backupChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+		backupChooser.addObject("Front gear lift", new Gear());				//untested
+		backupChooser.addObject("Left Hopper", new LeftHopper());			//untested
+		backupChooser.addObject("Right Hopper", new RightHopper());			//untested
+		backupChooser.addObject("Only Score", new Score());					//untested
 		SmartDashboard.putData("Camera is not working", backupChooser);
 		SmartDashboard.putData(Scheduler.getInstance());
 		
@@ -96,13 +101,14 @@ public class Robot extends IterativeRobot {
 		// runs the autonomous smartdashboard display for auton
 		autonomousCommand = (Command) autoChooser.getSelected();
 		backupCommand = (Command) backupChooser.getSelected();
+		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
+		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
 		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
 			autonomousCommand.start();
-			
 		}
 		else{
 			backupCommand.start();
-
+			
 		}
 		
 
@@ -132,15 +138,7 @@ public class Robot extends IterativeRobot {
 	}
 		
 
-		// switch (autoSelected) {
-		// case customAuto:
-		// // Put custom auto code here
-		// break;
-		// case defaultAuto:
-		// default:
-		// // Put default auto code here
-		// break;
-		// }
+
 
 	/**
 	 * This function is called periodically during operator control
@@ -154,6 +152,13 @@ public class Robot extends IterativeRobot {
 
 		if (lastState.equals("auton")) {
 			NetworkTables.getControlsTable().putBoolean("auton", false);
+			
+			//Changes the control Mode back to PercentVbus
+			//Should only run once - first interation of teleop
+			Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.PercentVbus);
+			Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
+			Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.PercentVbus);
+			Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
 		}
 
 		NetworkTables.putStream(Gamepad.primary.getX() || Gamepad.secondary.getX());

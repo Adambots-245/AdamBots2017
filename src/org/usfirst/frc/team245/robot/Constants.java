@@ -7,13 +7,13 @@ public class Constants {
 	
 	//Motor values
 	public static final double MOTOR_STOP = 0;
-	public static final double CLIMB_MOTOR_SPEED = 1; //TODO: Find Correct Value for Motor speed to climb
+	public static final double CLIMB_MOTOR_SPEED = 1; 
 	public static final double OUTTAKE_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor
 	public static final double MOTOR_START_VALUE = 0.5;
-	public static final double MOTOR_INCREMENT = 0.05; //TODO: Find correct value for the increment value
+	public static final double MOTOR_INCREMENT = 0.05; 
 	public static final double MOTOR_CIM_STALL_CURRENT = 15; //TODO: Find correct current value for motor stall
-	public static final double MOTOR_REVERSE = -0.6;	//TODO: Find correct value
-	public static final double MOTOR_ACCEL = 0.05;		//TOD: Find correct value
+	public static final double MOTOR_REVERSE = -0.6;	
+	public static final double MOTOR_ACCEL = 0.05;		
 	
 	//Port map
 	public static final int LEFT_FRONT_DRIVE_MOTOR_PORT = 0;

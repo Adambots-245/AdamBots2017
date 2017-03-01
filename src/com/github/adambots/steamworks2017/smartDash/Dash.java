@@ -3,7 +3,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
-import org.usfirst.frc.team245.robot.Gamepad;
 import org.usfirst.frc.team245.robot.Sensors;
 
 import com.github.adambots.steamworks2017.intake.Intake;

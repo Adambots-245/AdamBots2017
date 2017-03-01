@@ -3,10 +3,6 @@ package com.github.adambots.steamworks2017.intake;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
-import com.github.adambots.steamworks2017.climb.Climb;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 
 public class Intake {
 	

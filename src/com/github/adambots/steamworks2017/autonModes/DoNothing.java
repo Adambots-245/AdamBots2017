@@ -4,4 +4,6 @@ public class DoNothing {
 	public DoNothing(){
 		
 	}
+
+	public static double [][]Points = new double[][]{};
 }
