@@ -59,4 +59,8 @@ public class Constants {
 	
 	//Ring Light
 	public static final int RING_LIGHT = 3;
+	
+	//Vision Constants
+	public static final boolean VISION_WORKING = true;
+	public static final boolean VISION_FAIL = false;
 }
