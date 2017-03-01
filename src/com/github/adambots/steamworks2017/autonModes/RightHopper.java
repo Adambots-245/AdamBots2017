@@ -1,7 +1,7 @@
 package com.github.adambots.steamworks2017.autonModes;
 
-public class BaselineCenter {
-	public BaselineCenter(){
+public class RightHopper {
+	public RightHopper(){
 		
 	}
 }

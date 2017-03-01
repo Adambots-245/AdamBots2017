@@ -1,7 +1,7 @@
 package org.usfirst.frc.team245.robot;
 
-import com.github.adambots.steamworks2017.auton.*;
-import com.github.adambots.steamworks2017.auton.SendableChooserValue;
+
+import com.github.adambots.steamworks2017.autonModes.*;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -23,9 +23,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {	
 	Command autonomousCommand;
-	SendableChooser autoChooser;
+	SendableChooser<Object> autoChooser;
 	Command backupCommand;
-	SendableChooser backupChooser;
+	SendableChooser<Object> backupChooser;
 
 
 	/*
@@ -41,27 +41,27 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit() {
 
-		autoChooser = new SendableChooser();
+		autoChooser = new SendableChooser<Object>();
 		autoChooser.addDefault("Do nothing", new DoNothing());
 		autoChooser.addObject("Cross baseline", new Baseline());
 		autoChooser.addObject("Baseline Center", new BaselineCenter());
-		autoChooser.addObject("Left gear lift", new DoNothing());
-		autoChooser.addObject("Right gear lift", new DoNothing());
-		autoChooser.addObject("Front Gear lift", new DoNothing());
-		autoChooser.addObject("Left Hopper", new DoNothing());
-		autoChooser.addObject("Right Hopper", new DoNothing());
-		autoChooser.addObject("Score then Gear Left", new DoNothing());
-		autoChooser.addObject("Score then Gear Right", new DoNothing());
+		autoChooser.addObject("Left gear lift", new GearLeft());
+		autoChooser.addObject("Right gear lift", new GearRight());
+		autoChooser.addObject("Front Gear lift", new Gear());
+		autoChooser.addObject("Left Hopper", new LeftHopper());
+		autoChooser.addObject("Right Hopper", new RightHopper());
+		autoChooser.addObject("Score then Gear Left", new ScoreGearLeft());
+		autoChooser.addObject("Score then Gear Right", new ScoreGearRight());
 		SmartDashboard.putData("Autonomous paths", autoChooser);
 
 
-		backupChooser = new SendableChooser();
+		backupChooser = new SendableChooser<Object>();
 		backupChooser.addDefault("Do nothing", new DoNothing());
-		backupChooser.addObject("Cross baseline", new DoNothing());
-		backupChooser.addObject("Baseline Center", new DoNothing());
-		backupChooser.addObject("Front gear lift", new DoNothing());
-		backupChooser.addObject("left Hopper", new DoNothing());
-		backupChooser.addObject("right Hopper", new DoNothing());
+		backupChooser.addObject("Cross baseline", new Baseline());
+		backupChooser.addObject("Baseline Center", new BaselineCenter());
+		backupChooser.addObject("Front gear lift", new Gear());
+		backupChooser.addObject("Left Hopper", new LeftHopper());
+		backupChooser.addObject("Right Hopper", new RightHopper());
 		SmartDashboard.putData("Camera is not working", backupChooser);
 		SmartDashboard.putData(Scheduler.getInstance());
 		

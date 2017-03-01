@@ -1,4 +1,4 @@
-package com.github.adambots.steamworks2017.auton;
+package com.github.adambots.steamworks2017.autonModes;
 
 public class Baseline {
 	public Baseline(){
