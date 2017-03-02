@@ -1,9 +1,6 @@
 package com.github.adambots.steamworks2017.autonModes;
 
 import org.usfirst.frc.team245.robot.Actuators;
-
-import com.github.adambots.steamworks2017.auton.GeneratedMotionProfile;
-import com.github.adambots.steamworks2017.auton.MotionProfiler;
 import com.github.adambots.steamworks2017.drive.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;

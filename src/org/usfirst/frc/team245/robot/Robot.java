@@ -2,7 +2,6 @@ package org.usfirst.frc.team245.robot;
 
 
 import com.ctre.CANTalon.TalonControlMode;
-import com.github.adambots.steamworks2017.auton.MotionProfiler;
 import com.github.adambots.steamworks2017.autonModes.*;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
@@ -28,7 +27,6 @@ public class Robot extends IterativeRobot {
 	
 	Command autonomousCommand;
 	SendableChooser<Object> autoChooser;
-	MotionProfiler LeftMotionProfile;
 	static double distance = 95;
 //	Command backupCommand;
 //	SendableChooser<Object> backupChooser;
