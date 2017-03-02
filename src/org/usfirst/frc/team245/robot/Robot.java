@@ -126,9 +126,11 @@ public class Robot extends IterativeRobot {
 //		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
 //		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
 //		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
+		
 		if(autonomousCommand != null){	
 			autonomousCommand.start();
 		}
+		
 //			System.out.println("I got here auto Command start");
 //			}
 //		else{

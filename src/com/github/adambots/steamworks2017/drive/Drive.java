@@ -78,12 +78,13 @@ public class Drive {
 		rightDistance /= Constants.INCHES_PER_REV;
 		
 		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.Position);
-		Actuators.getLeftDriveMotor().set(-leftDistance);
-		Actuators.getLeftDriveMotor().enable();
+		Actuators.getLeftDriveMotor().set(leftDistance);
 		
 		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.Position);
 		Actuators.getRightDriveMotor().set(rightDistance);
+
 		Actuators.getRightDriveMotor().enable();
+		Actuators.getLeftDriveMotor().enable();
 	}
 }
 
