@@ -4,6 +4,7 @@ public class Constants {
 	//Motor max and min constants
 	public static final double MAX_MOTOR_SPEED = 1;
 	public static final double MIN_MOTOR_SPEED = -1;
+	public static final double INCHES_PER_REV = 12.556;
 	
 	//Motor values
 	public static final double MOTOR_STOP = 0;

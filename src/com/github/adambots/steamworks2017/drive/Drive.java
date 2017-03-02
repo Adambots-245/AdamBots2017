@@ -3,6 +3,8 @@ package com.github.adambots.steamworks2017.drive;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
+import com.ctre.CANTalon.TalonControlMode;
+
 public class Drive {
 	
 	static boolean leftBumperReleased = true;
@@ -71,5 +73,17 @@ public class Drive {
 			leftBumperReleased = false;
 		}
 	}	
+	public static void driveWithPID(double leftDistance, double rightDistance){
+		leftDistance /= Constants.INCHES_PER_REV;
+		rightDistance /= Constants.INCHES_PER_REV;
+		
+		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.Position);
+		Actuators.getLeftDriveMotor().set(-leftDistance);
+		Actuators.getLeftDriveMotor().enable();
+		
+		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.Position);
+		Actuators.getRightDriveMotor().set(rightDistance);
+		Actuators.getRightDriveMotor().enable();
+	}
 }
 

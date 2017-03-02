@@ -13,7 +13,7 @@ public class Actuators {
 	private static CANTalon rightDriveMotor;
 	private static CANTalon rightDriveMotorSlave;
 	
-	private static CANTalon leftDriveMotor;
+	public static CANTalon leftDriveMotor;
 	private static CANTalon leftDriveMotorSlave;
 	
 	private static CANTalon climbMotor;

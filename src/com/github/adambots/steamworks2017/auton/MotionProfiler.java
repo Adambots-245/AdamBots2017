@@ -1,5 +1,7 @@
 package com.github.adambots.steamworks2017.auton;
 
+import org.usfirst.frc.team245.robot.Actuators;
+
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Notifier;
 import com.ctre.CANTalon.TalonControlMode;
@@ -7,7 +9,7 @@ import com.ctre.CANTalon.TalonControlMode;
 public class MotionProfiler {
 	private CANTalon.MotionProfileStatus _status = new CANTalon.MotionProfileStatus();
 	
-	private CANTalon _talon;
+	public CANTalon _talon;
 	// For state machine
 	private int _state = 0;
 	// Timeout for loop, at -1 to disable
@@ -33,7 +35,7 @@ public class MotionProfiler {
 	Notifier _notifer = new Notifier(new PeriodicRunnable());
 
 	public MotionProfiler(CANTalon talon) {
-		_talon = talon;
+		this._talon = talon;
 		// Since the Motion Profiler runs at 10ms per point, control framerate and notifier will be half
 		_talon.changeMotionControlFramePeriod(5);
 		_notifer.startPeriodic(0.005);

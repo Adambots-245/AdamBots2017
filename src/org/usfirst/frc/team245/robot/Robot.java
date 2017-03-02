@@ -2,6 +2,7 @@ package org.usfirst.frc.team245.robot;
 
 
 import com.ctre.CANTalon.TalonControlMode;
+import com.github.adambots.steamworks2017.auton.MotionProfiler;
 import com.github.adambots.steamworks2017.autonModes.*;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
@@ -27,8 +28,10 @@ public class Robot extends IterativeRobot {
 	
 	Command autonomousCommand;
 	SendableChooser<Object> autoChooser;
-	Command backupCommand;
-	SendableChooser<Object> backupChooser;
+	MotionProfiler LeftMotionProfile;
+	static double distance = 95;
+//	Command backupCommand;
+//	SendableChooser<Object> backupChooser;
 
 
 	/*
@@ -42,42 +45,58 @@ public class Robot extends IterativeRobot {
 	private String state;
 	private String lastState;
 
-	public void robotInit() {
+	public void robotInit(){
 
 		autoChooser = new SendableChooser<Object>();
 		autoChooser.addDefault("Do nothing", new DoNothing());			//works
 		autoChooser.addObject("Cross baseline", new Baseline());		//untested
-		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
-		autoChooser.addObject("Left gear lift", new GearLeft());		//untested
-		autoChooser.addObject("Right gear lift", new GearRight());		//untested
-		autoChooser.addObject("Front Gear lift", new Gear());			//untested
-		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
-		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
+//		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+//		autoChooser.addObject("Left gear lift", new GearLeft());		//untested
+//		autoChooser.addObject("Right gear lift", new GearRight());		//untested
+//		autoChooser.addObject("Front Gear lift", new Gear());			//untested
+//		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
+//		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
 //		autoChooser.addObject("Only Score", new Score());				//untested
 //		autoChooser.addObject("Score then Gear Left", new ScoreGearLeft());
 //		autoChooser.addObject("Score then Gear Right", new ScoreGearRight());
 		SmartDashboard.putData("Autonomous paths", autoChooser);
 
 
-		backupChooser = new SendableChooser<Object>();
-		backupChooser.addDefault("Do nothing", new DoNothing());			//works
-		backupChooser.addObject("Cross baseline", new Baseline());			//untested
-		backupChooser.addObject("Baseline Center", new BaselineCenter());	//untested
-		backupChooser.addObject("Front gear lift", new Gear());				//untested
-		backupChooser.addObject("Left Hopper", new LeftHopper());			//untested
-		backupChooser.addObject("Right Hopper", new RightHopper());			//untested
+//		backupChooser = new SendableChooser<Object>();
+//		backupChooser.addDefault("Do nothing", new DoNothing());			//works
+//		backupChooser.addObject("Cross baseline", new Baseline());			//untested
+//		backupChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+//		backupChooser.addObject("Front gear lift", new Gear());				//untested
+//		backupChooser.addObject("Left Hopper", new LeftHopper());			//untested
+//		backupChooser.addObject("Right Hopper", new RightHopper());			//untested
 //		backupChooser.addObject("Only Score", new Score());					//untested
-		SmartDashboard.putData("Camera is not working", backupChooser);
+//		SmartDashboard.putData("Camera is not working", backupChooser);
 		SmartDashboard.putData(Scheduler.getInstance());
 		
 		state = "disabled";
 		lastState = "disabled";
 		try {
 			Actuators.init();
+//			Sensors.init();
+//			NetworkTables.init();
+		} catch (Exception e) {
+			System.out.println("Errors occurred during Actuator initialization.");
+			System.out.println(e.getMessage());
+		}
+		try {
+//			Actuators.init();
 			Sensors.init();
+//			NetworkTables.init();
+		} catch (Exception e) {
+			System.out.println("Errors occurred during Sensor initialization.");
+			System.out.println(e.getMessage());
+		}
+		try {
+//			Actuators.init();
+//			Sensors.init();
 			NetworkTables.init();
 		} catch (Exception e) {
-			System.out.println("Errors occurred during initialization.");
+			System.out.println("Errors occurred during Network Table initialization.");
 			System.out.println(e.getMessage());
 		}
 		System.out.println("Initialization is complete.");
@@ -98,19 +117,26 @@ public class Robot extends IterativeRobot {
 	@Override
 
 	public void autonomousInit() {
+		
 		// runs the autonomous smartdashboard display for auton
+		System.out.println("I got here autoInit");
+		Actuators.getLeftDriveMotor().setEncPosition(0);
+		Actuators.getRightDriveMotor().setEncPosition(0);
 		autonomousCommand = (Command) autoChooser.getSelected();
-		backupCommand = (Command) backupChooser.getSelected();
-		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
-		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
-		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
+		
+//		backupCommand = (Command) backupChooser.getSelected();
+//		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
+//		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
+//		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
+		if(autonomousCommand != null){	
 			autonomousCommand.start();
 		}
-		else{
-			backupCommand.start();
-			
-		}
-		
+//			System.out.println("I got here auto Command start");
+//			}
+//		else{
+//			backupCommand.start();			
+//		}
+//			Drive.driveWithPID(distance, distance);
 
 		state = "auton";
 		// autoSelected = chooser.getSelected();
@@ -129,12 +155,13 @@ public class Robot extends IterativeRobot {
 		if (state == "auton") {
 			lastState = "auton";
 		}
-		//TEST CODE FOR autoChooser
-		System.out.println(autonomousCommand);
-		System.out.println(backupCommand);
-		
-		
 		Scheduler.getInstance().run();
+		//TEST CODE FOR autoChooser
+//		System.out.println("I got here auto Periodic" + autonomousCommand);
+//		System.out.println(backupCommand);
+//		Drive.driveWithPID(distance, distance);
+		
+		
 	}
 		
 
@@ -155,13 +182,17 @@ public class Robot extends IterativeRobot {
 			
 			//Changes the control Mode back to PercentVbus
 			//Should only run once - first interation of teleop
+			//And ends auton if running
+			if(autonomousCommand != null){
+				autonomousCommand.cancel();
+			}
 			Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.PercentVbus);
 			Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
 			Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.PercentVbus);
 			Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
 		}
 
-		NetworkTables.putStream(Gamepad.primary.getX() || Gamepad.secondary.getX());
+//		NetworkTables.putStream(Gamepad.primary.getX() || Gamepad.secondary.getX());
 		/*
 		 * Primary Controllers Controls
 		 */
