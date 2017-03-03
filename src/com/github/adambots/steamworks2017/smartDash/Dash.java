@@ -36,7 +36,7 @@ public class Dash {
 		//Sets the Secondary to vibrate if climbing motor is going to stall
 		Vibrations.climbStallVibrate(Constants.MAX_RUMBLE);	
 		//If within the second of TIME_RUMBLE then both controllers are set to HALF_RUMBLE
-		Vibrations.timeLeftVibrate(Constants.TIME_RUMBLE_VALUE, Constants.TIME_RUMBLE_VALUE);	
+		Vibrations.timeLeftVibrate(Constants.TIME_RUMBLE_VALUE, Constants.TIME_RUMBLE);	
 		
 	}
 }

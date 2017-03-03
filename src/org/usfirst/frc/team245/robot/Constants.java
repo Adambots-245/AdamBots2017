@@ -61,6 +61,7 @@ public class Constants {
 	
 	//Ring Light
 	public static final int RING_LIGHT = 3;
+	public static final int LED_LIGHT = 5;
 	
 	//Vision Constants
 	public static final boolean VISION_WORKING = true;

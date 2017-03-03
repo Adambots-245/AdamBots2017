@@ -107,6 +107,8 @@ public class Robot extends IterativeRobot {
 			System.out.println("Errors occured during Camera Server initialization.");
 			System.out.println(e.getMessage());
 		}
+		SmartDashboard.putNumber("Time remaining:", 999999.9);
+		SmartDashboard.putNumber("Time remaining:", 999999.8);
 		System.out.println("Initialization is complete.");
 
 	}
