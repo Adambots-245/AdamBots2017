@@ -21,7 +21,7 @@ public class DoNothing extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Drive.drive(0, 0);
+		
 		System.out.println("DO NOTHING IS RUNNING");
 		
 	}

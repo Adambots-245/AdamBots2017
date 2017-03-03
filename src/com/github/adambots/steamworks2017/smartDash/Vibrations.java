@@ -23,8 +23,10 @@ public class Vibrations {
 	
 	public static void timeLeftVibrate(double intensity, double timeLeft){
 		//TODO: Check if rumbles for one second
+		
 		//will vibrate controllers if the timeLeft is a certain value
-		double time = DriverStation.getInstance().getMatchTime();
+		//commented out for testing
+//		double time = DriverStation.getInstance().getMatchTime();
 
 		//TO
 		//for 45.5seconds left
@@ -34,16 +36,20 @@ public class Vibrations {
 		//for 46.5 seconds left
 		//			46			45			45			47
 
-
-
-
-
-		if(Math.floor(time) >= timeLeft && timeLeft <= Math.ceil(time)){
-			//Gamepad.primary.setRumbleLeft(intensity);
-			//Gamepad.secondary.setRumbleLeft(intensity);
+		//TEST CODE TO MAKE SURE IT RUMBLES
+		if(Gamepad.secondary.getX()){
+		Gamepad.primary.setRumbleLeft(intensity);
 		}else{
-			//Gamepad.primary.setRumbleLeft(Constants.NO_RUMBLE);
-			//Gamepad.secondary.setRumbleLeft(Constants.NO_RUMBLE);
+			Gamepad.primary.setRumbleLeft(Constants.NO_RUMBLE);
+		}
+		if(Gamepad.primary.getX()){
+		//Uncomment below for regular
+//		if(Math.floor(time) >= timeLeft && timeLeft <= Math.ceil(time)){
+//			Gamepad.primary.setRumbleLeft(intensity);
+			Gamepad.secondary.setRumbleLeft(intensity);
+		}else{
+//			Gamepad.primary.setRumbleLeft(Constants.NO_RUMBLE);
+			Gamepad.secondary.setRumbleLeft(Constants.NO_RUMBLE);
 		}
 	}
 }

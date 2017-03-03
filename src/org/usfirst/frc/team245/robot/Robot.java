@@ -27,7 +27,6 @@ public class Robot extends IterativeRobot {
 	
 	Command autonomousCommand;
 	SendableChooser<Object> autoChooser;
-	static double distance = 95;
 //	Command backupCommand;
 //	SendableChooser<Object> backupChooser;
 
@@ -117,7 +116,6 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		
 		// runs the autonomous smartdashboard display for auton
-		System.out.println("I got here autoInit");
 		Actuators.getLeftDriveMotor().setEncPosition(0);
 		Actuators.getRightDriveMotor().setEncPosition(0);
 		autonomousCommand = (Command) autoChooser.getSelected();
@@ -128,6 +126,7 @@ public class Robot extends IterativeRobot {
 //		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
 		
 		if(autonomousCommand != null){	
+			System.out.println(autonomousCommand);
 			autonomousCommand.start();
 		}
 		
@@ -156,10 +155,7 @@ public class Robot extends IterativeRobot {
 			lastState = "auton";
 		}
 		Scheduler.getInstance().run();
-		//TEST CODE FOR autoChooser
-//		System.out.println("I got here auto Periodic" + autonomousCommand);
-//		System.out.println(backupCommand);
-//		Drive.driveWithPID(distance, distance);
+
 		
 		
 	}

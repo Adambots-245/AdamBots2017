@@ -66,7 +66,7 @@ public class Score {
 			if(!conveyorDisabled){	
 				//increases motor speed
 			
-				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MAX_MOTOR_SPEED){
+				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelConveyorMotor().get()) < Constants.MIN_MOTOR_SPEED){
 					//Increments motor speed by a set value while stick is more than 50% pressed
 					conveyorMotorSpeed = Actuators.getFuelConveyorMotor().get() + Constants.MOTOR_INCREMENT;
 					Actuators.getFuelConveyorMotor().set(conveyorMotorSpeed);

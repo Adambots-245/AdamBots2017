@@ -1,6 +1,8 @@
 package com.github.adambots.steamworks2017.autonModes;
 
 import org.usfirst.frc.team245.robot.Actuators;
+import org.usfirst.frc.team245.robot.Constants;
+
 import com.github.adambots.steamworks2017.drive.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -39,8 +41,18 @@ public class Baseline extends Command{
 	@Override
 	protected void execute() {
 		System.out.println("I got here execution");
-		Drive.driveWithPID(distance, distance);
-		
+		try{
+			if(Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) <= 7835){
+			Actuators.getLeftDriveMotor().set(- Constants.HALF_MOTOR_SPEED);
+			Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED);
+			}else{
+				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
+				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
+			}
+//			Drive.driveWithPID(distance, distance);
+		}catch(Exception e){
+			System.out.println(e);
+		}
 	}
 
 	@Override

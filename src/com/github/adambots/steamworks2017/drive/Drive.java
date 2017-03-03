@@ -73,18 +73,19 @@ public class Drive {
 			leftBumperReleased = false;
 		}
 	}	
-	public static void driveWithPID(double leftDistance, double rightDistance){
-		leftDistance /= Constants.INCHES_PER_REV;
-		rightDistance /= Constants.INCHES_PER_REV;
-		
-		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.Position);
-		Actuators.getLeftDriveMotor().set(leftDistance);
-		
-		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.Position);
-		Actuators.getRightDriveMotor().set(rightDistance);
-
-		Actuators.getRightDriveMotor().enable();
-		Actuators.getLeftDriveMotor().enable();
-	}
+//	public static void driveWithPID(double leftDistance, double rightDistance){
+//		leftDistance /= Constants.INCHES_PER_REV;
+//		rightDistance /= Constants.INCHES_PER_REV;
+//		
+//		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.Position);
+//		Actuators.getLeftDriveMotor().set(leftDistance);
+//		
+//		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.Position);
+//		Actuators.getRightDriveMotor().set(rightDistance);
+//
+//		Actuators.getRightDriveMotor().enable();
+//		Actuators.getLeftDriveMotor().enable();
+//		System.out.println("I got here driveWithPID end");
+//	}
 }
 

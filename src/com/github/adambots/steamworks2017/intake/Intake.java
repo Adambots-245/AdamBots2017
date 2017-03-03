@@ -80,7 +80,7 @@ public class Intake {
 		
 //			//increases motor speed
 			if(!intakeDisabled){
-				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
+				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MIN_MOTOR_SPEED){
 					//Increments motor speed by a set value while stick is more than 50% pressed
 					intakeMotorSpeed = Actuators.getFuelIntakeMotor().get() + Constants.MOTOR_INCREMENT;
 					Actuators.getFuelIntakeMotor().set(intakeMotorSpeed);
