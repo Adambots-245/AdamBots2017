@@ -227,9 +227,9 @@ public class Robot extends IterativeRobot {
 		Intake.intakeDirection(Gamepad.secondary.getRightX()); // Override Y Button
 		Intake.intakeJam(Gamepad.secondary.getLB()); // Runs the unjamming procedure for a max of 3 seconds per press
 		// Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
-		Intake.intakeIn(Gamepad.secondary.getA()); // Toggles Intake running into the robot at full speed
+		Intake.intakeIn(Gamepad.secondary.getA(), Gamepad.secondary.getB(), Gamepad.secondary.getX()); // Toggles Intake running into the robot at full speed
 		Intake.intakeRun(Gamepad.secondary.getRB()); // Runs all stuff for intake in(conveyor and intake motor)
-		Intake.intakeOut(Gamepad.secondary.getB());
+//		Intake.intakeOut(Gamepad.secondary.getB());
 		// Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadRight()); // runs climbStop using left on the DPad - Secondary
 		Climb.climbStartSecondary(Gamepad.secondary.getDPadLeft()); // runs climbStart using right on the DPad Secondary
