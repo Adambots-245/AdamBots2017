@@ -1,4 +1,5 @@
 package com.github.adambots.steamworks2017.smartDash;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team245.robot.Actuators;
@@ -17,11 +18,12 @@ public class Dash {
 	 */
 	//TODO: Add more 
 
-		SmartDashboard.putBoolean("High/Low Gear", Actuators.getDriveShiftPneumatic().get());
+		SmartDashboard.putBoolean("High/Low Gear:", Actuators.getDriveShiftPneumatic().get());
 		SmartDashboard.putBoolean("Climb motor running:", TalonDio.climbEncodDio(Actuators.getClimbMotor()));
 		SmartDashboard.putBoolean("Is Climbing Motor Stalling:", TalonDio.CIMStall(Actuators.getClimbMotor()));
 		SmartDashboard.putBoolean("Is Climbing:", TalonDio.climbEncodDio(Actuators.getClimbMotor()));
 		SmartDashboard.putNumber("Total Current Draw:", SensorsDio.PDPCurrent(Sensors.getPowerDistro()));
+		SmartDashboard.putNumber("Time remaining:", DriverStation.getInstance().getMatchTime());
 //		SmartDashboard.putBoolean("Is Driving:", TalonDio.driveEncodDio(Actuators.getLeftDriveMotor(), Actuators.getRightDriveMotor()));
 //		SmartDashboard.putBoolean("Is Intake Disabled:", Intake.intakeDisabled);
 //		SmartDashboard.putNumber("motorSpeed", Intake.intakeMotorSpeed);
