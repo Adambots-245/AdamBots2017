@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Baseline extends Command{
 	static double distance = 95; //distance to baseline
+	static boolean hasFinished = false;
 	
 	public Baseline(){
 		System.out.println("I got here Baseline");
@@ -48,6 +49,7 @@ public class Baseline extends Command{
 			}else{
 				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
 				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
+				hasFinished = true;
 			}
 //			Drive.driveWithPID(distance, distance);
 		}catch(Exception e){
@@ -58,7 +60,7 @@ public class Baseline extends Command{
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return hasFinished;
 	}
 	@Override
 	protected void end() {
