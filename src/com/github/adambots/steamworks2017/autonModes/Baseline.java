@@ -46,6 +46,7 @@ public class Baseline extends Command{
 			if(Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) <= 7835){
 			Actuators.getLeftDriveMotor().set(- Constants.HALF_MOTOR_SPEED);
 			Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED);
+			hasFinished = false;
 			}else{
 				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
 				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
