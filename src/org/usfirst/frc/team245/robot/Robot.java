@@ -211,8 +211,20 @@ public class Robot extends IterativeRobot {
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); // shifting with A low gear and Y high gear
 		Drive.shiftToggle(Gamepad.primary.getLB());
 
+		
+		if (Gamepad.primary.getDPadLeft()){
+			Drive.goingLeft = true;
+			Drive.crab();		
+		}else if( Gamepad.primary.getDPadRight()){
+			Drive.goingLeft = false;
+			Drive.crab();			
+		}else if (Drive.crabState > 0){
+			Drive.crab();
+		}
+
+		
 		// Climb controls
-		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); // runs climbStop using left on the DPad - Primary
+		Climb.climbStopPrimary(Gamepad.primary.getDPadUp()); // runs climbStop using left on the DPad - Primary
 		// Climb.climbSafetyTogglePrimary(Gamepad.primary.getBack()); //toggles safety if pressed 3 times
 
 		// Gear controls

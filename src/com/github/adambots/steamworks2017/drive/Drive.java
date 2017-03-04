@@ -8,7 +8,8 @@ import com.ctre.CANTalon.TalonControlMode;
 public class Drive {
 	
 	static boolean leftBumperReleased = true;
-
+	public static int crabState = 0;
+	public static boolean goingLeft = false;
 	
 	/*
 	 * Sets initial conditions for driving
@@ -46,6 +47,39 @@ public class Drive {
 		} else if (highGearButton && !Actuators.getDriveShiftPneumatic().get()){
 			Actuators.getDriveShiftPneumatic().set(true);
 		}
+	}
+	
+	
+	public static void crab(){
+		crabState++;
+		if (goingLeft){
+			
+			if (crabState < 20)
+				drive(0, .5);
+			else if (crabState < 40)
+				drive(-.3,0);
+			else if (crabState < 60)
+				drive(0, -.5);
+			else if (crabState < 80)
+				drive(.3, 0);
+			else
+				crabState = 0;			
+		}else{
+			
+			if (crabState < 20)
+				drive(0, -.5);
+			else if (crabState < 40)
+				drive(-.3,0);
+			else if (crabState < 60)
+				drive(0, .5);
+			else if (crabState < 80)
+				drive(.3, 0);
+			else
+				crabState = 0;
+			
+		}
+		
+	
 	}
 	/*
 	 * Toggle shifting gears
