@@ -31,20 +31,13 @@ public class Vibrations {
 		//will vibrate controllers if the timeLeft is a certain value
 		//commented out for testing
 		double time = DriverStation.getInstance().getMatchTime();
-//		if(Gamepad.secondary.getX() && buttonPressed){
+//		if(Gamepad.primary.getX() && buttonPressed){
 //			time = time-.2;
 //			buttonPressed = false;
 //		}else if(!Gamepad.secondary.getX()){
 //			buttonPressed = true;
 //		}
 		SmartDashboard.putNumber("time", time);
-		//TO
-		//for 45.5seconds left
-		//			45			45			45			46
-		//for 44.6 seconds left
-		//			44			45			45			45
-		//for 46.5 seconds left
-		//			46			45			45			47
 
 		//TEST CODE TO MAKE SURE IT RUMBLES
 //		if(Gamepad.secondary.getX()){
@@ -54,7 +47,7 @@ public class Vibrations {
 //		}
 //		if(Gamepad.primary.getX()){
 		//Uncomment below for regular
-		if(time+1 > timeLeft && time <timeLeft){
+		if(time + 2 > timeLeft && time < timeLeft){
 			Gamepad.primary.setRumbleLeft(intensity);
 			Gamepad.secondary.setRumbleLeft(intensity);
 		}else if(time < timeLeft){

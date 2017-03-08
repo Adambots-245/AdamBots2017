@@ -51,7 +51,7 @@ public class Constants {
 	
 	//Rumble Constants
 	public static final double MAX_RUMBLE = 1;
-	public static final double TIME_RUMBLE_VALUE = 0.5;
+	public static final double TIME_RUMBLE_VALUE = 0.75;
 	public static final double NO_RUMBLE = 0;
 	public static final double TIME_RUMBLE = 45;
 	
