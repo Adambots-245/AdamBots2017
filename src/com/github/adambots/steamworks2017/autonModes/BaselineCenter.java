@@ -16,7 +16,7 @@ public class BaselineCenter extends Command {
 	static boolean driveDone = false;
 
 	public BaselineCenter() {
-		System.out.println("I got here Baseline");
+		System.out.println("I got here BaselineCenter");
 
 	}
 
@@ -45,26 +45,30 @@ public class BaselineCenter extends Command {
 
 	@Override
 	protected void execute() {
-		System.out.println("I got here execution");
+		//System.out.println("I got here execution (Baseline Center)");
 		try {
 			if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 750) {
+				System.out.println("Ramp up");
 				Actuators.getLeftDriveMotor().set(-rampSpeed);
 				Actuators.getRightDriveMotor().set(rampSpeed);
 				hasFinished = false;
 				driveDone = false;
-			} else if (Actuators.getLeftDriveMotor().getEncPosition() < 7500
-					&& Actuators.getLeftDriveMotor().getEncPosition() >= 750) {
-				Actuators.getLeftDriveMotor().set(Constants.HALF_MOTOR_SPEED);
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 7500
+					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 750) {
+				System.out.println("Half speed");
+				Actuators.getLeftDriveMotor().set(-Constants.HALF_MOTOR_SPEED);
 				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED);
 				driveDone = false;
 				hasFinished = false;
-			} else if (Actuators.getLeftDriveMotor().getEncPosition() >= 7500
-					&& Actuators.getLeftDriveMotor().getEncPosition() < 8300) {
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 7500
+					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 8300) {
+				System.out.println("Ramp down");
 				Actuators.getLeftDriveMotor().set(-rampSpeed);
 				Actuators.getRightDriveMotor().set(rampSpeed);
 				driveDone = false;
 				hasFinished = false;
-			} else if (Actuators.getLeftDriveMotor().getEncPosition() >= 8300) {
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 8300) {
+				System.out.println("Stop");
 				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
 				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
 				hasFinished = false;

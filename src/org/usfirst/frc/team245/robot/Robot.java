@@ -48,9 +48,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit(){
 
 		autoChooser = new SendableChooser<Object>();
-		autoChooser.addDefault("Do nothing", new DoNothing());			//works
-		autoChooser.addObject("Cross baseline", new Baseline());		//untested
-//		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+		autoChooser.addObject("Do nothing", new DoNothing());			//works
+		autoChooser.addDefault("Cross baseline", new Baseline());		//untested
+		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
 //		autoChooser.addObject("Left gear lift", new GearLeft());		//untested
 //		autoChooser.addObject("Right gear lift", new GearRight());		//untested
 //		autoChooser.addObject("Front Gear lift", new Gear());			//untested
@@ -168,7 +168,10 @@ public class Robot extends IterativeRobot {
 			lastState = "auton";
 		}
 		Scheduler.getInstance().run();
-
+		SmartDashboard.putNumber("Left encoder", Actuators.getLeftDriveMotor().getEncPosition());
+		SmartDashboard.putNumber("Right encoder", Actuators.getRightDriveMotor().getEncPosition());
+		SmartDashboard.putNumber("Left speed", Actuators.getLeftDriveMotor().get());
+		SmartDashboard.putNumber("Right speed", Actuators.getRightDriveMotor().get());
 		
 		
 	}

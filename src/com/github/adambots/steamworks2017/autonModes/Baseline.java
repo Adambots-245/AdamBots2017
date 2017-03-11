@@ -41,7 +41,7 @@ public class Baseline extends Command{
 	}
 	@Override
 	protected void execute() {
-		System.out.println("I got here execution");
+		System.out.println("I got here execution (Baseline)");
 		try{
 			if(Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) <= 7835){
 			Actuators.getLeftDriveMotor().set(- Constants.HALF_MOTOR_SPEED);
