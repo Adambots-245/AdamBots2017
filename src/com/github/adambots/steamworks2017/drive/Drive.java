@@ -52,14 +52,14 @@ public class Drive {
 	
 	public static void crab(){
 		crabState++;
-		if (goingLeft){
+		if (!goingLeft){
 			
 			if (crabState < 20)
-				drive(0, .5);
+				drive(0, .4);
 			else if (crabState < 40)
 				drive(-.3,0);
 			else if (crabState < 60)
-				drive(0, -.5);
+				drive(0, -.4);
 			else if (crabState < 80)
 				drive(.3, 0);
 			else
@@ -67,11 +67,11 @@ public class Drive {
 		}else{
 			
 			if (crabState < 20)
-				drive(0, -.5);
+				drive(0, -.4);
 			else if (crabState < 40)
 				drive(-.3,0);
 			else if (crabState < 60)
-				drive(0, .5);
+				drive(0, .4);
 			else if (crabState < 80)
 				drive(.3, 0);
 			else
