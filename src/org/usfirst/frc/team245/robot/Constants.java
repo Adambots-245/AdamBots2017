@@ -66,4 +66,9 @@ public class Constants {
 	//Vision Constants
 	public static final boolean VISION_WORKING = true;
 	public static final boolean VISION_FAIL = false;
+	
+	//GhostCode File Reading
+	public static final int joyIndex = 1;
+	public static final int triggerIndex = 0;
+	public static final int timeIndex = 2;
 }

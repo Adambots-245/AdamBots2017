@@ -2,7 +2,9 @@ package org.usfirst.frc.team245.robot;
 
 
 import com.ctre.CANTalon.TalonControlMode;
-import com.github.adambots.steamworks2017.autonModes.*;
+import com.github.adambots.steamworks2017.autonModes.Baseline;
+import com.github.adambots.steamworks2017.autonModes.BaselineCenter;
+import com.github.adambots.steamworks2017.autonModes.DoNothing;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -10,7 +12,6 @@ import com.github.adambots.steamworks2017.networkTables.NetworkTables;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.smartDash.Dash;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;

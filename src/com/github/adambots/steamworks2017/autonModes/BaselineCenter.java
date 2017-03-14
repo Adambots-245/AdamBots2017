@@ -7,8 +7,6 @@ import com.github.adambots.steamworks2017.drive.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-import com.github.adambots.steamworks2017.drive.Drive;
-
 public class BaselineCenter extends Command {
 	static double distance = 95; // distance to baseline
 	static boolean hasFinished = false;
@@ -45,7 +43,7 @@ public class BaselineCenter extends Command {
 
 	@Override
 	protected void execute() {
-		//System.out.println("I got here execution (Baseline Center)");
+		// System.out.println("I got here execution (Baseline Center)");
 		try {
 			if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 750) {
 				System.out.println("Ramp up");
@@ -53,21 +51,21 @@ public class BaselineCenter extends Command {
 				Actuators.getRightDriveMotor().set(rampSpeed);
 				hasFinished = false;
 				driveDone = false;
-			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 7500
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 6000
 					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 750) {
 				System.out.println("Half speed");
 				Actuators.getLeftDriveMotor().set(-Constants.HALF_MOTOR_SPEED);
 				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED);
 				driveDone = false;
 				hasFinished = false;
-			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 7500
-					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 8300) {
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 6000
+					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 7000) {
 				System.out.println("Ramp down");
 				Actuators.getLeftDriveMotor().set(-rampSpeed);
 				Actuators.getRightDriveMotor().set(rampSpeed);
 				driveDone = false;
 				hasFinished = false;
-			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 8300) {
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 7000) {
 				System.out.println("Stop");
 				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
 				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
@@ -76,7 +74,7 @@ public class BaselineCenter extends Command {
 
 			}
 			if (driveDone) {
-				Actuators.getDispenseGearPneumatic().set(true);
+				// Actuators.getDispenseGearPneumatic().set(true);
 				hasFinished = true;
 			}
 			// Drive.driveWithPID(distance, distance);
