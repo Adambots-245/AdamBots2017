@@ -5,6 +5,7 @@ import com.ctre.CANTalon.TalonControlMode;
 import com.github.adambots.steamworks2017.autonModes.Baseline;
 import com.github.adambots.steamworks2017.autonModes.BaselineCenter;
 import com.github.adambots.steamworks2017.autonModes.DoNothing;
+import com.github.adambots.steamworks2017.camera.Light;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -214,7 +215,8 @@ public class Robot extends IterativeRobot {
 		Drive.drive(-Gamepad.primary.getLeftX(), Gamepad.primary.getTriggers()); 
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); // shifting with A low gear and Y high gear
 		Drive.shiftToggle(Gamepad.primary.getLB());
-
+		
+		Light.toggleLight(Gamepad.primary.getX());
 		
 		if (Gamepad.primary.getDPadLeft()){
 			Drive.goingLeft = true;

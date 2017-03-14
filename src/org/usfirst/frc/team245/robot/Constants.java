@@ -59,9 +59,10 @@ public class Constants {
 	public static final int COUNTER_END = 3;	//If the counter for button presses is at this amount, then the safety will be disabled
 	public static final int COUNTER_START = 0;
 	
-	//Ring Light
-	public static final int RING_LIGHT = 3;
-	public static final int LED_LIGHT = 5;
+	//LightS
+	public static final int RING_LIGHT_PORT = 3;
+	public static final int LED_LIGHT_PORT = 5;
+	public static final int SPOTLIGHT_PORT = 7; //TODO: Find correct port
 	
 	//Vision Constants
 	public static final boolean VISION_WORKING = true;

@@ -5,7 +5,7 @@ import org.usfirst.frc.team245.robot.Constants;
 
 public class Drive {
 
-	static boolean leftBumperReleased = true;
+	private static boolean toggleReleased = true;
 	public static int crabState = 0;
 	public static boolean goingLeft = false;
 
@@ -111,17 +111,14 @@ public class Drive {
 
 		if (!toggleButton) {
 			// this only runs if button is released
-			leftBumperReleased = true;
+			toggleReleased = true;
 		}
-		if (toggleButton && Actuators.getDriveShiftPneumatic().get() && leftBumperReleased) {
-			Actuators.getDriveShiftPneumatic().set(false); // TODO: Find why
-															// this isn't
-															// working
-			leftBumperReleased = false;
-		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && leftBumperReleased) {
-			Actuators.getDriveShiftPneumatic().set(true); // TODO:Find why this
-															// isn't working
-			leftBumperReleased = false;
+		if (toggleButton && Actuators.getDriveShiftPneumatic().get() && toggleReleased) {
+			Actuators.getDriveShiftPneumatic().set(false);
+			toggleReleased = false;
+		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && toggleReleased) {
+			Actuators.getDriveShiftPneumatic().set(true);
+			toggleReleased = false;
 		}
 	}
 	// public static void driveWithPID(double leftDistance, double
