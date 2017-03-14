@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -144,7 +145,6 @@ public class Robot extends IterativeRobot {
 			System.out.println(autonomousCommand);
 			autonomousCommand.start();
 		}
-		
 //			System.out.println("I got here auto Command start");
 //			}
 //		else{
@@ -168,13 +168,15 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		if (state == "auton") {
 			lastState = "auton";
+				
+				
 		}
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left encoder", Actuators.getLeftDriveMotor().getEncPosition());
 		SmartDashboard.putNumber("Right encoder", Actuators.getRightDriveMotor().getEncPosition());
 		SmartDashboard.putNumber("Left speed", Actuators.getLeftDriveMotor().get());
 		SmartDashboard.putNumber("Right speed", Actuators.getRightDriveMotor().get());
-		
+			
 		
 	}
 		
@@ -275,8 +277,19 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("Controls Table", NetworkTables.getControlsTable().getKeys().toString());
 		SmartDashboard.putString("Stream", NetworkTables.getControlsTable().getString("stream", "nothing"));
 
+		GhostModeWrite.Recording();
 	}
 
+	public void teleopInit() {
+
+		GhostModeWrite.ghostModeInit();
+		
+	}
+
+	public void disabledInit() {
+		GhostModeWrite.writingArray();
+	}
+			
 	/**
 	 * This function is called periodically during test mode
 	 */
