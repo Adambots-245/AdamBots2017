@@ -15,6 +15,7 @@ public class Intake {
 	static boolean intakeInButtonReleased = true;
 	public static double intakeMotorSpeed = 0;
 	static boolean intakeJamButtonReleased = true;
+	static boolean buttonPressed = true;
 
 	static boolean intakeRunButtonReleased = true;
 	static boolean intakeOutReleased = true;
@@ -154,17 +155,22 @@ public class Intake {
 		}
 	}
 	
-	public static void intakeIn(boolean intakeButton){
-		
-			if(intakeButton){
-				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
-				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
-				intakeInButtonReleased = true;
-			}else if(!intakeButton && intakeInButtonReleased){
-				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
-				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
-				intakeInButtonReleased = false;
-			
+	public static void intakeIn(boolean intakeButton, boolean intakeButton1, boolean intakeButton2){
+		if(intakeButton && buttonPressed){
+			Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
+			Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
+			buttonPressed = false;
+		}else if(intakeButton1 && buttonPressed){
+			Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+			Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
+			buttonPressed = false;
+		}else if(intakeButton2 && buttonPressed){
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
+			buttonPressed = false;
+		}else if(!intakeButton && !intakeButton1 && !intakeButton2){
+			buttonPressed = true;
 		}
+
 	}
 }

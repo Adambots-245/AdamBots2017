@@ -51,7 +51,7 @@ public class Constants {
 	
 	//Rumble Constants
 	public static final double MAX_RUMBLE = 1;
-	public static final double TIME_RUMBLE_VALUE = 0.5;
+	public static final double TIME_RUMBLE_VALUE = 0.75;
 	public static final double NO_RUMBLE = 0;
 	public static final double TIME_RUMBLE = 45;
 	
@@ -61,8 +61,14 @@ public class Constants {
 	
 	//Ring Light
 	public static final int RING_LIGHT = 3;
+	public static final int LED_LIGHT = 5;
 	
 	//Vision Constants
 	public static final boolean VISION_WORKING = true;
 	public static final boolean VISION_FAIL = false;
+	
+	//GhostCode File Reading
+	public static final int joyIndex = 1;
+	public static final int triggerIndex = 0;
+	public static final int timeIndex = 2;
 }

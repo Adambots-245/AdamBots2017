@@ -2,7 +2,9 @@ package org.usfirst.frc.team245.robot;
 
 
 import com.ctre.CANTalon.TalonControlMode;
-import com.github.adambots.steamworks2017.autonModes.*;
+import com.github.adambots.steamworks2017.autonModes.Baseline;
+import com.github.adambots.steamworks2017.autonModes.BaselineCenter;
+import com.github.adambots.steamworks2017.autonModes.DoNothing;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -47,9 +49,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit(){
 
 		autoChooser = new SendableChooser<Object>();
-		autoChooser.addDefault("Do nothing", new DoNothing());			//works
-		autoChooser.addObject("Cross baseline", new Baseline());		//untested
-//		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+		autoChooser.addObject("Do nothing", new DoNothing());			//works
+		autoChooser.addDefault("Cross baseline", new Baseline());		//untested
+		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
 //		autoChooser.addObject("Left gear lift", new GearLeft());		//untested
 //		autoChooser.addObject("Right gear lift", new GearRight());		//untested
 //		autoChooser.addObject("Front Gear lift", new Gear());			//untested
@@ -99,13 +101,15 @@ public class Robot extends IterativeRobot {
 			System.out.println(e.getMessage());
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
-//			CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
+			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
 			CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
-//			CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
+			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
 			System.out.println("Errors occured during Camera Server initialization.");
 			System.out.println(e.getMessage());
 		}
+		SmartDashboard.putNumber("Time remaining:", 999999.9);
+		SmartDashboard.putNumber("Time remaining:", 999999.8);
 		System.out.println("Initialization is complete.");
 
 	}
@@ -165,7 +169,10 @@ public class Robot extends IterativeRobot {
 			lastState = "auton";
 		}
 		Scheduler.getInstance().run();
-
+		SmartDashboard.putNumber("Left encoder", Actuators.getLeftDriveMotor().getEncPosition());
+		SmartDashboard.putNumber("Right encoder", Actuators.getRightDriveMotor().getEncPosition());
+		SmartDashboard.putNumber("Left speed", Actuators.getLeftDriveMotor().get());
+		SmartDashboard.putNumber("Right speed", Actuators.getRightDriveMotor().get());
 		
 		
 	}
@@ -208,8 +215,20 @@ public class Robot extends IterativeRobot {
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); // shifting with A low gear and Y high gear
 		Drive.shiftToggle(Gamepad.primary.getLB());
 
+		
+		if (Gamepad.primary.getDPadLeft()){
+			Drive.goingLeft = true;
+			Drive.crab();		
+		}else if( Gamepad.primary.getDPadRight()){
+			Drive.goingLeft = false;
+			Drive.crab();			
+		}else if (Drive.crabState > 0){
+			Drive.crab();
+		}
+
+		
 		// Climb controls
-		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); // runs climbStop using left on the DPad - Primary
+		Climb.climbStopPrimary(Gamepad.primary.getDPadUp()); // runs climbStop using left on the DPad - Primary
 		// Climb.climbSafetyTogglePrimary(Gamepad.primary.getBack()); //toggles safety if pressed 3 times
 
 		// Gear controls
@@ -224,9 +243,9 @@ public class Robot extends IterativeRobot {
 		Intake.intakeDirection(Gamepad.secondary.getRightX()); // Override Y Button
 		Intake.intakeJam(Gamepad.secondary.getLB()); // Runs the unjamming procedure for a max of 3 seconds per press
 		// Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
-		Intake.intakeIn(Gamepad.secondary.getA()); // Toggles Intake running into the robot at full speed
+		Intake.intakeIn(Gamepad.secondary.getA(), Gamepad.secondary.getB(), Gamepad.secondary.getX()); // Toggles Intake running into the robot at full speed
 		Intake.intakeRun(Gamepad.secondary.getRB()); // Runs all stuff for intake in(conveyor and intake motor)
-		Intake.intakeOut(Gamepad.secondary.getB());
+//		Intake.intakeOut(Gamepad.secondary.getB());
 		// Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadRight()); // runs climbStop using left on the DPad - Secondary
 		Climb.climbStartSecondary(Gamepad.secondary.getDPadLeft()); // runs climbStart using right on the DPad Secondary

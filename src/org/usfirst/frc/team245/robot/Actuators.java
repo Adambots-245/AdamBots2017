@@ -31,6 +31,7 @@ public class Actuators {
 	
 	//Ring light
 	private static Solenoid ringLight;
+	private static Solenoid LEDs;
 	/*
 	 * Initializes all actuators
 	 */
@@ -72,6 +73,9 @@ public class Actuators {
 		
 		ringLight = new Solenoid(Constants.RING_LIGHT);
 		ringLight.set(true);
+		
+		LEDs = new Solenoid(Constants.LED_LIGHT);
+		LEDs.set(true);
 		
 		
 	}

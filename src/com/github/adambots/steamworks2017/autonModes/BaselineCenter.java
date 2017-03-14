@@ -7,26 +7,28 @@ import com.github.adambots.steamworks2017.drive.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Baseline extends Command {
+public class BaselineCenter extends Command {
 	static double distance = 95; // distance to baseline
 	static boolean hasFinished = false;
+	static double rampSpeed = .3;
+	static boolean driveDone = false;
 
-	public Baseline() {
-		System.out.println("I got here Baseline");
+	public BaselineCenter() {
+		System.out.println("I got here BaselineCenter");
 
 	}
 
-	public Baseline(String name) {
+	public BaselineCenter(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Baseline(double timeout) {
+	public BaselineCenter(double timeout) {
 		super(timeout);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Baseline(String name, double timeout) {
+	public BaselineCenter(String name, double timeout) {
 		super(name, timeout);
 		// TODO Auto-generated constructor stub
 	}
@@ -41,15 +43,38 @@ public class Baseline extends Command {
 
 	@Override
 	protected void execute() {
-		System.out.println("I got here execution (Baseline)");
+		// System.out.println("I got here execution (Baseline Center)");
 		try {
-			if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) <= 7835) {
+			if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 750) {
+				System.out.println("Ramp up");
+				Actuators.getLeftDriveMotor().set(-rampSpeed);
+				Actuators.getRightDriveMotor().set(rampSpeed);
+				hasFinished = false;
+				driveDone = false;
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 6000
+					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 750) {
+				System.out.println("Half speed");
 				Actuators.getLeftDriveMotor().set(-Constants.HALF_MOTOR_SPEED);
 				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED);
+				driveDone = false;
 				hasFinished = false;
-			} else {
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 6000
+					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 7000) {
+				System.out.println("Ramp down");
+				Actuators.getLeftDriveMotor().set(-rampSpeed);
+				Actuators.getRightDriveMotor().set(rampSpeed);
+				driveDone = false;
+				hasFinished = false;
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 7000) {
+				System.out.println("Stop");
 				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
 				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
+				hasFinished = false;
+				driveDone = true;
+
+			}
+			if (driveDone) {
+				// Actuators.getDispenseGearPneumatic().set(true);
 				hasFinished = true;
 			}
 			// Drive.driveWithPID(distance, distance);

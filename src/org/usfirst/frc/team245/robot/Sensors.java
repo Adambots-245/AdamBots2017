@@ -22,6 +22,8 @@ public class Sensors {
 		sweeperMaxLimitSwitch = new DigitalInput(Constants.SWEEPER_MAX_LIMIT_SWITCH_PORT);
 		climbingCompleteSensor = new DigitalInput(Constants.CLIMBING_COMPLETE_BUMP_PORT);
 		robotGyro = new ADXRS450_Gyro();
+		Gamepad.primary.setRumbleBoth(Constants.NO_RUMBLE);
+		Gamepad.secondary.setRumbleBoth(Constants.NO_RUMBLE);
 	}
 	
 	/*
