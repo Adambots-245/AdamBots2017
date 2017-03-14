@@ -1,6 +1,5 @@
 package com.github.adambots.steamworks2017.networkTables;
 
-import org.usfirst.frc.team245.robot.Actuators;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 

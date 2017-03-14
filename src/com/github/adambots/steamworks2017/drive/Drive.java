@@ -3,9 +3,21 @@ package com.github.adambots.steamworks2017.drive;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
+import com.ctre.CANTalon.TalonControlMode;
+
 public class Drive {
 	
 	static boolean leftBumperReleased = true;
+	public static int crabState = 0;
+	public static boolean goingLeft = false;
+	
+	/*
+	 * Sets initial conditions for driving
+	 * */
+	public static void init(){
+		Actuators.getDriveShiftPneumatic().set(false);
+	}
+
 	
 
 	/*
@@ -36,6 +48,39 @@ public class Drive {
 			Actuators.getDriveShiftPneumatic().set(true);
 		}
 	}
+	
+	
+	public static void crab(){
+		crabState++;
+		if (!goingLeft){
+			
+			if (crabState < 20)
+				drive(0, .4);
+			else if (crabState < 40)
+				drive(-.3,0);
+			else if (crabState < 60)
+				drive(0, -.4);
+			else if (crabState < 80)
+				drive(.3, 0);
+			else
+				crabState = 0;			
+		}else{
+			
+			if (crabState < 20)
+				drive(0, -.4);
+			else if (crabState < 40)
+				drive(-.3,0);
+			else if (crabState < 60)
+				drive(0, .4);
+			else if (crabState < 80)
+				drive(.3, 0);
+			else
+				crabState = 0;
+			
+		}
+		
+	
+	}
 	/*
 	 * Toggle shifting gears
 	 * @param toggleButton
@@ -62,5 +107,19 @@ public class Drive {
 			leftBumperReleased = false;
 		}
 	}	
+//	public static void driveWithPID(double leftDistance, double rightDistance){
+//		leftDistance /= Constants.INCHES_PER_REV;
+//		rightDistance /= Constants.INCHES_PER_REV;
+//		
+//		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.Position);
+//		Actuators.getLeftDriveMotor().set(leftDistance);
+//		
+//		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.Position);
+//		Actuators.getRightDriveMotor().set(rightDistance);
+//
+//		Actuators.getRightDriveMotor().enable();
+//		Actuators.getLeftDriveMotor().enable();
+//		System.out.println("I got here driveWithPID end");
+//	}
 }
 

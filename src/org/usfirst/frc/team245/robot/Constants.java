@@ -4,16 +4,18 @@ public class Constants {
 	//Motor max and min constants
 	public static final double MAX_MOTOR_SPEED = 1;
 	public static final double MIN_MOTOR_SPEED = -1;
+	public static final double HALF_MOTOR_SPEED = .5;
+	public static final double INCHES_PER_REV = 12.556;
 	
 	//Motor values
 	public static final double MOTOR_STOP = 0;
-	public static final double CLIMB_MOTOR_SPEED = 1; //TODO: Find Correct Value for Motor speed to climb
+	public static final double CLIMB_MOTOR_SPEED = 1; 
 	public static final double OUTTAKE_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor
-	public static final double MOTOR_START_VALUE = 0.5;
-	public static final double MOTOR_INCREMENT = 0.05; //TODO: Find correct value for the increment value
+	public static final double MOTOR_START_VALUE = - 0.5;
+	public static final double MOTOR_INCREMENT = 0.05; 
 	public static final double MOTOR_CIM_STALL_CURRENT = 15; //TODO: Find correct current value for motor stall
-	public static final double MOTOR_REVERSE = -0.6;	//TODO: Find correct value
-	public static final double MOTOR_ACCEL = 0.05;		//TOD: Find correct value
+	public static final double MOTOR_REVERSE = -0.6;	
+	public static final double MOTOR_ACCEL = 0.05;		
 	
 	//Port map
 	public static final int LEFT_FRONT_DRIVE_MOTOR_PORT = 0;
@@ -49,7 +51,7 @@ public class Constants {
 	
 	//Rumble Constants
 	public static final double MAX_RUMBLE = 1;
-	public static final double HALF_RUMBLE = 0.5;
+	public static final double TIME_RUMBLE_VALUE = 0.75;
 	public static final double NO_RUMBLE = 0;
 	public static final double TIME_RUMBLE = 45;
 	
@@ -59,6 +61,7 @@ public class Constants {
 	
 	//Ring Light
 	public static final int RING_LIGHT = 3;
+	public static final int LED_LIGHT = 5;
 	
 	//Vision Constants
 	public static final boolean VISION_WORKING = true;

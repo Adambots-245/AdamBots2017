@@ -13,7 +13,7 @@ public class Sensors {
 	private static DigitalInput climbingCompleteSensor;
 	
 	//Analog
-//	private static ADXRS450_Gyro robotGyro;
+	private static ADXRS450_Gyro robotGyro;
 	
 	public static void init(){
 		
@@ -21,7 +21,9 @@ public class Sensors {
 		sweeperMinLimitSwitch = new DigitalInput(Constants.SWEEPER_MIN_LIMIT_SWITCH_PORT);
 		sweeperMaxLimitSwitch = new DigitalInput(Constants.SWEEPER_MAX_LIMIT_SWITCH_PORT);
 		climbingCompleteSensor = new DigitalInput(Constants.CLIMBING_COMPLETE_BUMP_PORT);
-//		robotGyro = new ADXRS450_Gyro();
+		robotGyro = new ADXRS450_Gyro();
+		Gamepad.primary.setRumbleBoth(Constants.NO_RUMBLE);
+		Gamepad.secondary.setRumbleBoth(Constants.NO_RUMBLE);
 	}
 	
 	/*
@@ -48,8 +50,8 @@ public class Sensors {
 	public static DigitalInput getClimbingCompleteSensor(){
 		return climbingCompleteSensor;
 	}
-//	public static ADXRS450_Gyro getRobotGyro(){
-//		return robotGyro;
-//	}
+	public static ADXRS450_Gyro getRobotGyro(){
+		return robotGyro;
+	}
 
 }

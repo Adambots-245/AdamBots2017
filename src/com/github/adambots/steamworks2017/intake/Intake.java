@@ -3,10 +3,6 @@ package com.github.adambots.steamworks2017.intake;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
-import com.github.adambots.steamworks2017.climb.Climb;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 
 public class Intake {
 	
@@ -19,6 +15,8 @@ public class Intake {
 	static boolean intakeInButtonReleased = true;
 	public static double intakeMotorSpeed = 0;
 	static boolean intakeJamButtonReleased = true;
+	static boolean buttonPressed = true;
+
 	static boolean intakeRunButtonReleased = true;
 	static boolean intakeOutReleased = true;
 
@@ -83,7 +81,7 @@ public class Intake {
 		
 //			//increases motor speed
 			if(!intakeDisabled){
-				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MAX_MOTOR_SPEED){
+				if(speed <= Constants.STICK_PRESSED_UP && Math.abs(Actuators.getFuelIntakeMotor().get()) < Constants.MIN_MOTOR_SPEED){
 					//Increments motor speed by a set value while stick is more than 50% pressed
 					intakeMotorSpeed = Actuators.getFuelIntakeMotor().get() + Constants.MOTOR_INCREMENT;
 					Actuators.getFuelIntakeMotor().set(intakeMotorSpeed);
@@ -157,17 +155,22 @@ public class Intake {
 		}
 	}
 	
-	public static void intakeIn(boolean intakeButton){
-		
-			if(intakeButton){
-				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
-				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
-				intakeInButtonReleased = true;
-			}else if(!intakeButton && intakeInButtonReleased){
-				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
-				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
-				intakeInButtonReleased = false;
-			
+	public static void intakeIn(boolean intakeButton, boolean intakeButton1, boolean intakeButton2){
+		if(intakeButton && buttonPressed){
+			Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
+			Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
+			buttonPressed = false;
+		}else if(intakeButton1 && buttonPressed){
+			Actuators.getFuelIntakeMotor().set(Constants.MAX_MOTOR_SPEED);
+			Actuators.getFuelConveyorMotor().set(Constants.MAX_MOTOR_SPEED);
+			buttonPressed = false;
+		}else if(intakeButton2 && buttonPressed){
+			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
+			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
+			buttonPressed = false;
+		}else if(!intakeButton && !intakeButton1 && !intakeButton2){
+			buttonPressed = true;
 		}
+
 	}
 }

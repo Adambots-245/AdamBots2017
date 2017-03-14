@@ -1,14 +1,19 @@
 package org.usfirst.frc.team245.robot;
 
-import com.github.adambots.steamworks2017.auton.SendableChooserValue;
-import com.github.adambots.steamworks2017.auton.GeneratedMotionProfile;
+
+import com.ctre.CANTalon.TalonControlMode;
+import com.github.adambots.steamworks2017.autonModes.*;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
 import com.github.adambots.steamworks2017.networkTables.NetworkTables;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.smartDash.Dash;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,14 +25,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot {	
+	
+	
+	Command autonomousCommand;
+	SendableChooser<Object> autoChooser;
+//	Command backupCommand;
+//	SendableChooser<Object> backupChooser;
 
-	private int autonomousNumber;
-	public int backupNumber;
-
-	SendableChooserValue autonomousCommand;
-	SendableChooser<SendableChooserValue> autoChooser;
-	SendableChooser<SendableChooserValue> backup;
 
 	/*
 	 * creation of sendable chooser and
@@ -40,41 +45,70 @@ public class Robot extends IterativeRobot {
 	private String state;
 	private String lastState;
 
-	public void robotInit() {
+	public void robotInit(){
 
-		autoChooser = new SendableChooser<SendableChooserValue>();
-		autoChooser.addDefault("Do nothing", new SendableChooserValue(1, Constants.VISION_WORKING));
-		autoChooser.addObject("Cross baseline", new SendableChooserValue(2, Constants.VISION_WORKING));
-		autoChooser.addObject("Baseline Center", new SendableChooserValue(3, Constants.VISION_WORKING));
-		autoChooser.addObject("Left gear lift", new SendableChooserValue(4, Constants.VISION_WORKING));
-		autoChooser.addObject("Right gear lift", new SendableChooserValue(5, Constants.VISION_WORKING));
-		autoChooser.addObject("Front Gear lift", new SendableChooserValue(6, Constants.VISION_WORKING));
-		autoChooser.addObject("Left Hopper", new SendableChooserValue(7, Constants.VISION_WORKING));
-		autoChooser.addObject("Right Hopper", new SendableChooserValue(8, Constants.VISION_WORKING));
-		autoChooser.addObject("Score then Gear Left", new SendableChooserValue(9, Constants.VISION_WORKING));
-		autoChooser.addObject("Score then Gear Right", new SendableChooserValue(10, Constants.VISION_WORKING));
-
+		autoChooser = new SendableChooser<Object>();
+		autoChooser.addObject("Do nothing", new DoNothing());			//works
+		autoChooser.addDefault("Cross baseline", new Baseline());		//untested
+		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+//		autoChooser.addObject("Left gear lift", new GearLeft());		//untested
+//		autoChooser.addObject("Right gear lift", new GearRight());		//untested
+//		autoChooser.addObject("Front Gear lift", new Gear());			//untested
+//		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
+//		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
+//		autoChooser.addObject("Only Score", new Score());				//untested
+//		autoChooser.addObject("Score then Gear Left", new ScoreGearLeft());
+//		autoChooser.addObject("Score then Gear Right", new ScoreGearRight());
 		SmartDashboard.putData("Autonomous paths", autoChooser);
 
-		backup = new SendableChooser<SendableChooserValue>();
-		backup.addDefault("Do nothing", new SendableChooserValue(1, Constants.VISION_FAIL));
-		backup.addObject("Cross baseline", new SendableChooserValue(2, Constants.VISION_FAIL));
-		backup.addObject("Baseline Center", new SendableChooserValue(3, Constants.VISION_FAIL));
-		backup.addObject("Front gear lift", new SendableChooserValue(6, Constants.VISION_FAIL));
-		backup.addObject("left Hopper", new SendableChooserValue(7, Constants.VISION_FAIL));
-		backup.addObject("right Hopper", new SendableChooserValue(8, Constants.VISION_FAIL));
-		SmartDashboard.putData("Camera is not working", backup);
 
+//		backupChooser = new SendableChooser<Object>();
+//		backupChooser.addDefault("Do nothing", new DoNothing());			//works
+//		backupChooser.addObject("Cross baseline", new Baseline());			//untested
+//		backupChooser.addObject("Baseline Center", new BaselineCenter());	//untested
+//		backupChooser.addObject("Front gear lift", new Gear());				//untested
+//		backupChooser.addObject("Left Hopper", new LeftHopper());			//untested
+//		backupChooser.addObject("Right Hopper", new RightHopper());			//untested
+//		backupChooser.addObject("Only Score", new Score());					//untested
+//		SmartDashboard.putData("Camera is not working", backupChooser);
+		SmartDashboard.putData(Scheduler.getInstance());
+		
 		state = "disabled";
 		lastState = "disabled";
 		try {
 			Actuators.init();
-			Sensors.init();
-			NetworkTables.init();
+//			Sensors.init();
+//			NetworkTables.init();
 		} catch (Exception e) {
-			System.out.println("Errors occurred during initialization.");
+			System.out.println("Errors occurred during Actuator initialization.");
 			System.out.println(e.getMessage());
 		}
+		try {
+//			Actuators.init();
+			Sensors.init();
+//			NetworkTables.init();
+		} catch (Exception e) {
+			System.out.println("Errors occurred during Sensor initialization.");
+			System.out.println(e.getMessage());
+		}
+		try {
+//			Actuators.init();
+//			Sensors.init();
+			NetworkTables.init();
+		} catch (Exception e) {
+			System.out.println("Errors occurred during Network Table initialization.");
+			System.out.println(e.getMessage());
+		}
+		try{	//Code to enable camera stream if connected to roborio through usb	
+			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
+			CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
+			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
+		}catch(Exception e){
+			System.out.println("Errors occured during Camera Server initialization.");
+			System.out.println(e.getMessage());
+		}
+		SmartDashboard.putNumber("Time remaining:", 999999.9);
+		SmartDashboard.putNumber("Time remaining:", 999999.8);
 		System.out.println("Initialization is complete.");
 
 	}
@@ -93,17 +127,28 @@ public class Robot extends IterativeRobot {
 	@Override
 
 	public void autonomousInit() {
-		// runs the autonomous smartdashboard display for auton
-
-		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {
-			autonomousNumber = ((SendableChooserValue) autoChooser.getSelected()).getNumber();
-		} else if (!NetworkTables.getControlsTable().getBoolean("camera0", false)) {
-			backupNumber = ((SendableChooserValue) autoChooser.getSelected()).getBackupNumber();
-		}
-
 		
-		autonomousCommand = autoChooser.getSelected();
-		Scheduler.getInstance().run();
+		// runs the autonomous smartdashboard display for auton
+		Actuators.getLeftDriveMotor().setEncPosition(0);
+		Actuators.getRightDriveMotor().setEncPosition(0);
+		autonomousCommand = (Command) autoChooser.getSelected();
+		
+//		backupCommand = (Command) backupChooser.getSelected();
+//		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
+//		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
+//		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
+		
+		if(autonomousCommand != null){	
+			System.out.println(autonomousCommand);
+			autonomousCommand.start();
+		}
+		
+//			System.out.println("I got here auto Command start");
+//			}
+//		else{
+//			backupCommand.start();			
+//		}
+//			Drive.driveWithPID(distance, distance);
 
 		state = "auton";
 		// autoSelected = chooser.getSelected();
@@ -111,6 +156,7 @@ public class Robot extends IterativeRobot {
 		// // defaultAuto);
 		// System.out.println("Auto selected: " + autoSelected);
 		NetworkTables.getControlsTable().putBoolean("auton", true);
+
 	}
 
 	/**
@@ -120,55 +166,18 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		if (state == "auton") {
 			lastState = "auton";
-			// TODO: Add the methods for the code
-			switch (autonomousNumber) {
-
-			default:
-			case 1: // do nothing
-				
-				break;
-			case 2: // cross baseline
-				Actuators.getLeftDriveMotor().set(GeneratedMotionProfile.readProfile());
-				Actuators.getRightDriveMotor().set(GeneratedMotionProfile.readProfile());
-				break;
-			case 3: // baseline Center 				
-				break;
-				
-			case 4: // left gear lift
-				break;
-
-			case 5: // right gear lift
-				break;
-
-			case 6: // front gear lift
-				break;
-
-			case 7: // left hopper
-				break;
-
-			case 8: // right Hopper
-				break;
-
-			case 9: // score then gear left
-				break;
-
-			case 10: // score then gear right
-				break;
-
-			}
-
-			
 		}
-		// switch (autoSelected) {
-		// case customAuto:
-		// // Put custom auto code here
-		// break;
-		// case defaultAuto:
-		// default:
-		// // Put default auto code here
-		// break;
-		// }
+		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Left encoder", Actuators.getLeftDriveMotor().getEncPosition());
+		SmartDashboard.putNumber("Right encoder", Actuators.getRightDriveMotor().getEncPosition());
+		SmartDashboard.putNumber("Left speed", Actuators.getLeftDriveMotor().get());
+		SmartDashboard.putNumber("Right speed", Actuators.getRightDriveMotor().get());
+		
+		
 	}
+		
+
+
 
 	/**
 	 * This function is called periodically during operator control
@@ -182,9 +191,20 @@ public class Robot extends IterativeRobot {
 
 		if (lastState.equals("auton")) {
 			NetworkTables.getControlsTable().putBoolean("auton", false);
+			
+			//Changes the control Mode back to PercentVbus
+			//Should only run once - first interation of teleop
+			//And ends auton if running
+			if(autonomousCommand != null){
+				autonomousCommand.cancel();
+			}
+			Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.PercentVbus);
+			Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
+			Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.PercentVbus);
+			Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
 		}
 
-		NetworkTables.putStream(Gamepad.primary.getX() || Gamepad.secondary.getX());
+//		NetworkTables.putStream(Gamepad.primary.getX() || Gamepad.secondary.getX());
 		/*
 		 * Primary Controllers Controls
 		 */
@@ -194,8 +214,20 @@ public class Robot extends IterativeRobot {
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); // shifting with A low gear and Y high gear
 		Drive.shiftToggle(Gamepad.primary.getLB());
 
+		
+		if (Gamepad.primary.getDPadLeft()){
+			Drive.goingLeft = true;
+			Drive.crab();		
+		}else if( Gamepad.primary.getDPadRight()){
+			Drive.goingLeft = false;
+			Drive.crab();			
+		}else if (Drive.crabState > 0){
+			Drive.crab();
+		}
+
+		
 		// Climb controls
-		Climb.climbStopPrimary(Gamepad.primary.getDPadLeft()); // runs climbStop using left on the DPad - Primary
+		Climb.climbStopPrimary(Gamepad.primary.getDPadUp()); // runs climbStop using left on the DPad - Primary
 		// Climb.climbSafetyTogglePrimary(Gamepad.primary.getBack()); //toggles safety if pressed 3 times
 
 		// Gear controls
@@ -210,9 +242,9 @@ public class Robot extends IterativeRobot {
 		Intake.intakeDirection(Gamepad.secondary.getRightX()); // Override Y Button
 		Intake.intakeJam(Gamepad.secondary.getLB()); // Runs the unjamming procedure for a max of 3 seconds per press
 		// Intake.intakeSafety(Gamepad.secondary.getStart()); //Have to press 3 times to toggle the safety
-		Intake.intakeIn(Gamepad.secondary.getA()); // Toggles Intake running into the robot at full speed
+		Intake.intakeIn(Gamepad.secondary.getA(), Gamepad.secondary.getB(), Gamepad.secondary.getX()); // Toggles Intake running into the robot at full speed
 		Intake.intakeRun(Gamepad.secondary.getRB()); // Runs all stuff for intake in(conveyor and intake motor)
-		Intake.intakeOut(Gamepad.secondary.getB());
+//		Intake.intakeOut(Gamepad.secondary.getB());
 		// Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadRight()); // runs climbStop using left on the DPad - Secondary
 		Climb.climbStartSecondary(Gamepad.secondary.getDPadLeft()); // runs climbStart using right on the DPad Secondary
@@ -239,8 +271,7 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Controls Table", NetworkTables.getControlsTable().getKeys().toString());
 		SmartDashboard.putString("Stream", NetworkTables.getControlsTable().getString("stream", "nothing"));
-		SmartDashboard.putNumber("Auton number:", autonomousNumber);
-		SmartDashboard.putNumber("Backup number:", backupNumber);
+
 	}
 
 	/**
