@@ -10,7 +10,6 @@ import com.github.adambots.steamworks2017.networkTables.NetworkTables;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.smartDash.Dash;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -100,9 +99,9 @@ public class Robot extends IterativeRobot {
 			System.out.println(e.getMessage());
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
-			CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
+//			CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
 			CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
-			CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
+//			CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
 			System.out.println("Errors occured during Camera Server initialization.");
 			System.out.println(e.getMessage());

@@ -1,7 +1,7 @@
 package com.github.adambots.steamworks2017.smartDash;
 
 import org.usfirst.frc.team245.robot.Gamepad;
-import edu.wpi.first.wpilibj.DriverStation;
+
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 

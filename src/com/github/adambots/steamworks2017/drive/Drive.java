@@ -3,8 +3,6 @@ package com.github.adambots.steamworks2017.drive;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
-import com.ctre.CANTalon.TalonControlMode;
-
 public class Drive {
 	
 	static boolean leftBumperReleased = true;
