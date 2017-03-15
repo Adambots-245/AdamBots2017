@@ -10,11 +10,11 @@ public class Light {
 			// this only runs if button is released
 			toggleReleased = true;
 		}
-		if (toggleButton && Actuators.getDriveShiftPneumatic().get() && toggleReleased) {
-			Actuators.getSpotlight().set(false); 
+		if (toggleButton && Actuators.getRingLight().get() && toggleReleased) {
+			Actuators.getRingLight().set(false); 
 			toggleReleased = false;
-		} else if (toggleButton && !Actuators.getDriveShiftPneumatic().get() && toggleReleased) {
-			Actuators.getSpotlight().set(true);
+		} else if (toggleButton && !Actuators.getRingLight().get() && toggleReleased) {
+			Actuators.getRingLight().set(true);
 			toggleReleased = false;
 		}
 	}

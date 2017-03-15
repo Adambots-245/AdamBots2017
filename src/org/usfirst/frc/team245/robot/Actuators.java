@@ -184,5 +184,13 @@ public class Actuators {
 	public static Solenoid getSpotlight() {
 		return spotlight;
 	}
+	
+	/*
+	 * @return ringLight
+	 */
+	public static Solenoid getRingLight() {
+		return ringLight;
+	}
+
 
 }
