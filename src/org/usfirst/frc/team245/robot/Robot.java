@@ -113,7 +113,14 @@ public class Robot extends IterativeRobot {
 		System.out.println("Initialization is complete.");
 
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see edu.wpi.first.wpilibj.IterativeRobot#robotPeriodic()
+	 */
+	@Override
+	public void robotPeriodic(){
+		
+	}
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
 	 * between different autonomous modes using the dashboard. The sendable
@@ -126,7 +133,6 @@ public class Robot extends IterativeRobot {
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 */
 	@Override
-
 	public void autonomousInit() {
 		
 		// runs the autonomous smartdashboard display for auton
@@ -214,17 +220,17 @@ public class Robot extends IterativeRobot {
 		Drive.drive(-Gamepad.primary.getLeftX(), Gamepad.primary.getTriggers()); 
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); // shifting with A low gear and Y high gear
 		Drive.shiftToggle(Gamepad.primary.getLB());
-
+		Drive.crab(Gamepad.primary.getDPadLeft(), Gamepad.primary.getDPadRight());
 		
-		if (Gamepad.primary.getDPadLeft()){
-			Drive.goingLeft = true;
-			Drive.crab();		
-		}else if( Gamepad.primary.getDPadRight()){
-			Drive.goingLeft = false;
-			Drive.crab();			
-		}else if (Drive.crabState > 0){
-			Drive.crab();
-		}
+//		if (Gamepad.primary.getDPadLeft()){
+//			Drive.goingLeft = true;
+//			Drive.crab();		
+//		}else if( Gamepad.primary.getDPadRight()){
+//			Drive.goingLeft = false;
+//			Drive.crab();			
+//		}else if (Drive.crabState > 0){
+//			Drive.crab();
+//		}
 
 		
 		// Climb controls
@@ -280,5 +286,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 }

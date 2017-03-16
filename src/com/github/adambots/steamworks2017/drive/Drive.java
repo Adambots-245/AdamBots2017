@@ -8,6 +8,11 @@ public class Drive {
 	static boolean leftBumperReleased = true;
 	public static int crabState = 0;
 	public static boolean goingLeft = false;
+	static boolean hasReleased = false;
+	static boolean firstRun = true;
+	static int leftPosition = 50;
+	static int rightPosition = 50;
+	static boolean setEncoder = false;
 
 	/*
 	 * Sets initial conditions for driving
@@ -61,34 +66,117 @@ public class Drive {
 		}
 	}
 
-	public static void crab() {
-		crabState++;
-		if (!goingLeft) {
-
-			if (crabState < 10)
-				drive(0, .8);
-			else if (crabState < 20)
-				drive(-.6, 0);
-			else if (crabState < 30)
-				drive(0, -.8);
-			else if (crabState < 40)
-				drive(.6, 0);
-			else
-				crabState = 0;
-		} else {
-
-			if (crabState < 10)
-				drive(0, -.8);
-			else if (crabState < 20)
-				drive(.6, 0);
-			else if (crabState < 30)
-				drive(0, .8);
-			else if (crabState < 40)
-				drive(-.6, 0);
-			else
-				crabState = 0;
-
+	public static void crab(boolean left, boolean right) {
+		if ((!left || !right) && hasReleased) {
+			hasReleased = false;
+			firstRun = true;
+			crabState = 0;
 		}
+		if (left || right) {
+
+			if (hasReleased) {
+				// this only runs on the first iteration of the crabwalk
+				if (firstRun) {
+					firstRun = false;
+					// reset encoder values for drive on the first run through
+					// of crab walk
+					Actuators.getLeftDriveMotor().setEncPosition(Constants.RESET);
+					Actuators.getRightDriveMotor().setEncPosition(Constants.RESET);
+					leftPosition = Constants.INITIAL_ENCODER;
+					rightPosition = Constants.INITIAL_ENCODER;
+				}
+			}
+
+			// logic to set motor encoders to values at the correct time
+			if (crabState == 1 && setEncoder) {
+				setEncoder = false;
+				// backing up
+				leftPosition = Actuators.getLeftDriveMotor().getEncPosition() + Constants.INITIAL_BACKUP;
+				rightPosition = Actuators.getRightDriveMotor().getEncPosition() + Constants.INITIAL_BACKUP;
+			} else if (crabState == 2 && setEncoder) {
+				setEncoder = false;
+				// turning
+				if (left) {
+					leftPosition = Actuators.getLeftDriveMotor().getEncPosition() + Constants.TURN_LEFT;
+					rightPosition = Actuators.getRightDriveMotor().getEncPosition() + Constants.TURN_LEFT;
+				} else if (right) {
+					leftPosition = Actuators.getLeftDriveMotor().getEncPosition() + Constants.TURN_RIGHT;
+					rightPosition = Actuators.getRightDriveMotor().getEncPosition() + Constants.TURN_RIGHT;
+				}
+			} else if (crabState == 3 && setEncoder) {
+				setEncoder = false;
+				// backing up
+				leftPosition = Actuators.getLeftDriveMotor().getEncPosition() + Constants.BACKUP;
+				rightPosition = Actuators.getRightDriveMotor().getEncPosition() + Constants.BACKUP;
+			} else if (crabState == 4 && setEncoder) {
+				setEncoder = false;
+				// unturning itself
+				if (left) {
+					leftPosition = Actuators.getLeftDriveMotor().getEncPosition() + Constants.TURN_LEFT;
+					rightPosition = Actuators.getRightDriveMotor().getEncPosition() + Constants.TURN_LEFT;
+				} else if (right) {
+					leftPosition = Actuators.getLeftDriveMotor().getEncPosition() + Constants.TURN_RIGHT;
+					rightPosition = Actuators.getRightDriveMotor().getEncPosition() + Constants.TURN_RIGHT;
+				}
+			} else if (crabState == 5 && setEncoder) {
+				setEncoder = false;
+				// going forward to initial position
+				leftPosition = Actuators.getLeftDriveMotor().getEncPosition() + Constants.DRIVE_FORWARD;
+				rightPosition = Actuators.getRightDriveMotor().getEncPosition() + Constants.DRIVE_FORWARD;
+			}
+
+			// logic to run motors based off a set encoder value
+			if (Actuators.getLeftDriveMotor().getEncPosition() < (leftPosition - Constants.ERROR)) {
+				Actuators.getLeftDriveMotor().set(Constants.CRAB_MOTOR_SPEED_FORWARD);
+			} else if (Actuators.getLeftDriveMotor().getEncPosition() > (leftPosition + Constants.ERROR)) {
+				Actuators.getLeftDriveMotor().set(Constants.CRAB_MOTOR_SPEED_BACKWARD);
+			}
+
+			if (Actuators.getRightDriveMotor().getEncPosition() < (rightPosition - Constants.ERROR)) {
+				Actuators.getRightDriveMotor().set(Constants.CRAB_MOTOR_SPEED_FORWARD);
+			} else if (Actuators.getRightDriveMotor().getEncPosition() > (rightPosition + Constants.ERROR)) {
+				Actuators.getRightDriveMotor().set(Constants.CRAB_MOTOR_SPEED_BACKWARD);
+			}
+			if (Actuators.getLeftDriveMotor().getEncPosition() < (leftPosition - Constants.ERROR)
+					&& Actuators.getLeftDriveMotor().getEncPosition() > (leftPosition + Constants.ERROR)
+					&& Actuators.getRightDriveMotor().getEncPosition() < (rightPosition - Constants.ERROR)
+					&& Actuators.getRightDriveMotor().getEncPosition() > (rightPosition + Constants.ERROR)) {
+
+				// iterates the crabState when the encoders are all at the
+				// correct position
+				crabState++;
+				setEncoder = true;
+
+			}
+		}
+
+		// crabState++;
+		// if (!goingLeft) {
+		//
+		// if (crabState < 10)
+		// drive(0, .8);
+		// else if (crabState < 20)
+		// drive(-.6, 0);
+		// else if (crabState < 30)
+		// drive(0, -.8);
+		// else if (crabState < 40)
+		// drive(.6, 0);
+		// else
+		// crabState = 0;
+		// } else {
+		//
+		// if (crabState < 10)
+		// drive(0, -.8);
+		// else if (crabState < 20)
+		// drive(.6, 0);
+		// else if (crabState < 30)
+		// drive(0, .8);
+		// else if (crabState < 40)
+		// drive(-.6, 0);
+		// else
+		// crabState = 0;
+		//
+		// }
 
 	}
 
