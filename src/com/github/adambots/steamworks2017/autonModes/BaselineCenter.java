@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class BaselineCenter extends Command {
 	static double distance = 95; // distance to baseline
 	static boolean hasFinished = false;
-	static double rampSpeed = .3;
+	static double rampSpeed = .2;
 	static boolean driveDone = false;
 
 	public BaselineCenter() {
@@ -51,21 +51,21 @@ public class BaselineCenter extends Command {
 				Actuators.getRightDriveMotor().set(rampSpeed);
 				hasFinished = false;
 				driveDone = false;
-			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 6000
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 7500
 					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 750) {
 				System.out.println("Half speed");
-				Actuators.getLeftDriveMotor().set(-Constants.HALF_MOTOR_SPEED);
-				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED);
+				Actuators.getLeftDriveMotor().set(-Constants.HALF_MOTOR_SPEED + .1);
+				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED - .1);
 				driveDone = false;
 				hasFinished = false;
-			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 6000
-					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 7000) {
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 7500
+					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 8300) {
 				System.out.println("Ramp down");
 				Actuators.getLeftDriveMotor().set(-rampSpeed);
 				Actuators.getRightDriveMotor().set(rampSpeed);
 				driveDone = false;
 				hasFinished = false;
-			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 7000) {
+			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 8300) {
 				System.out.println("Stop");
 				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
 				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);

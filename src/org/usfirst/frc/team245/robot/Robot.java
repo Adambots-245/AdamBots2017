@@ -104,7 +104,7 @@ public class Robot extends IterativeRobot {
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
 			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
-			CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
+			CameraServer.getInstance().startAutomaticCapture(1).setResolution(640, 480);	//optional - used to reduce bandwidth
 			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
 			System.out.println("Errors occured during Camera Server initialization.");
