@@ -72,4 +72,16 @@ public class Constants {
 	public static final int joyIndex = 1;
 	public static final int triggerIndex = 0;
 	public static final int timeIndex = 2;
+	
+	//Encoder Positions
+	public static final int RESET = 0;
+	public static final int ERROR = 25;
+	public static final double CRAB_MOTOR_SPEED_FORWARD = 0.5;
+	public static final double CRAB_MOTOR_SPEED_BACKWARD = -0.5;
+	public static final int INITIAL_BACKUP = 256;
+	public static final int TURN_LEFT = 256;
+	public static final int TURN_RIGHT = 256;
+	public static final int BACKUP = 1023;
+	public static final int DRIVE_FORWARD = 750;
+	public static final int INITIAL_ENCODER = 0;
 }

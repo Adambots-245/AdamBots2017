@@ -5,7 +5,6 @@ import com.ctre.CANTalon.TalonControlMode;
 import com.github.adambots.steamworks2017.autonModes.Baseline;
 import com.github.adambots.steamworks2017.autonModes.BaselineCenter;
 import com.github.adambots.steamworks2017.autonModes.DoNothing;
-import com.github.adambots.steamworks2017.camera.Light;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -19,7 +18,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -104,7 +102,7 @@ public class Robot extends IterativeRobot {
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
 			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
-			CameraServer.getInstance().startAutomaticCapture(1).setResolution(640, 480);	//optional - used to reduce bandwidth
+			CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
 			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
 			System.out.println("Errors occured during Camera Server initialization.");
@@ -115,7 +113,14 @@ public class Robot extends IterativeRobot {
 		System.out.println("Initialization is complete.");
 
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see edu.wpi.first.wpilibj.IterativeRobot#robotPeriodic()
+	 */
+	@Override
+	public void robotPeriodic(){
+		
+	}
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
 	 * between different autonomous modes using the dashboard. The sendable
@@ -128,7 +133,6 @@ public class Robot extends IterativeRobot {
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 */
 	@Override
-
 	public void autonomousInit() {
 		
 		// runs the autonomous smartdashboard display for auton
@@ -145,6 +149,7 @@ public class Robot extends IterativeRobot {
 			System.out.println(autonomousCommand);
 			autonomousCommand.start();
 		}
+		
 //			System.out.println("I got here auto Command start");
 //			}
 //		else{
@@ -168,15 +173,13 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		if (state == "auton") {
 			lastState = "auton";
-				
-				
 		}
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left encoder", Actuators.getLeftDriveMotor().getEncPosition());
 		SmartDashboard.putNumber("Right encoder", Actuators.getRightDriveMotor().getEncPosition());
 		SmartDashboard.putNumber("Left speed", Actuators.getLeftDriveMotor().get());
 		SmartDashboard.putNumber("Right speed", Actuators.getRightDriveMotor().get());
-			
+		
 		
 	}
 		
@@ -217,18 +220,17 @@ public class Robot extends IterativeRobot {
 		Drive.drive(-Gamepad.primary.getLeftX(), Gamepad.primary.getTriggers()); 
 		Drive.shift(Gamepad.primary.getA(), Gamepad.primary.getY()); // shifting with A low gear and Y high gear
 		Drive.shiftToggle(Gamepad.primary.getLB());
+		Drive.crab(Gamepad.primary.getDPadLeft(), Gamepad.primary.getDPadRight());
 		
-		Light.toggleLight(Gamepad.primary.getX());
-		
-		if (Gamepad.primary.getDPadLeft()){
-			Drive.goingLeft = true;
-			Drive.crab();		
-		}else if( Gamepad.primary.getDPadRight()){
-			Drive.goingLeft = false;
-			Drive.crab();			
-		}else if (Drive.crabState > 0){
-			Drive.crab();
-		}
+//		if (Gamepad.primary.getDPadLeft()){
+//			Drive.goingLeft = true;
+//			Drive.crab();		
+//		}else if( Gamepad.primary.getDPadRight()){
+//			Drive.goingLeft = false;
+//			Drive.crab();			
+//		}else if (Drive.crabState > 0){
+//			Drive.crab();
+//		}
 
 		
 		// Climb controls
@@ -277,23 +279,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("Controls Table", NetworkTables.getControlsTable().getKeys().toString());
 		SmartDashboard.putString("Stream", NetworkTables.getControlsTable().getString("stream", "nothing"));
 
-		GhostModeWrite.Recording();
 	}
 
-	public void teleopInit() {
-
-		GhostModeWrite.ghostModeInit();
-		
-	}
-
-	public void disabledInit() {
-		GhostModeWrite.writingArray();
-	}
-			
 	/**
 	 * This function is called periodically during test mode
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 }
