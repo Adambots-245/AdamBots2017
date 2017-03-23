@@ -29,7 +29,7 @@ public class Actuators {
 	// Ring light
 	private static Solenoid ringLight;
 	private static Solenoid LEDs;
-	private static Solenoid spotlight;
+	private static Solenoid laserPointer;
 
 	/*
 	 * Initializes all actuators
@@ -96,7 +96,7 @@ public class Actuators {
 		LEDs = new Solenoid(Constants.LED_LIGHT_PORT);
 		LEDs.set(true);
 
-		spotlight = new Solenoid(Constants.SPOTLIGHT_PORT);
+		laserPointer = new Solenoid(Constants.LASER_POINTER_PORT);
 
 	}
 
@@ -181,8 +181,8 @@ public class Actuators {
 	/*
 	 * @return spotlight
 	 */
-	public static Solenoid getSpotlight() {
-		return spotlight;
+	public static Solenoid getLaserPointer() {
+		return laserPointer;
 	}
 	
 	/*

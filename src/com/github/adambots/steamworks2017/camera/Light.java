@@ -10,11 +10,11 @@ public class Light {
 			// this only runs if button is released
 			toggleReleased = true;
 		}
-		if (toggleButton && Actuators.getSpotlight().get() && toggleReleased) {
-			Actuators.getSpotlight().set(false); 
+		if (toggleButton && Actuators.getLaserPointer().get() && toggleReleased) {
+			Actuators.getLaserPointer().set(false); 
 			toggleReleased = false;
-		} else if (toggleButton && !Actuators.getSpotlight().get() && toggleReleased) {
-			Actuators.getSpotlight().set(true);
+		} else if (toggleButton && !Actuators.getLaserPointer().get() && toggleReleased) {
+			Actuators.getLaserPointer().set(true);
 			toggleReleased = false;
 		}
 	}

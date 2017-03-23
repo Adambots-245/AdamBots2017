@@ -62,7 +62,7 @@ public class Constants {
 	//LightS
 	public static final int RING_LIGHT_PORT = 3;
 	public static final int LED_LIGHT_PORT = 5;
-	public static final int SPOTLIGHT_PORT = 7; //TODO: Find correct port
+	public static final int LASER_POINTER_PORT = 7; //TODO: Find correct port
 	
 	//Vision Constants
 	public static final boolean VISION_WORKING = true;
