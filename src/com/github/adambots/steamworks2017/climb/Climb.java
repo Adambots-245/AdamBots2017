@@ -29,15 +29,18 @@ public class Climb {
 	}
 	
 	public static void climbSafetyToggleSecondary(boolean climbSafetyButton){
+		
 		if(climbSafetyButton && climbSafetySecondaryReleased){
 			counterSecondary++;
 			climbSafetySecondaryReleased = false;
+			System.out.println("Back Button Pressed");
 		}else if(!climbSafetyButton){
 			climbSafetySecondaryReleased = true;
 		}
 		if(counterSecondary == Constants.COUNTER_END){
 			counterSecondary = Constants.COUNTER_START;
 			climbSafetySecondary = !climbSafetySecondary;
+			System.out.println("Safety State Toggled");
 		}
 	}
 	

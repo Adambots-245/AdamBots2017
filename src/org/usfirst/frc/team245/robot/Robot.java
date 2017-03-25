@@ -5,6 +5,7 @@ import com.ctre.CANTalon.TalonControlMode;
 import com.github.adambots.steamworks2017.autonModes.Baseline;
 import com.github.adambots.steamworks2017.autonModes.BaselineCenter;
 import com.github.adambots.steamworks2017.autonModes.DoNothing;
+import com.github.adambots.steamworks2017.camera.Light;
 import com.github.adambots.steamworks2017.climb.Climb;
 import com.github.adambots.steamworks2017.drive.Drive;
 import com.github.adambots.steamworks2017.intake.Intake;
@@ -102,7 +103,7 @@ public class Robot extends IterativeRobot {
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
 			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
-			CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
+			//CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
 			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
 			System.out.println("Errors occured during Camera Server initialization.");
@@ -113,6 +114,13 @@ public class Robot extends IterativeRobot {
 		System.out.println("Initialization is complete.");
 
 	}
+	
+	public void telopInit(){
+		GhostModeWrite.ghostModeInit();
+		
+	}
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * @see edu.wpi.first.wpilibj.IterativeRobot#robotPeriodic()
@@ -278,7 +286,9 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Controls Table", NetworkTables.getControlsTable().getKeys().toString());
 		SmartDashboard.putString("Stream", NetworkTables.getControlsTable().getString("stream", "nothing"));
-
+		
+		GhostModeWrite.Recording();
+		Light.toggleLight(Gamepad.primary.getX());
 	}
 
 	/**
@@ -288,4 +298,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		
 	}
+	
+
+	
 }
