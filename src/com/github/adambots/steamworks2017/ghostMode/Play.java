@@ -21,8 +21,9 @@ public class Play {
 		try {
 			buffer = new BufferedReader(new FileReader(autonMode));
 			while ((line = buffer.readLine()) != null) {
-				String[] snapshot = line.split(", ");
+				String[] snapshot = line.split(" ");
 				recording[index] = snapshot;
+				System.out.println(snapshot.length);
 				index++;
 			}
 		} catch (Exception e) {
@@ -42,12 +43,13 @@ public class Play {
 	}
 
 	public static void playRecording() {
-		int snapshotBoundNum = Math.max(0, Math.min(snapshotNum, index - 1));
+		int snapshotBoundNum = Math.max(1, Math.min(snapshotNum, index - 1));
 		time = System.nanoTime() - startTime;
 		double speed = 0;
 		double turn = 0;
-
-		double timePast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.timeIndex]);
+		System.out.println(recording.length);
+		System.out.println(recording[snapshotBoundNum - 1][Constants.timeIndex]);
+		/*double timePast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.timeIndex]);
 		double timeCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.timeIndex]);
 		double timeFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.timeIndex]);
 
@@ -58,7 +60,8 @@ public class Play {
 		double turnPast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.joyIndex]);
 		double turnCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.joyIndex]);
 		double turnFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.joyIndex]);
-
+		*/
+		/*
 		if (time == timeCurrent) {
 			speed = speedCurrent;
 			turn = turnCurrent;
@@ -69,9 +72,18 @@ public class Play {
 			speed = interpolate(speedCurrent, speedFuture, timeCurrent, timeFuture, time);
 			turn = interpolate(turnCurrent, turnFuture, timeCurrent, timeFuture, time);
 		}
-
-		Drive.drive(speed, turn);
+		*/
+		speed = Double.parseDouble(recording[snapshotBoundNum][Constants.triggerIndex]);
+		
+		
+		Drive.drive(turn, speed);
 
 		snapshotNum++;
+	}
+	public static void main(String[] args){
+		readRecording("C:\\Users\\Robotics\\Documents\\ghostMode.txt");
+		while(true){
+			playRecording();
+		}
 	}
 }

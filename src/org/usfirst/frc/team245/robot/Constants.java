@@ -69,10 +69,10 @@ public class Constants {
 	public static final boolean VISION_FAIL = false;
 	
 	//GhostCode File Reading
-	public static final int joyIndex = 1;
-	public static final int triggerIndex = 0;
-	public static final int timeIndex = 2;
-	
+	public static final int joyIndex = 2;
+	public static final int triggerIndex = 1;
+	public static final int timeIndex = 4;
+	public static final int rightBumperValue = 3; 
 	//Encoder Positions
 	public static final int RESET = 0;
 	public static final int ERROR = 25;
