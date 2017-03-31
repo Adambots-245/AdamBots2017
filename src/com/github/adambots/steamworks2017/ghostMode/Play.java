@@ -6,6 +6,7 @@ import java.io.FileReader;
 import org.usfirst.frc.team245.robot.Constants;
 
 import com.github.adambots.steamworks2017.drive.Drive;
+import com.github.adambots.steamworks2017.intake.Intake;
 
 public class Play {
 	static String[][] recording = new String[1000][5];
@@ -47,6 +48,7 @@ public class Play {
 		time = System.nanoTime() - startTime;
 		double speed = 0;
 		double turn = 0;
+		boolean RB = false;
 		System.out.println(recording.length);
 		System.out.println(recording[snapshotBoundNum - 1][Constants.timeIndex]);
 		/*double timePast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.timeIndex]);
@@ -74,9 +76,16 @@ public class Play {
 		}
 		*/
 		speed = Double.parseDouble(recording[snapshotBoundNum][Constants.triggerIndex]);
-		
+		turn = Double.parseDouble(recording[snapshotBoundNum][Constants.joyIndex]);
+		if (Double.parseDouble(recording[snapshotBoundNum][Constants.rightBumperValue])> .9){
+			RB = true;
+		}else{
+			RB = false;
+		}
 		
 		Drive.drive(turn, speed);
+		Intake.intakeRun(RB);
+		
 
 		snapshotNum++;
 	}

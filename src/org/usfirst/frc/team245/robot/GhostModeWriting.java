@@ -26,7 +26,7 @@ public class GhostModeWriting {
 			System.out.println("Starting Recording");
 			double triggerValue = Gamepad.primary.getTriggers();
 			double joystickValue = Gamepad.primary.getLeftX();
-			boolean rightBumper = Gamepad.secondary.getRightButton();
+			boolean rightBumper = Gamepad.secondary.getRB();
 			double rightBumperValue;
 
 			if (rightBumper == true) {
@@ -57,7 +57,7 @@ public class GhostModeWriting {
 		}
 		System.out.println("Starting Write");
 		try {
-			PrintWriter writer = new PrintWriter("/home/root/ghostMode.txt", "UTF-8");
+			PrintWriter writer = new PrintWriter("/tmp/ghostMode.txt", "UTF-8");
 			if (recordingGhost == true && arrayContainer.length >= 749) {
 				for (index = 0; index <= 749; index++) {
 					writer.print(index);

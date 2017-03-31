@@ -81,13 +81,13 @@ public class BaselineCenter extends Command {
 					&& Math.abs(Actuators.getRightDriveMotor().getEncPosition()) >= 750) {
 				System.out.println("Half speed");
 				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED - .1);
-				driveDoneLeft = false;
+				driveDoneRight = false;
 				hasFinished = false;
 			} else if (Math.abs(Actuators.getRightDriveMotor().getEncPosition()) >= 7500
 					&& Math.abs(Actuators.getRightDriveMotor().getEncPosition()) < 8300) {
 				System.out.println("Ramp down");
 				Actuators.getRightDriveMotor().set(rampSpeed);
-				driveDoneLeft = false;
+				driveDoneRight = false;
 				hasFinished = false;
 			} else if (Math.abs(Actuators.getRightDriveMotor().getEncPosition()) >= 8300) {
 				System.out.println("Stop");

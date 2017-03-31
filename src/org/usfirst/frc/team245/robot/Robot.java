@@ -5,8 +5,8 @@ import com.ctre.CANTalon.TalonControlMode;
 import com.github.adambots.steamworks2017.autonModes.Baseline;
 import com.github.adambots.steamworks2017.autonModes.BaselineCenter;
 import com.github.adambots.steamworks2017.autonModes.DoNothing;
-import com.github.adambots.steamworks2017.autonModes.Dummy1;
-import com.github.adambots.steamworks2017.autonModes.Dummy2;
+import com.github.adambots.steamworks2017.autonModes.RedBoiler;
+import com.github.adambots.steamworks2017.autonModes.BlueBoiler;
 import com.github.adambots.steamworks2017.autonModes.Dummy3;
 import com.github.adambots.steamworks2017.camera.Light;
 import com.github.adambots.steamworks2017.climb.Climb;
@@ -17,6 +17,7 @@ import com.github.adambots.steamworks2017.networkTables.NetworkTables;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.smartDash.Dash;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -56,9 +57,9 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Do nothing", new DoNothing());			//works
 		autoChooser.addDefault("Cross baseline", new Baseline());		//works
 		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
-		autoChooser.addObject("Dummy 1", new Dummy1());					//untested
-		autoChooser.addObject("Dummy 2", new Dummy2());					//untested
-		autoChooser.addObject("Dummy 3", new Dummy3());					//untested
+		autoChooser.addObject("Red Boiler", new RedBoiler());					//untested
+		autoChooser.addObject("Blue Boiler", new BlueBoiler());					//untested
+		//autoChooser.addObject("Dummy 3", new Dummy3());					//untested
 //		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
 //		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
 //		autoChooser.addObject("Only Score", new Score());				//untested
@@ -91,6 +92,7 @@ public class Robot extends IterativeRobot {
 		try {
 //			Actuators.init();
 			Sensors.init();
+			Actuators.getLaserPointer().set(true);
 //			NetworkTables.init();
 		} catch (Exception e) {
 			System.out.println("Errors occurred during Sensor initialization.");
@@ -105,7 +107,7 @@ public class Robot extends IterativeRobot {
 			System.out.println(e.getMessage());
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
-			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
+			CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
 			//CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
 			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
@@ -150,20 +152,19 @@ public class Robot extends IterativeRobot {
 		Actuators.getLeftDriveMotor().setEncPosition(0);
 		Actuators.getRightDriveMotor().setEncPosition(0);
 		
-		Play.readRecording("/tmp/ghostMode.txt");
+		//Play.readRecording("/home/admin/ghostMode2.txt");
 		
-		//autonomousCommand = (Command) autoChooser.getSelected();
+		autonomousCommand = (Command) autoChooser.getSelected();
 		
 //		backupCommand = (Command) backupChooser.getSelected();
 //		Actuators.getLeftDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
 //		Actuators.getRightDriveMotor().changeControlMode(TalonControlMode.MotionProfile);
 //		if (NetworkTables.getControlsTable().getBoolean("camera0", false)) {//Auto for working camera
 		
-//		if(autonomousCommand != null){	
-//			System.out.println(autonomousCommand);
-//			autonomousCommand.start();
-//		}
-		
+		if(autonomousCommand != null){	
+			System.out.println(autonomousCommand);
+			autonomousCommand.start();
+		}
 //			System.out.println("I got here auto Command start");
 //			}
 //		else{
@@ -177,6 +178,7 @@ public class Robot extends IterativeRobot {
 		// // defaultAuto);
 		// System.out.println("Auto selected: " + autoSelected);
 		NetworkTables.getControlsTable().putBoolean("auton", true);
+		Actuators.getDriveShiftPneumatic().set(false);
 
 	}
 
@@ -188,12 +190,12 @@ public class Robot extends IterativeRobot {
 		if (state == "auton") {
 			lastState = "auton";
 		}
-		//Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left encoder", Actuators.getLeftDriveMotor().getEncPosition());
 		SmartDashboard.putNumber("Right encoder", Actuators.getRightDriveMotor().getEncPosition());
 		SmartDashboard.putNumber("Left speed", Actuators.getLeftDriveMotor().get());
 		SmartDashboard.putNumber("Right speed", Actuators.getRightDriveMotor().get());
-		Play.playRecording();
+		//Play.playRecording();
 		
 	}
 		

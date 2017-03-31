@@ -4,16 +4,16 @@ import com.github.adambots.steamworks2017.ghostMode.Play;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Dummy2 extends Command{
+public class BlueBoiler extends Command{
 	static boolean hasFinished = false;
 	
-	public Dummy2() {
+	public BlueBoiler() {
 
 	}
 
 	@Override
 	protected void initialize() {
-		Play.readRecording("Dummy2.txt"); //TODO: Add actual path
+		Play.readRecording("/home/admin/blueBoiler.txt"); //TODO: Add actual path
 	}
 
 	@Override
