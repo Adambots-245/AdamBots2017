@@ -57,8 +57,9 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Do nothing", new DoNothing());			//works
 		autoChooser.addDefault("Cross baseline", new Baseline());		//works
 		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
-		autoChooser.addObject("Red Boiler", new RedBoiler());					//untested
-		autoChooser.addObject("Blue Boiler", new BlueBoiler());					//untested
+		// Red and Blue are reversed...
+		autoChooser.addObject("Blue Boiler", new RedBoiler());					//untested
+		autoChooser.addObject("Red Boiler", new BlueBoiler());					//untested
 		//autoChooser.addObject("Dummy 3", new Dummy3());					//untested
 //		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
 //		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
@@ -107,8 +108,8 @@ public class Robot extends IterativeRobot {
 			System.out.println(e.getMessage());
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
-			CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
-			//CameraServer.getInstance().startAutomaticCapture(0).setResolution(640, 480);	//optional - used to reduce bandwidth
+			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
+			CameraServer.getInstance().startAutomaticCapture(0).setResolution(960, 720);	//optional - used to reduce bandwidth
 			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
 			System.out.println("Errors occured during Camera Server initialization.");

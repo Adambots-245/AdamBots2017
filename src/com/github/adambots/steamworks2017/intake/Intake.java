@@ -23,6 +23,8 @@ public class Intake {
 	static double oldMotorSpeed = Constants.MOTOR_STOP;
 	static double newMotorSpeed = Constants.MOTOR_STOP;
 	
+	static boolean appliedCurrentLimit = false;
+	static boolean appliedCurrentLimit2 = false;
 //	public static void intakeSafety(boolean intakeSafetyButton){
 //		if(intakeSafetyButton && intakeSafetyButtonReleased){
 //			counter++;
@@ -140,12 +142,39 @@ public class Intake {
 	public static void intakeRun(boolean intakeButton){
 		
 			if(intakeButton && intakeJamButtonReleased){
+				
+				if (!appliedCurrentLimit){
+					Actuators.getDriveShiftPneumatic().set(false);
+					Actuators.getLeftDriveMotor().setCurrentLimit(20);
+					Actuators.getLeftDriveMotorSlave().setCurrentLimit(20);
+					Actuators.getRightDriveMotor().setCurrentLimit(20);
+					Actuators.getRightDriveMotorSlave().setCurrentLimit(20);
+					appliedCurrentLimit = true;
+					appliedCurrentLimit2 = false;
+				}
+	
+				
 				Actuators.getFuelIntakeMotor().set(Constants.MIN_MOTOR_SPEED);
 				Actuators.getFuelConveyorMotor().set(Constants.MIN_MOTOR_SPEED);
 				Actuators.getSweeperPneumatic().set(true);
 				Actuators.getFuelOuttakeMotor().set(Constants.MAX_MOTOR_SPEED);
 				intakeRunButtonReleased = true;
 			}else if(!intakeButton && intakeRunButtonReleased){
+				
+				if (!appliedCurrentLimit2){
+					Actuators.getLeftDriveMotor().EnableCurrentLimit(true);
+					Actuators.getLeftDriveMotorSlave().EnableCurrentLimit(true);
+					Actuators.getRightDriveMotor().EnableCurrentLimit(true);
+					Actuators.getRightDriveMotorSlave().EnableCurrentLimit(true);
+					//Actuators.getDriveShiftPneumatic().set(true);
+					Actuators.getLeftDriveMotor().setCurrentLimit(80);
+					Actuators.getLeftDriveMotorSlave().setCurrentLimit(80);
+					Actuators.getRightDriveMotor().setCurrentLimit(80);
+					Actuators.getRightDriveMotorSlave().setCurrentLimit(80);	
+					appliedCurrentLimit2 = true;
+					appliedCurrentLimit = false;
+				}
+
 				Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
 				Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 				Actuators.getFuelOuttakeMotor().set(Constants.MOTOR_STOP);

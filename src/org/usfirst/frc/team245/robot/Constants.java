@@ -54,6 +54,7 @@ public class Constants {
 	public static final double TIME_RUMBLE_VALUE = 0.75;
 	public static final double NO_RUMBLE = 0;
 	public static final double TIME_RUMBLE = 45;
+	public static final double ROPE_RUMBLE = 13;
 	
 	//Safety Constants
 	public static final int COUNTER_END = 3;	//If the counter for button presses is at this amount, then the safety will be disabled

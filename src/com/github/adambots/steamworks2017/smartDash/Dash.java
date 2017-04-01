@@ -39,6 +39,7 @@ public class Dash {
 		// If within the second of TIME_RUMBLE then both controllers are set to
 		// HALF_RUMBLE
 		Vibrations.timeLeftVibrate(Constants.TIME_RUMBLE_VALUE, Constants.TIME_RUMBLE);
+		Vibrations.timeLeftVibrate(Constants.TIME_RUMBLE_VALUE, Constants.ROPE_RUMBLE);
 
 	}
 }

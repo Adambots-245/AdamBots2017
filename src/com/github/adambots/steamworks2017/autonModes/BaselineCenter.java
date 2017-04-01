@@ -11,8 +11,7 @@ public class BaselineCenter extends Command {
 	static double distance = 95; // distance to baseline
 	static boolean hasFinished = false;
 	static double rampSpeed = .2;
-	static boolean driveDoneLeft = false;
-	static boolean driveDoneRight = false;
+	static boolean driveDone = false;
 
 	public BaselineCenter() {
 		System.out.println("I got here BaselineCenter");
@@ -46,57 +45,35 @@ public class BaselineCenter extends Command {
 	protected void execute() {
 		// System.out.println("I got here execution (Baseline Center)");
 		try {
-			//Left Side
 			if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 750) {
 				System.out.println("Ramp up");
 				Actuators.getLeftDriveMotor().set(-rampSpeed);
+				Actuators.getRightDriveMotor().set(rampSpeed);
 				hasFinished = false;
-				driveDoneLeft = false;
+				driveDone = false;
 			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 7500
 					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 750) {
 				System.out.println("Half speed");
-				Actuators.getLeftDriveMotor().set(Constants.HALF_MOTOR_SPEED - .1);
-				driveDoneLeft = false;
+				Actuators.getLeftDriveMotor().set(-Constants.HALF_MOTOR_SPEED + .1);
+				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED - .1);
+				driveDone = false;
 				hasFinished = false;
 			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 7500
 					&& Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) < 8300) {
 				System.out.println("Ramp down");
-				Actuators.getLeftDriveMotor().set(rampSpeed);
-				driveDoneLeft = false;
+				Actuators.getLeftDriveMotor().set(-rampSpeed);
+				Actuators.getRightDriveMotor().set(rampSpeed);
+				driveDone = false;
 				hasFinished = false;
 			} else if (Math.abs(Actuators.getLeftDriveMotor().getEncPosition()) >= 8300) {
 				System.out.println("Stop");
 				Actuators.getLeftDriveMotor().set(Constants.MOTOR_STOP);
-				hasFinished = false;
-				driveDoneLeft = true;
-
-			}
-			//Right side
-			if (Math.abs(Actuators.getRightDriveMotor().getEncPosition()) < 750) {
-				System.out.println("Ramp up");
-				Actuators.getRightDriveMotor().set(rampSpeed);
-				hasFinished = false;
-				driveDoneRight = false;
-			} else if (Math.abs(Actuators.getRightDriveMotor().getEncPosition()) < 7500
-					&& Math.abs(Actuators.getRightDriveMotor().getEncPosition()) >= 750) {
-				System.out.println("Half speed");
-				Actuators.getRightDriveMotor().set(Constants.HALF_MOTOR_SPEED - .1);
-				driveDoneRight = false;
-				hasFinished = false;
-			} else if (Math.abs(Actuators.getRightDriveMotor().getEncPosition()) >= 7500
-					&& Math.abs(Actuators.getRightDriveMotor().getEncPosition()) < 8300) {
-				System.out.println("Ramp down");
-				Actuators.getRightDriveMotor().set(rampSpeed);
-				driveDoneRight = false;
-				hasFinished = false;
-			} else if (Math.abs(Actuators.getRightDriveMotor().getEncPosition()) >= 8300) {
-				System.out.println("Stop");
 				Actuators.getRightDriveMotor().set(Constants.MOTOR_STOP);
 				hasFinished = false;
-				driveDoneRight = true;
+				driveDone = true;
 
 			}
-			if (driveDoneLeft && driveDoneRight) {
+			if (driveDone) {
 				// Actuators.getDispenseGearPneumatic().set(true);
 				hasFinished = true;
 			}
