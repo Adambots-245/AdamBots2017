@@ -3,6 +3,8 @@ package com.github.adambots.steamworks2017.intake;
 import org.usfirst.frc.team245.robot.Actuators;
 import org.usfirst.frc.team245.robot.Constants;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 
 public class Intake {
 	
@@ -143,7 +145,7 @@ public class Intake {
 		
 			if(intakeButton && intakeJamButtonReleased){
 				
-				if (!appliedCurrentLimit){
+				if (!appliedCurrentLimit && !DriverStation.getInstance().isAutonomous()){
 					Actuators.getDriveShiftPneumatic().set(false);
 					Actuators.getLeftDriveMotor().setCurrentLimit(20);
 					Actuators.getLeftDriveMotorSlave().setCurrentLimit(20);
@@ -161,12 +163,12 @@ public class Intake {
 				intakeRunButtonReleased = true;
 			}else if(!intakeButton && intakeRunButtonReleased){
 				
-				if (!appliedCurrentLimit2){
+				if (!appliedCurrentLimit2 && !DriverStation.getInstance().isAutonomous()){
 					Actuators.getLeftDriveMotor().EnableCurrentLimit(true);
 					Actuators.getLeftDriveMotorSlave().EnableCurrentLimit(true);
 					Actuators.getRightDriveMotor().EnableCurrentLimit(true);
 					Actuators.getRightDriveMotorSlave().EnableCurrentLimit(true);
-					//Actuators.getDriveShiftPneumatic().set(true);
+					Actuators.getDriveShiftPneumatic().set(true);
 					Actuators.getLeftDriveMotor().setCurrentLimit(80);
 					Actuators.getLeftDriveMotorSlave().setCurrentLimit(80);
 					Actuators.getRightDriveMotor().setCurrentLimit(80);

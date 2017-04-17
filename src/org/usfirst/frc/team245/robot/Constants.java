@@ -9,6 +9,7 @@ public class Constants {
 	
 	//Motor values
 	public static final double MOTOR_STOP = 0;
+	public static final double CLIMB_MOTOR_SPEEDSLOW = .5;
 	public static final double CLIMB_MOTOR_SPEED = 1; 
 	public static final double OUTTAKE_MOTOR_SPEED = 0.8; //TODO: Find Correct Value for Motor
 	public static final double MOTOR_START_VALUE = - 0.5;

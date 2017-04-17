@@ -22,6 +22,8 @@ public class Dash {
 		SmartDashboard.putBoolean("Is Climbing:", TalonDio.climbEncodDio(Actuators.getClimbMotor()));
 		SmartDashboard.putNumber("Total Current Draw:", SensorsDio.PDPCurrent(Sensors.getPowerDistro()));
 		SmartDashboard.putNumber("Time remaining:", DriverStation.getInstance().getMatchTime());
+		SmartDashboard.putBoolean("High_Low Gear:", Actuators.getDriveShiftPneumatic().get());
+		
 		// SmartDashboard.putBoolean("Is Driving:",
 		// TalonDio.driveEncodDio(Actuators.getLeftDriveMotor(),
 		// Actuators.getRightDriveMotor()));
@@ -40,6 +42,7 @@ public class Dash {
 		// HALF_RUMBLE
 		Vibrations.timeLeftVibrate(Constants.TIME_RUMBLE_VALUE, Constants.TIME_RUMBLE);
 		Vibrations.timeLeftVibrate(Constants.TIME_RUMBLE_VALUE, Constants.ROPE_RUMBLE);
+		Vibrations.timeLeftVibrate(Constants.TIME_RUMBLE_VALUE, 80);
 
 	}
 }

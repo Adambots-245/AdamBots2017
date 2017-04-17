@@ -6,7 +6,9 @@ import com.github.adambots.steamworks2017.autonModes.Baseline;
 import com.github.adambots.steamworks2017.autonModes.BaselineCenter;
 import com.github.adambots.steamworks2017.autonModes.DoNothing;
 import com.github.adambots.steamworks2017.autonModes.RedBoiler;
+import com.github.adambots.steamworks2017.autonModes.RedBoilerPeg;
 import com.github.adambots.steamworks2017.autonModes.BlueBoiler;
+import com.github.adambots.steamworks2017.autonModes.BlueBoilerPeg;
 import com.github.adambots.steamworks2017.autonModes.Dummy3;
 import com.github.adambots.steamworks2017.camera.Light;
 import com.github.adambots.steamworks2017.climb.Climb;
@@ -17,6 +19,7 @@ import com.github.adambots.steamworks2017.networkTables.NetworkTables;
 import com.github.adambots.steamworks2017.score.Score;
 import com.github.adambots.steamworks2017.smartDash.Dash;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -59,7 +62,10 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Baseline Center", new BaselineCenter());	//untested
 		// Red and Blue are reversed...
 		autoChooser.addObject("Blue Boiler", new RedBoiler());					//untested
-		autoChooser.addObject("Red Boiler", new BlueBoiler());					//untested
+		autoChooser.addObject("Red Boiler", new BlueBoiler());	
+		
+		autoChooser.addObject("Blue Boiler Peg", new BlueBoilerPeg());
+		autoChooser.addObject("Red Boiler Peg", new RedBoilerPeg());//untested
 		//autoChooser.addObject("Dummy 3", new Dummy3());					//untested
 //		autoChooser.addObject("Left Hopper", new LeftHopper());			//untested
 //		autoChooser.addObject("Right Hopper", new RightHopper());		//untested
@@ -104,12 +110,16 @@ public class Robot extends IterativeRobot {
 //			Sensors.init();
 			NetworkTables.init();
 		} catch (Exception e) {
-			System.out.println("Errors occurred during Network Table initialization.");
+			System.out.println("Errors ocqcurred during Network Table initialization.");
 			System.out.println(e.getMessage());
 		}
 		try{	//Code to enable camera stream if connected to roborio through usb	
 			//CameraServer.getInstance().startAutomaticCapture(0);	//On SmartDash - view -> add-> CameraServer Stream Viewer
-			CameraServer.getInstance().startAutomaticCapture(0).setResolution(960, 720);	//optional - used to reduce bandwidth
+			UsbCamera camera = new UsbCamera("cam0", 0);
+			camera.setFPS(15);
+			camera.setResolution(480, 360);
+			CameraServer.getInstance().startAutomaticCapture(camera);
+			//CameraServer.getInstance().startAutomaticCapture(0).setResolution(720, 480);	//optional - used to reduce bandwidth
 			//CameraServer.getInstance().startAutomaticCapture(0).setFPS(24);		//optional - used to reduce bandwidth
 		}catch(Exception e){
 			System.out.println("Errors occured during Camera Server initialization.");
@@ -272,6 +282,7 @@ public class Robot extends IterativeRobot {
 		// Climb controls
 		Climb.climbStopSecondary(Gamepad.secondary.getDPadRight()); // runs climbStop using left on the DPad - Secondary
 		Climb.climbStartSecondary(Gamepad.secondary.getDPadLeft()); // runs climbStart using right on the DPad Secondary
+		Climb.climbFaster(Gamepad.secondary.getDPadDown());
 		Climb.climbSafetyToggleSecondary(Gamepad.secondary.getBack()); // Have to press 3 times to toggle the safety
 
 		// Gear controls

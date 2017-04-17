@@ -49,7 +49,7 @@ public class Climb {
 		//will only run if climbSafetySecondary is toggled to false
 		//Disables all internal motors when climb button is pressed
 		if(climbButton && !climbSafetySecondary){
-			Actuators.getClimbMotor().set(Constants.CLIMB_MOTOR_SPEED);
+			Actuators.getClimbMotor().set(Constants.CLIMB_MOTOR_SPEEDSLOW);
 			climbEnabled = false;
 			Actuators.getFuelConveyorMotor().set(Constants.MOTOR_STOP);
 			Actuators.getFuelIntakeMotor().set(Constants.MOTOR_STOP);
@@ -78,5 +78,15 @@ public class Climb {
 			
 	
 		}
+	}
+	
+	
+	public static void climbFaster(boolean climbButton){
+		if (climbButton && !climbEnabled){
+			Actuators.getClimbMotor().set(Constants.CLIMB_MOTOR_SPEED);
+		}
+		
+		
+	
 	}
 }

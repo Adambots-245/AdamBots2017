@@ -44,50 +44,56 @@ public class Play {
 	}
 
 	public static void playRecording() {
-		int snapshotBoundNum = Math.max(1, Math.min(snapshotNum, index - 1));
-		time = System.nanoTime() - startTime;
-		double speed = 0;
-		double turn = 0;
-		boolean RB = false;
-		System.out.println(recording.length);
-		System.out.println(recording[snapshotBoundNum - 1][Constants.timeIndex]);
-		/*double timePast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.timeIndex]);
-		double timeCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.timeIndex]);
-		double timeFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.timeIndex]);
-
-		double speedPast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.triggerIndex]);
-		double speedCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.triggerIndex]);
-		double speedFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.triggerIndex]);
-
-		double turnPast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.joyIndex]);
-		double turnCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.joyIndex]);
-		double turnFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.joyIndex]);
-		*/
-		/*
-		if (time == timeCurrent) {
-			speed = speedCurrent;
-			turn = turnCurrent;
-		} else if (time < timeCurrent) {
-			speed = interpolate(speedPast, speedCurrent, timePast, timeCurrent, time);
-			turn = interpolate(turnPast, turnCurrent, timePast, timeCurrent, time);
-		} else if (time > timeCurrent) {
-			speed = interpolate(speedCurrent, speedFuture, timeCurrent, timeFuture, time);
-			turn = interpolate(turnCurrent, turnFuture, timeCurrent, timeFuture, time);
+		try{
+			int snapshotBoundNum = Math.max(1, Math.min(snapshotNum, index - 1));
+			time = System.nanoTime() - startTime;
+			double speed = 0;
+			double turn = 0;
+			boolean RB = false;
+			System.out.println(recording.length);
+			System.out.println(recording[snapshotBoundNum - 1][Constants.timeIndex]);
+			/*double timePast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.timeIndex]);
+			double timeCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.timeIndex]);
+			double timeFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.timeIndex]);
+	
+			double speedPast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.triggerIndex]);
+			double speedCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.triggerIndex]);
+			double speedFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.triggerIndex]);
+	
+			double turnPast = Double.parseDouble(recording[snapshotBoundNum - 1][Constants.joyIndex]);
+			double turnCurrent = Double.parseDouble(recording[snapshotBoundNum][Constants.joyIndex]);
+			double turnFuture = Double.parseDouble(recording[snapshotBoundNum + 1][Constants.joyIndex]);
+			
+			
+			if (time == timeCurrent) {
+				speed = speedCurrent;
+				turn = turnCurrent;
+			} else if (time < timeCurrent) {
+				speed = interpolate(speedPast, speedCurrent, timePast, timeCurrent, time);
+				turn = interpolate(turnPast, turnCurrent, timePast, timeCurrent, time);
+			} else if (time > timeCurrent) {
+				speed = interpolate(speedCurrent, speedFuture, timeCurrent, timeFuture, time);
+				turn = interpolate(turnCurrent, turnFuture, timeCurrent, timeFuture, time);
+			}
+			*/
+			
+			speed = Double.parseDouble(recording[snapshotBoundNum][Constants.triggerIndex]);
+			turn = Double.parseDouble(recording[snapshotBoundNum][Constants.joyIndex]);
+			if (Double.parseDouble(recording[snapshotBoundNum][Constants.rightBumperValue])> .9){
+				RB = true;
+			}else{
+				RB = false;
+			}
+			
+			Drive.drive(turn, speed);
+			Intake.intakeRun(RB);
+			
+	
+			snapshotNum++;
+		}catch( Exception e){
+			System.out.println(e);
+			
 		}
-		*/
-		speed = Double.parseDouble(recording[snapshotBoundNum][Constants.triggerIndex]);
-		turn = Double.parseDouble(recording[snapshotBoundNum][Constants.joyIndex]);
-		if (Double.parseDouble(recording[snapshotBoundNum][Constants.rightBumperValue])> .9){
-			RB = true;
-		}else{
-			RB = false;
-		}
-		
-		Drive.drive(turn, speed);
-		Intake.intakeRun(RB);
-		
-
-		snapshotNum++;
 	}
 	public static void main(String[] args){
 		readRecording("C:\\Users\\Robotics\\Documents\\ghostMode.txt");

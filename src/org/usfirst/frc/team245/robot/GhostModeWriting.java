@@ -28,7 +28,10 @@ public class GhostModeWriting {
 			double joystickValue = Gamepad.primary.getLeftX();
 			boolean rightBumper = Gamepad.secondary.getRB();
 			double rightBumperValue;
-
+			double leftEncoderValue;
+			double rightEncoderValue;
+			leftEncoderValue = Actuators.getLeftDriveMotor().getEncPosition();
+			rightEncoderValue = Actuators.getRightDriveMotor().getEncPosition();
 			if (rightBumper == true) {
 				rightBumperValue = 1;
 			} else {
@@ -36,7 +39,7 @@ public class GhostModeWriting {
 			}
 
 			long timeStamp = System.nanoTime() - startTime;
-			double[] myIntArray = { triggerValue, joystickValue, rightBumperValue, (double) timeStamp };
+			double[] myIntArray = { triggerValue, joystickValue, rightBumperValue, (double) timeStamp, leftEncoderValue, rightEncoderValue };
 			arrayContainer[index] = myIntArray;
 			index++;
 
